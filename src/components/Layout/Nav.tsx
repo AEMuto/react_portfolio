@@ -1,6 +1,11 @@
 import {MdBrightness6} from "react-icons/md";
 
 const Nav = () => {
+	const switchTheme = () => {
+		const root = document.documentElement.dataset
+		root.theme = root.theme === 'dark' ? 'light' : 'dark';
+		console.log("Theme switched", root.theme)
+	}
 	return (
 		<nav className="nav">
 			<div className="nav__content">
@@ -16,6 +21,7 @@ const Nav = () => {
 					<span
 						className="theme-switcher"
 						title="Changer le thème"
+						onClick={switchTheme}
 					>
 						<MdBrightness6 size="2rem"/>
 					</span>
