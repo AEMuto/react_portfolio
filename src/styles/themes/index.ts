@@ -1,38 +1,22 @@
-export type Theme = {
-	primary: {
-		base: string,
-		hover: string,
-		transparent: string,
-	},
-	secondary: {
-		base: string,
-		hover: string,
-		transparent: string,
-	},
-	accent: {
-		base: string,
-		hover: string,
-		transparent: string,
-	},
-	danger: {
-		base: string,
-		hover: string,
-		transparent: string,
-	},
+import _dark from "./_dark"
+import _light from "./_light"
+
+export type ThemeColors = {
+	primary: string,
+	secondary: string,
+	accent: string,
+	danger: string,
 	body: {
-		base: string,
-		transparent: string,
-		brighter: string,
-		brighter_transparent: string,
-		darker: string,
-		darker_transparent: string,
-	},
+		base:string,
+		background: string,
+		foreground: string,
+	}
 	text: {
 		base: string,
-		transparent: string,
-		brighter: string,
-		brighter_transparent: string,
-		darker: string,
-		darker_transparent: string,
-	},
+		background: string,
+		foreground: string,
+	}
 }
+
+export const dark_theme = _dark
+export const light_theme = _light

@@ -7,7 +7,6 @@ import Gallery from "./Gallery"
 const Home = () => {
 	return (
 		<Layout>
-			<h1>Home Page</h1>
 			<Header/>
 			<About/>
 			<Gallery/>

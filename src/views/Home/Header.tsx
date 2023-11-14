@@ -1,37 +1,70 @@
+import styled from "@emotion/styled"
+import Subheading from "../../components/Subheading"
+import Heading from "../../components/Heading"
+import {SlideColumn, SlideContainer} from "../../components/Slide"
+import {css} from "@emotion/react"
+
 const Header = () => {
 	return (
-		<header className="header">
-			<div className="header__wrapper">
-				<div className="header__column">
-					<p className="subtitle">Bonjour Interweb!</p>
-					<h1>
-						Je m’appelle<br/>
-						<span className="emphasis">Antoine Marseaud</span>
-					</h1>
-					<p className="header__info">
-						Je suis quelqu'un d'enthousiaste qui aime résoudre des problèmes grâce
-						au code. Ma plus grande source de motivation est la construction de
-						solutions performantes, élégantes et facile d'utilisation pour tout le
-						monde.
-					</p>
-					<div className="header__cta">
-						<a href="/#projects" title="Voir mes projets">
-							<button className="primary">Portfolio</button>
-						</a>
-						<a href="/#contact" title="Pour me contacter">
-							<button className="alternate">Me Contacter</button>
-						</a>
-					</div>
+		<SlideContainer>
+			<SlideColumn>
+				<Subheading size="big" bold>
+					Bonjour Interweb!
+				</Subheading>
+				<Heading size="big">
+					Je m’appelle<br/>
+					<span css={css`color: var(--primary)`}>
+							Antoine Marseaud
+						</span>
+				</Heading>
+				<p css={css`font-size: 2.4rem;`}>
+					Je suis quelqu'un d'enthousiaste qui aime résoudre des problèmes grâce
+					au code. Ma plus grande source de motivation est la construction de
+					solutions performantes, élégantes et facile d'utilisation pour tout le
+					monde.
+				</p>
+				<div css={css`margin-top: 4rem`}>
+					<a href="/#projects" title="Voir mes projets">
+						<button className="primary">Portfolio</button>
+					</a>
+					<a href="/#contact" title="Pour me contacter">
+						<button className="alternate">Me Contacter</button>
+					</a>
 				</div>
-
-				<div className="header__column">
-					<img className="header__img"
-					     src="../../../assets/images/me.jpg"
-					     alt="My Portrait" />
-				</div>
-			</div>
-		</header>
+			</SlideColumn>
+			<StyledSlideColumn>
+				<StyledImg src="../../../assets/images/me.jpg" alt="My Portrait"/>
+			</StyledSlideColumn>
+		</SlideContainer>
 	)
 }
 
-export default Header;
+export default Header
+
+const StyledSlideColumn = styled(SlideColumn)`
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    background-color: var(--primary);
+    z-index: -1;
+	  transition: background-color .3s ease-in-out;
+  }
+`
+
+const StyledImg = styled.img`
+  align-self: center;
+  filter: grayscale(100%);
+  border-radius: 50%;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  transition: filter .3s ease-in-out;
+
+  &:hover {
+    filter: grayscale(0);
+  }
+`

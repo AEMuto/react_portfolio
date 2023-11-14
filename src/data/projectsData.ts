@@ -2,12 +2,13 @@ import FisheyeImg from "/src/assets/images/fisheye_result.webp"
 import ArgentBankImg from "/src/assets/images/argentbank_result.webp"
 import HRnetImg from "/src/assets/images/hrnet_result.webp"
 
-type Project = {
+export type Project = {
 	id: number,
 	title: string,
 	img: string | null,
 	short_desc: string,
 	tags: string[]
+	markdown?: string
 }
 
 const projectsData: Project[] = [
