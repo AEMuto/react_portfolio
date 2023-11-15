@@ -1,6 +1,6 @@
-import FisheyeImg from "/src/assets/images/fisheye_result.webp"
-import ArgentBankImg from "/src/assets/images/argentbank_result.webp"
-import HRnetImg from "/src/assets/images/hrnet_result.webp"
+import FisheyeImg from "../../assets/images/fisheye_result.webp"
+import ArgentBankImg from "../../assets/images/argentbank_result.webp"
+import HRnetImg from "../../assets/images/hrnet_result.webp"
 
 export type Project = {
 	id: number,

@@ -5,12 +5,14 @@ type SubheadingProps = {
 	children: ReactNode
 	size?: "big" | "medium" | "small"
 	bold?: boolean
+	margin?: string
+	className?: string
 }
 
-const Subheading = ({children, size = "medium", bold}: SubheadingProps) => {
+const Subheading = ({children, size = "medium", bold, className, margin}: SubheadingProps) => {
 	const isBold = bold ? css({fontWeight: "700"}) : null
 	return (
-		<p css={[sizeSwitch(size), baseStyle, isBold]}>
+		<p css={[sizeSwitch(size, margin), baseStyle, isBold]} className={className}>
 			<span>
 				{children}
 			</span>
@@ -33,14 +35,14 @@ const baseStyle = css({
 	},
 })
 
-const sizeSwitch = (size: SubheadingProps["size"]) => {
+const sizeSwitch = (size: SubheadingProps["size"], margin:string|undefined) => {
 	switch (size) {
 		case "big":
-			return css({fontSize: "2.4rem", margin: "0 0 0 8rem"})
+			return css({fontSize: "2.4rem", margin: margin ?? "0 0 0 8rem"})
 		case "medium":
-			return css({fontSize: "1.8rem", margin: "0 0 0 6rem"})
+			return css({fontSize: "1.8rem", margin: margin ?? "0 0 0 6rem"})
 		case "small":
-			return css({fontSize: "1.35rem", margin: "0 0 0 4.5rem"})
+			return css({fontSize: "1.35rem", margin: margin ?? "0 0 0 4.5rem"})
 		default:
 			throw new Error("Invalid Size Prop for Subheading component")
 	}
