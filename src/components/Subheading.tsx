@@ -1,18 +1,18 @@
 import {ReactNode} from "react"
 import {css} from "@emotion/react"
+import {BaseProps} from "../types"
 
-type SubheadingProps = {
+type SubheadingProps = BaseProps<HTMLParagraphElement> & {
 	children: ReactNode
 	size?: "big" | "medium" | "small"
 	bold?: boolean
 	margin?: string
-	className?: string
 }
 
-const Subheading = ({children, size = "medium", bold, className, margin}: SubheadingProps) => {
+const Subheading = ({children, size = "medium", bold, margin, ...rest}: SubheadingProps) => {
 	const isBold = bold ? css({fontWeight: "700"}) : null
 	return (
-		<p css={[sizeSwitch(size, margin), baseStyle, isBold]} className={className}>
+		<p css={[sizeSwitch(size, margin), baseStyle, isBold]} {...rest}>
 			<span>
 				{children}
 			</span>
@@ -35,7 +35,7 @@ const baseStyle = css({
 	},
 })
 
-const sizeSwitch = (size: SubheadingProps["size"], margin:string|undefined) => {
+const sizeSwitch = (size: SubheadingProps["size"], margin: string | undefined) => {
 	switch (size) {
 		case "big":
 			return css({fontSize: "2.4rem", margin: margin ?? "0 0 0 8rem"})

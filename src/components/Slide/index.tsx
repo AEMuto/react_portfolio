@@ -1,24 +1,25 @@
 import {css, SerializedStyles} from "@emotion/react"
-import {ReactNode} from "react"
+import React, {ReactNode} from "react"
+import {BaseProps} from "../../types"
 
-type SlideContainerProps = {
+type SlideContainerProps = BaseProps<HTMLElement> & {
 	children: ReactNode
 	gridStyleProp?: SerializedStyles
 	isHeader?: boolean
 }
 
-export const SlideContainer = ({children, gridStyleProp, isHeader=false}: SlideContainerProps) => {
+export const SlideContainer = ({children, gridStyleProp, isHeader=false, ...rest}: SlideContainerProps) => {
 
 	const gridStyle = gridStyleProp
 		? gridStyleProp
 		: css`grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));`
 
 	return isHeader ? (
-		<header css={[containerStyle, gridStyle]}>
+		<header css={[containerStyle, gridStyle]} {...rest}>
 			{children}
 		</header>
 	) : (
-		<section css={[containerStyle, gridStyle]}>
+		<section css={[containerStyle, gridStyle]} {...rest}>
 			{children}
 		</section>
 	)
@@ -32,14 +33,13 @@ const containerStyle = css`
   display: grid;
 `
 
-type SlideColumnProps = {
+type SlideColumnProps = BaseProps<HTMLDivElement> & {
 	children: ReactNode,
-	className?: string // Necessary for styled components. cf: https://emotion.sh/docs/styled#styling-any-component
 }
 
-export const SlideColumn = ({children, className}: SlideColumnProps) => {
+export const SlideColumn = ({children, ...rest}: SlideColumnProps) => {
 	return (
-		<div css={columnStyle} className={className}>
+		<div css={columnStyle} {...rest}>
 			{children}
 		</div>
 	)

@@ -3,10 +3,11 @@ import Subheading from "../../components/Subheading"
 import Heading from "../../components/Heading"
 import {SlideColumn, SlideContainer} from "../../components/Slide"
 import {css} from "@emotion/react"
+import Button from "../../components/Button"
 
 const Header = () => {
 	return (
-		<SlideContainer>
+		<SlideContainer id="header">
 			<SlideColumn>
 				<Subheading size="big" bold>
 					Bonjour Interweb!
@@ -25,10 +26,14 @@ const Header = () => {
 				</p>
 				<div css={css`margin-top: 4rem`}>
 					<a href="/#projects" title="Voir mes projets">
-						<button className="primary">Portfolio</button>
+						<Button>
+							Portfolio
+						</Button>
 					</a>
 					<a href="/#contact" title="Pour me contacter">
-						<button className="alternate">Me Contacter</button>
+						<Button option="alternate">
+							Me Contacter
+						</Button>
 					</a>
 				</div>
 			</SlideColumn>

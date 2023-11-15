@@ -5,7 +5,7 @@ import styled from "@emotion/styled"
 
 const About = () => {
 	return (
-		<SlideContainer>
+		<SlideContainer id="about">
 			<SlideColumn>
 				<Heading>
 					Quelques mots <br/>

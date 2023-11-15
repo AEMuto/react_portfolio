@@ -2,6 +2,7 @@ import Layout from "../../components/Layout"
 import Header from "./Header"
 import About from "./About"
 import Gallery from "./Gallery"
+import Contact from "./Contact"
 
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
 			<Header/>
 			<About/>
 			<Gallery/>
+			<Contact/>
 		</Layout>
 	)
 }

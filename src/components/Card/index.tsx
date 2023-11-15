@@ -1,7 +1,6 @@
 import {Project} from "../../data/projectsData"
 import Subheading from "../Subheading"
 import {css} from "@emotion/react"
-import styled from "@emotion/styled"
 import React from "react"
 
 export const ProjectCard = (
@@ -18,7 +17,7 @@ export const ProjectCard = (
 		<div css={styleBasis}>
 			<div className="project__card">
 				<a href={`/project/${id}`} title={`Projet ${title}`} className="project__card__img-container">
-					<img src={img ?? "https://picsum.photos/800/500"} alt={`Projet ${title}`}/>
+					<img src={img ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`}/>
 				</a>
 				<div className="project__card__txt-container">
 					<a href={`/project/${id}`} title={`Projet ${title}`} className="project__card__title">
@@ -41,7 +40,6 @@ const borderWidth = .5
 const cornerSize = 3
 const duration = .3
 
-
 const styleBasis = css`
   // --borderWidth: .5rem;
   // --cornerSize: 3rem;
@@ -54,7 +52,7 @@ const styleBasis = css`
     position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
+    grid-auto-rows: 50%;
     box-shadow: 10px -10px 0px 0px var(--body--background);
     transition: all ${duration}s;
 
