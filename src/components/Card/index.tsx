@@ -2,6 +2,7 @@ import {Project} from "../../data/projectsData"
 import Subheading from "../Subheading"
 import {css} from "@emotion/react"
 import React from "react"
+import {Link} from "react-router-dom"
 
 export const ProjectCard = (
 	{
@@ -16,20 +17,20 @@ export const ProjectCard = (
 	return (
 		<div css={styleBasis}>
 			<div className="project__card">
-				<a href={`/project/${id}`} title={`Projet ${title}`} className="project__card__img-container">
+				<Link to={`/project/${id}`} title={`Projet ${title}`} className="project__card__img-container">
 					<img src={img ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`}/>
-				</a>
+				</Link>
 				<div className="project__card__txt-container">
-					<a href={`/project/${id}`} title={`Projet ${title}`} className="project__card__title">
+					<Link to={`/project/${id}`} title={`Projet ${title}`} className="project__card__title">
 						<Subheading margin={"0"}>{title}</Subheading>
-					</a>
+					</Link>
 					<p className="project__card__txt">{short_desc}</p>
-					<a href={`/project/${id}`}
+					<Link to={`/project/${id}`}
 					   className="project__card__cta"
 					   title={`Projet ${title}`}>
 						Voir le projet
 						<span className="arrow">&#x2192;</span>
-					</a>
+					</Link>
 				</div>
 			</div>
 		</div>

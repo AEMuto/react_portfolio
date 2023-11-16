@@ -30,7 +30,7 @@ const projectsData: Project[] = [
 		id: 3,
 		title: "HRnet",
 		img: HRnetImg,
-		short_desc: "CRM d'une entreprise permettant de gérer la création et le suivi de ses employés.",
+		short_desc: "CRM d'une entreprise permettant de gérer la création et le suivi de ses profils employés.",
 		tags: ["React", "Redux", "Typescript", "Storybook"],
 	},
 	{

@@ -2,12 +2,18 @@ import React, {ReactNode} from "react"
 import Footer from "./_Footer"
 import Nav from "./_Nav"
 import styled from "@emotion/styled"
+import ScrollToAnchor from "../ScrollToAnchor"
 
-const Layout: React.FC<{ children: ReactNode }> = ({children}) => {
+type LayoutProps = {
+	children: ReactNode
+}
+
+const Layout= ({children}:LayoutProps) => {
 	return (
 		<React.Fragment>
 			<Nav/>
 			<StyledMain>
+				<ScrollToAnchor />
 				{children}
 			</StyledMain>
 			<Footer/>

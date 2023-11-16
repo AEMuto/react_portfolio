@@ -1,5 +1,6 @@
 import {MdBrightness6} from "react-icons/md"
 import styled from "@emotion/styled"
+import {Link} from "react-router-dom"
 
 const Nav = () => {
 	const switchTheme = () => {
@@ -10,25 +11,25 @@ const Nav = () => {
 	return (
 		<StyledNav>
 			<NavContent>
-				<NavLogo href="/#header" title="Accueil">
+				<NavLogo to="/#header" title="Accueil">
 					Antoine M.
 				</NavLogo>
 				<LinksWrapper>
 					<LinksList>
 						<li>
-							<a href="/#about" title="Quelques mots à propos de moi">
+							<Link to="/#about" title="Quelques mots à propos de moi">
 								À Propos
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a href="/#projects" title="Mes travaux">
+							<Link to="/#projects" title="Mes travaux">
 								Projets
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a href="/#contact" title="Comment me contacter">
+							<Link to="/#contact" title="Comment me contacter">
 								Me contacter
-							</a>
+							</Link>
 						</li>
 					</LinksList>
 					<ThemeSwitcher
@@ -66,7 +67,7 @@ const NavContent = styled.div`
   padding: 0 1.6rem;
 `
 
-const NavLogo = styled.a`
+const NavLogo = styled(Link)`
   font-family: "ivyjournal", serif;
   font-size: 2.6rem;
   line-height: 1.5;

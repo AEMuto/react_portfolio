@@ -4,6 +4,7 @@ import Heading from "../../components/Heading"
 import {SlideColumn, SlideContainer} from "../../components/Slide"
 import {css} from "@emotion/react"
 import Button from "../../components/Button"
+import {Link} from "react-router-dom"
 
 const Header = () => {
 	return (
@@ -25,16 +26,16 @@ const Header = () => {
 					monde.
 				</p>
 				<div css={css`margin-top: 4rem`}>
-					<a href="/#projects" title="Voir mes projets">
+					<Link to="/#projects" title="Voir mes projets">
 						<Button>
 							Portfolio
 						</Button>
-					</a>
-					<a href="/#contact" title="Pour me contacter">
+					</Link>
+					<Link to="/#contact" title="Pour me contacter">
 						<Button option="alternate">
 							Me Contacter
 						</Button>
-					</a>
+					</Link>
 				</div>
 			</SlideColumn>
 			<StyledSlideColumn>

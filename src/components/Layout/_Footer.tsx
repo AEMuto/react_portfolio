@@ -1,5 +1,6 @@
 import {AiFillMail, AiFillGithub, AiFillLinkedin} from "react-icons/ai"
 import styled from "@emotion/styled"
+import {Link} from "react-router-dom"
 
 const Footer = () => {
 	const year = new Date().getFullYear()
@@ -9,18 +10,22 @@ const Footer = () => {
 			<FooterContent className="footer__content">
 				<p>
 					&copy; Antoine Marseaud {year}
-					<RepoLink href="https://github.com/AEMuto/portfolio">
+					&nbsp;•&nbsp;
+					<Link
+						to="https://github.com/AEMuto/react_portfolio"
+						target="_blank"
+					>
 						Code Source
-					</RepoLink>
+					</Link>
 				</p>
 				<p>
-					<SocialIcon href="mailto:antoine.marseaud@gmail.com">
+					<SocialIcon to="mailto:antoine.marseaud@gmail.com">
 						<AiFillMail {...size}/>
 					</SocialIcon>
-					<SocialIcon href="https://www.linkedin.com/in/antoine-marseaud/" target="_blank">
+					<SocialIcon to="https://www.linkedin.com/in/antoine-marseaud/" target="_blank">
 						<AiFillLinkedin {...size}/>
 					</SocialIcon>
-					<SocialIcon href="https://github.com/AEMuto" target="_blank">
+					<SocialIcon to="https://github.com/AEMuto" target="_blank">
 						<AiFillGithub {...size}/>
 					</SocialIcon>
 				</p>
@@ -51,11 +56,7 @@ const FooterContent = styled.div`
   }
 `
 
-const RepoLink = styled.a`
-  margin-left: 1rem;
-`
-
-const SocialIcon = styled.a`
+const SocialIcon = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
