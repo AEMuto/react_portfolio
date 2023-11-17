@@ -8,7 +8,7 @@ import {Link} from "react-router-dom"
 
 const Header = () => {
 	return (
-		<SlideContainer id="header">
+		<SlideContainer id="header" isHeader={true}>
 			<SlideColumn>
 				<Subheading size="big" bold>
 					Bonjour Interweb!

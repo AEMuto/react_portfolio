@@ -1,4 +1,4 @@
-import {Project} from "../../data/projectsData"
+import {TProject} from "../../data/projectsData"
 import Subheading from "../Subheading"
 import {css} from "@emotion/react"
 import React from "react"
@@ -13,19 +13,22 @@ export const ProjectCard = (
 		short_desc,
 		markdown,
 	}
-		: Project) => {
+		: TProject) => {
 	return (
 		<div css={styleBasis}>
 			<div className="project__card">
-				<Link to={`/project/${id}`} title={`Projet ${title}`} className="project__card__img-container">
+				<Link preventScrollReset={false}
+					to={`/project/${id}`} title={`Projet ${title}`} className="project__card__img-container">
 					<img src={img ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`}/>
 				</Link>
 				<div className="project__card__txt-container">
-					<Link to={`/project/${id}`} title={`Projet ${title}`} className="project__card__title">
+					<Link preventScrollReset={false}
+						to={`/project/${id}`} title={`Projet ${title}`} className="project__card__title">
 						<Subheading margin={"0"}>{title}</Subheading>
 					</Link>
 					<p className="project__card__txt">{short_desc}</p>
-					<Link to={`/project/${id}`}
+					<Link preventScrollReset={false}
+						to={`/project/${id}`}
 					   className="project__card__cta"
 					   title={`Projet ${title}`}>
 						Voir le projet

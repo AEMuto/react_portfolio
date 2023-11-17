@@ -1,7 +1,7 @@
-import {useLayoutEffect} from "react"
+import {useEffect, useLayoutEffect} from "react"
 import {useLocation} from "react-router-dom"
 
-const removeHashCharacter = (str) =>  str.slice(1)
+const removeHashCharacter = (str: string) => str.slice(1)
 
 const ScrollToAnchor = () => {
 	// Old version
@@ -30,14 +30,18 @@ const ScrollToAnchor = () => {
 	// updated the DOM before we try to scroll to the element.
 	useLayoutEffect(() => {
 		const {hash} = location
-
-		if (hash) {
+		if (location.pathname.includes("/project")) {
+			document.scrollingElement?.scrollTo({
+				top: 0,
+			})
+		}
+		if (hash.length > 0) {
 			const element = document.getElementById(removeHashCharacter(hash))
 
 			if (element) {
 				element.scrollIntoView({
 					behavior: "smooth",
-					block: "end"
+					block: "end",
 				})
 			}
 		}

@@ -3,17 +3,18 @@ import Footer from "./_Footer"
 import Nav from "./_Nav"
 import styled from "@emotion/styled"
 import ScrollToAnchor from "../ScrollToAnchor"
+import {ScrollRestoration} from "react-router-dom"
 
 type LayoutProps = {
 	children: ReactNode
 }
 
-const Layout= ({children}:LayoutProps) => {
+const Layout = ({children}: LayoutProps) => {
 	return (
 		<React.Fragment>
 			<Nav/>
 			<StyledMain>
-				<ScrollToAnchor />
+				<ScrollToAnchor/>
 				{children}
 			</StyledMain>
 			<Footer/>
