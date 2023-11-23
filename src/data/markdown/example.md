@@ -1,5 +1,3 @@
-# My Project Title
-
 __Comment obtenir des code blocks stylisé depuis du markdown__
 
 ```jsx
