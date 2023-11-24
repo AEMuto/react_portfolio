@@ -54,9 +54,30 @@ const Project = () => {
 						},
 						h2({node, ...rest}) {
 							return (
-								<Subheading size="medium">
+								<Subheading size="medium" margin="2rem 0">
 									{rest.children}
 								</Subheading>
+							)
+						},
+						ul({node, ...rest}) {
+							return (
+								<List>
+									{rest.children}
+								</List>
+							)
+						},
+						ol({node, ...rest}) {
+							return (
+								<List as="ol">
+									{rest.children}
+								</List>
+							)
+						},
+						li({node, ...rest}) {
+							return (
+								<ListItem>
+									{rest.children}
+								</ListItem>
 							)
 						},
 					}}
@@ -68,21 +89,40 @@ const Project = () => {
 }
 
 export default Project
+
+const List = styled.ul`
+	list-style: ${({as}) => as === "ol" ? "decimal" : "square"};
+	list-style-position: inside;
+	margin: 2rem 0;
+	padding: 0;
+	font-size: 2rem;
+`
+
+const ListItem = styled.li`
+	margin: 1rem 2rem;
+	padding: 0;
+  &:nth-child(odd)::marker {
+	  color: var(--primary);
+  },
+	&:nth-child(even)::marker {
+	  color: var(--accent);
+	}
+`
+
 //TODO: Finish styling the markdown
 const StyledMarkdown = styled(Markdown)`
-
-  h1, h2, h3, h4, h5, h6 {
-    margin: 1rem;
-  }
-
+	max-width: 125ch;
+	margin: 0 auto;
+	padding: 0 0 4rem 0;
   p {
-    margin: 1rem;
     font-size: 2rem;
+	  margin: 1.4rem 0;
+		line-height: 1.19;
   }
 
   pre {
     font-size: 1.6rem;
-    max-width: 60%;
+    max-width: 120ch;
   }
 
 `

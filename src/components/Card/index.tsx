@@ -48,8 +48,8 @@ const styleBasis = css`
   // --borderWidth: .5rem;
   // --cornerSize: 3rem;
   // --duration: .3s;
-	height: 100%;
-	
+  height: 100%;
+
   .project__card {
     height: 100%;
     background-color: var(--body--foreground);
@@ -123,7 +123,8 @@ const styleBasis = css`
       }
 
       img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
         height: auto;
 
         filter: drop-shadow(8px 6px 8px var(--body--background));
@@ -131,7 +132,7 @@ const styleBasis = css`
     }
 
     &__txt-container {
-	    width: 100%;
+      width: 100%;
       padding: 2rem;
       display: flex;
       flex-direction: column;

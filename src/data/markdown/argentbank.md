@@ -1,3 +1,5 @@
+# ArgentBank
+
 ArgentBank est un projet que j'ai réalisé durant ma formation de développeur d'application Front-End chez Openclassrooms. C'est une petite application dont la partie client est relativement simple : une page d'accueil, une page d'authentification, une page d'inscription et une page utilisateur uniquement accessible après une authentification réussie.
 
 ## Technologies utilisées
