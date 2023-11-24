@@ -16,7 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "jsxRuntime": "automatic",
     "types": ["vite/client"],
   },
   "include": ["src"],
