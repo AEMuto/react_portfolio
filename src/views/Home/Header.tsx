@@ -5,6 +5,7 @@ import {SlideColumn, SlideContainer} from "../../components/Slide"
 import {css} from "@emotion/react"
 import Button from "../../components/Button"
 import {Link} from "react-router-dom"
+import Portrait from "../../../assets/images/me.jpg"
 
 const Header = () => {
 	return (
@@ -39,7 +40,7 @@ const Header = () => {
 				</div>
 			</SlideColumn>
 			<StyledSlideColumn>
-				<StyledImg src="../../../assets/images/me.jpg" alt="My Portrait"/>
+				<StyledImg src={Portrait} alt="My Portrait"/>
 			</StyledSlideColumn>
 		</SlideContainer>
 	)
