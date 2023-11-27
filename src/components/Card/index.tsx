@@ -17,20 +17,34 @@ export const ProjectCard = (
 	return (
 		<div css={styleBasis}>
 			<div className="project__card">
-				<Link preventScrollReset={false}
-					to={`/project/${id}`} title={`Projet ${title}`} className="project__card__img-container">
+				<Link
+					to={`/project/${id}`}
+					title={`Projet ${title}`}
+					className="project__card__img-container"
+				>
 					<img src={img ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`}/>
 				</Link>
 				<div className="project__card__txt-container">
-					<Link preventScrollReset={false}
-						to={`/project/${id}`} title={`Projet ${title}`} className="project__card__title">
+					<Link
+						to={`/project/${id}`}
+						title={`Projet ${title}`}
+						className="project__card__title"
+					>
 						<Subheading margin={"0"}>{title}</Subheading>
 					</Link>
 					<p className="project__card__txt">{short_desc}</p>
-					<Link preventScrollReset={false}
+					<div className="project__card__tags-container">
+						{tags.map((tag) => (
+							<span key={tag} className="project__card__tag">
+								{tag}
+							</span>
+						))}
+					</div>
+					<Link
 						to={`/project/${id}`}
-					   className="project__card__cta"
-					   title={`Projet ${title}`}>
+						className="project__card__cta"
+						title={`Projet ${title}`}
+					>
 						Voir le projet
 						<span className="arrow">&#x2192;</span>
 					</Link>
@@ -136,7 +150,7 @@ const styleBasis = css`
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: space-between;
 
       a {
         align-self: start;
@@ -145,6 +159,24 @@ const styleBasis = css`
 
     &__txt {
       // margin: 1rem 0;
+    }
+
+    &__tags-container {
+      display: flex;
+      flex-wrap: wrap;
+	    			gap: 1rem;
+    }
+
+    &__tag {
+      font-family: "acumin-pro-wide", sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: .5rem 1rem;
+      background-color: transparent;
+			border: 1px solid var(--primary);
+      color: var(--txt--darker);
+      transition: all .3s ease-in-out;
     }
 
     &__cta {

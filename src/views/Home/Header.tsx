@@ -16,28 +16,27 @@ const Header = () => {
 				</Subheading>
 				<Heading size="big">
 					Je m’appelle<br/>
-					<span css={css`color: var(--primary)`}>
-							Antoine Marseaud
-						</span>
+					<span data-color="primary">Antoine Marseaud</span>
 				</Heading>
 				<p css={css`font-size: 2.4rem;`}>
-					Je suis quelqu'un d'enthousiaste qui aime résoudre des problèmes grâce
-					au code. Ma plus grande source de motivation est la construction de
-					solutions performantes, élégantes et facile d'utilisation pour tout le
-					monde.
+					Je suis quelqu'un d'enthousiaste qui aime résoudre des problèmes grâce au code. Ma plus grande source de
+					motivation est la construction de solutions performantes, élégantes et facile d'utilisation pour tout le
+					monde. <b>Spécialisé dans le développement web</b>,
+					les dernières technologies que j'ai utilisé incluent de manière non-exhaustive
+					: <b>React</b>, <b>Typescript</b>, <b>NodeJS</b>, <b>Vue</b>, <b>Appwrite</b>, <b>MongoDB</b>.
 				</p>
-				<div css={css`margin-top: 4rem`}>
+				<CTAContainer>
 					<Link to="/#projects" title="Voir mes projets">
 						<Button>
 							Portfolio
 						</Button>
 					</Link>
-					<Link to="/#contact" title="Pour me contacter">
+					<a href="/assets/CV_2023.pdf" title="Pour télécharger mon CV" target="_blank" rel="noreferrer">
 						<Button option="alternate">
-							Me Contacter
+							Télécharger mon CV
 						</Button>
-					</Link>
-				</div>
+					</a>
+				</CTAContainer>
 			</SlideColumn>
 			<StyledSlideColumn>
 				<StyledImg src={Portrait} alt="My Portrait"/>
@@ -48,7 +47,20 @@ const Header = () => {
 
 export default Header
 
+const CTAContainer = styled.div`
+	margin-top: 4rem;
+	display: flex;
+	//flex-wrap: nowrap;
+	gap: 2rem;
+	@media (max-width: 768px) {
+		flex-direction: column;
+  }
+`
+
 const StyledSlideColumn = styled(SlideColumn)`
+	@media (max-width: 768px) {
+		display: none;
+  }
   &:before {
     content: "";
     position: absolute;
@@ -58,7 +70,7 @@ const StyledSlideColumn = styled(SlideColumn)`
     height: 100%;
     background-color: var(--primary);
     z-index: -1;
-	  transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
   }
 `
 

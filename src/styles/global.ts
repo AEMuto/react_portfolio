@@ -81,6 +81,7 @@ export const global = css`
   h1 {
     font-family: "ivyjournal", sans-serif;
     font-weight: 700;
+	  //margin: 0;
   }
 
   h2,
@@ -103,6 +104,10 @@ export const global = css`
 	  &:hover {
 		  color: var(--primary--hover);
     }
+  }
+	
+	[data-color="primary"] {
+		color: var(--primary);
   }
 	
 `;

@@ -1,5 +1,3 @@
-# Fisheye
-
 Fisheye est une application web destinée à mettre en valeur les photographes et leur travail. Les utilisateurs peuvent parcourir des pages individuelles pour différents photographes, consulter des informations détaillées sur chaque photographe et explorer une galerie d'éléments multimédias. Cette application a été réalisé dans le cadre de ma formation de développeur Front-End chez Openclassrooms.
 
 - L'accessibilité a été particulièrement prise en compte, notamment pour le menu déroulant de triage des médias et la navigation clavier dans les modales. Compatibilité avec les lecteurs d'écrans.

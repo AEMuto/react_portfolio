@@ -12,7 +12,7 @@ export const SlideContainer = ({children, gridStyleProp, isHeader=false, ...rest
 
 	const gridStyle = gridStyleProp
 		? gridStyleProp
-		: css`grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));`
+		: css`grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));`
 
 	return isHeader ? (
 		<header css={[containerStyle, gridStyle]} {...rest}>

@@ -1,8 +1,16 @@
 import {MdBrightness6} from "react-icons/md"
 import styled from "@emotion/styled"
 import {Link} from "react-router-dom"
+import Hamburger from "../Hamburger"
+import {useState} from "react"
+
+//TODO: Add a "scroll to top" button?
+//TODO: Finish LinksModal and global behavior of Nav in mobile view,
+// when clicking the hamburger should make trap focus on the modal
+// and prevent scrolling for accessibility reasons
 
 const Nav = () => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const switchTheme = () => {
 		const root = document.documentElement.dataset
 		root.theme = root.theme === "dark" ? "light" : "dark"
@@ -39,12 +47,72 @@ const Nav = () => {
 						<MdBrightness6 size="2rem"/>
 					</ThemeSwitcher>
 				</LinksWrapper>
+				<Hamburger
+					isActive={isMenuOpen}
+					setIsActive={setIsMenuOpen}
+				/>
+				<LinksModal className={isMenuOpen ? "active" : ""}>
+					<ul>
+						<li>
+							<Link to="/#about" title="Quelques mots à propos de moi">
+								À Propos
+							</Link>
+						</li>
+						<li>
+							<Link to="/#projects" title="Mes travaux">
+								Projets
+							</Link>
+						</li>
+						<li>
+							<Link to="/#contact" title="Comment me contacter">
+								Me contacter
+							</Link>
+						</li>
+					</ul>
+				</LinksModal>
 			</NavContent>
 		</StyledNav>
 	)
 }
 
 export default Nav
+
+//TODO: Change the animation of the modal to something more creative
+const LinksModal = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--body);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  a {
+    font-family: "acumin-pro-wide", monospace;
+    font-size: 2.6rem;
+  }
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+`
 
 const StyledNav = styled.nav`
   height: 6.4rem;
@@ -58,6 +126,7 @@ const StyledNav = styled.nav`
 `
 
 const NavContent = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,6 +143,10 @@ const NavLogo = styled(Link)`
 `
 
 const LinksWrapper = styled.div`
+  @media (max-width: 768px) {
+    display: none;
+  }
+
   display: flex;
   align-items: center;
   height: 100%;
@@ -84,7 +157,7 @@ const LinksList = styled.ul`
   align-items: center;
   list-style: none;
   height: 100%;
-	
+
   li {
     display: flex;
     align-items: center;
@@ -126,6 +199,7 @@ const ThemeSwitcher = styled.span`
   cursor: pointer;
   color: var(--primary);
   margin-left: 2rem;
+
   &:hover {
     color: var(--primary--hover);
   }

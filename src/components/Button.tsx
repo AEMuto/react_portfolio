@@ -25,7 +25,7 @@ const baseStyle = css`
   border-radius: .5rem;
   border: solid 2px var(--txt);
   cursor: pointer;
-  margin-right: 2rem;
+  //margin-right: 2rem;
 `
 
 const primaryStyle = css`

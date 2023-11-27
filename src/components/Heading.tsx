@@ -32,12 +32,10 @@ const Heading = ({children, size = "medium", component = "h1"}: HeadingProps) =>
 
 export default Heading
 
-const baseStyle = css({
-	textDecoration: "underline solid var(--accent)",
-	textDecorationSkipInk: "none",
-})
-
-
+const baseStyle = css`
+	text-decoration: underline solid var(--accent);
+  text-decoration-skip-ink: none;
+`
 
 const sizeSwitch = (size: HeadingProps["size"]) => {
 	switch (size) {

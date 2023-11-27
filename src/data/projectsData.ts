@@ -24,7 +24,7 @@ const projectsData: TProject[] = [
 		title: "Fisheye",
 		img: FisheyeImg,
 		short_desc: "Une plateforme accessible permettant à des photographes de présenter leurs travaux.",
-		tags: ["VanillaJS", "OOP (Programmation Orienté Objet)", "Factory Pattern", "Accessibilité"],
+		tags: ["Javascript", "OOP", "Factory Pattern", "Accessibilité"],
 		markdown: FisheyeMarkdown,
 		urls: [
 			{name: "Voir le site", url: "https://aemuto.github.io/AntoineMarseaud_6_10082021/"},

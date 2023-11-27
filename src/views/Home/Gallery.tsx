@@ -12,7 +12,7 @@ const Gallery = () => {
 			<SlideColumn>
 				<Heading>
 					Mes derniers <br/>
-					<span css={css`color: var(--primary)`}>Projets</span>
+					<span data-color="primary">Projets</span>
 				</Heading>
 				<ProjectsGrid>
 					{projectsData.map((project) => {
@@ -35,7 +35,7 @@ const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	//grid-template-rows: auto;
-	grid-auto-rows: 470px;
+	grid-auto-rows: 550px;
   place-items: center;
   gap: 2rem;
   margin: 4rem 0;

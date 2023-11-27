@@ -1,4 +1,3 @@
-# D20Codex
 Ce projet a débuté comme un exercice personnel visant à explorer plus en profondeur Material UI. Il a évolué pour devenir un espace d'expérimentation pour des sujets qui suscitent mon intérêt. La création de feuilles de personnage a été entreprise dans le but de simplifier cet exercice amusant présent dans les jeux de rôle. Cela a été l'occasion de mettre en place une architecture MVC et de plonger dans la programmation orientée objet. Pour résumer, D20Codex contient les fonctionnalités suivantes :
 
 - **Tableau avec Défilement Infini :** Des requêtes automatisées sont générées en fonction du défilement, assurant une expérience utilisateur fluide.

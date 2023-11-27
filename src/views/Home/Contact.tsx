@@ -5,9 +5,11 @@ import styled from "@emotion/styled"
 const Contact = () => {
 	return (
 		<StyledContainer id="contact">
-			<Button>
-				Me Contacter
-			</Button>
+			<a href="mailto:antoine.marseaud@gmail.com" title="Me contacter par mail">
+				<Button>
+					Me Contacter
+				</Button>
+			</a>
 		</StyledContainer>
 	)
 }

@@ -12,11 +12,15 @@ import {TProject} from "../data/projectsData"
 import Subheading from "../components/Subheading"
 
 const Project = () => {
-	const {tags, markdown} = useLoaderData() as TProject
+	// Data coming from the loader, see router.tsx
+	const {tags, markdown, title, urls} = useLoaderData() as TProject
 
 	return (
 		<Layout>
-			<SlideContainer>
+			<StyledSlideContainer>
+				<Heading size="big">
+					{title}
+				</Heading>
 				{/**
 				 TODO:Add a next and previous project button
 				 */}
@@ -83,41 +87,51 @@ const Project = () => {
 					}}
 				/>
 
-			</SlideContainer>
+			</StyledSlideContainer>
 		</Layout>
 	)
 }
 
 export default Project
 
+const StyledSlideContainer = styled(SlideContainer)`
+  display: flex;
+  flex-direction: column;
+  max-width: 135ch;
+  margin: 0 auto;
+  padding: 1.6rem;
+`
+
 const List = styled.ul`
-	list-style: ${({as}) => as === "ol" ? "decimal" : "square"};
-	list-style-position: inside;
-	margin: 2rem 0;
-	padding: 0;
-	font-size: 2rem;
+  list-style: ${({as}) => as === "ol" ? "decimal" : "square"};
+  list-style-position: inside;
+  margin: 2rem 0;
+  padding: 0;
+  font-size: 2rem;
 `
 
 const ListItem = styled.li`
-	margin: 1rem 2rem;
-	padding: 0;
+  margin: 1rem 2rem;
+  padding: 0;
+
   &:nth-child(odd)::marker {
-	  color: var(--primary);
-  },
-	&:nth-child(even)::marker {
-	  color: var(--accent);
-	}
+    color: var(--primary);
+  }
+
+,
+&: nth-child(even):: marker {
+  color: var(--accent);
+}
 `
 
 //TODO: Finish styling the markdown
 const StyledMarkdown = styled(Markdown)`
-	max-width: 125ch;
-	margin: 0 auto;
-	padding: 0 0 4rem 0;
+  
+
   p {
     font-size: 2rem;
-	  margin: 1.4rem 0;
-		line-height: 1.19;
+    margin: 1.4rem 0;
+    line-height: 1.19;
   }
 
   pre {
