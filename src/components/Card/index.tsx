@@ -19,6 +19,7 @@ export const ProjectCard = (
 			<div className="project__card">
 				<Link
 					to={`/project/${id}`}
+					// state={total_project}
 					title={`Projet ${title}`}
 					className="project__card__img-container"
 				>
@@ -27,6 +28,7 @@ export const ProjectCard = (
 				<div className="project__card__txt-container">
 					<Link
 						to={`/project/${id}`}
+						// state={total_project}
 						title={`Projet ${title}`}
 						className="project__card__title"
 					>
@@ -42,6 +44,7 @@ export const ProjectCard = (
 					</div>
 					<Link
 						to={`/project/${id}`}
+						// state={total_project}
 						className="project__card__cta"
 						title={`Projet ${title}`}
 					>

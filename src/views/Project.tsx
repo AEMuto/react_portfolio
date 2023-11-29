@@ -4,17 +4,22 @@ import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
 import {oneDark} from "react-syntax-highlighter/dist/esm/styles/prism"
-import {useLoaderData} from "react-router-dom"
+import {Link, useLoaderData} from "react-router-dom"
 import styled from "@emotion/styled"
 import Heading from "../components/Heading"
 import {SlideContainer} from "../components/Slide"
 import {TProject} from "../data/projectsData"
 import Subheading from "../components/Subheading"
 import Typography from "../components/Typography"
+import { MdOutlineArrowRightAlt } from "react-icons/md";
 
 const Project = () => {
 	// Data coming from the loader, see router.tsx
-	const {tags, markdown, title, urls} = useLoaderData() as TProject
+	const {current, total} = useLoaderData() as { current: TProject, total: number }
+	const {title, markdown, id, urls} = current
+
+	const nextProject = id === total - 1 ? 0 : id + 1
+	const previousProject = id === 0 ? total - 1 : id - 1 // Because total is the length of the array, not the last index
 
 	return (
 		<Layout>
@@ -94,7 +99,17 @@ const Project = () => {
 						},
 					}}
 				/>
-
+				<ProjectNavArrowContainer>
+					{/*Next & Prev arrows*/}
+					<Link to={`/project/${previousProject}`} >
+						<MdOutlineArrowRightAlt size={32} style={{transform: "rotate(180deg)"}}/>
+						<span>Précédent</span>
+					</Link>
+					<Link to={`/project/${nextProject}`} >
+						<span>Suivant</span>
+						<MdOutlineArrowRightAlt size={32}/>
+					</Link>
+				</ProjectNavArrowContainer>
 			</StyledSlideContainer>
 		</Layout>
 	)
@@ -102,12 +117,35 @@ const Project = () => {
 
 export default Project
 
+const ProjectNavArrowContainer = styled.div`
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: 2rem 0;
+	//gap: 2rem;
+	a {
+		color: var(--primary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: var(--font-size-sm);
+		line-height: 1;
+		&:hover {
+			color: var(--primary--hover);
+    }
+		& span {
+			transform: translateY(-1px);
+		}
+  }
+	
+`
+
 const StyledSlideContainer = styled(SlideContainer)`
   display: flex;
   flex-direction: column;
   max-width: 135ch;
   margin: 0 auto;
-  padding: 0 1.6rem 5rem 1.6rem;
+  padding: 0 1.6rem;
 `
 
 const List = styled.ul`
@@ -121,7 +159,8 @@ const List = styled.ul`
 const ListItem = styled.li`
   margin: 1rem 2rem;
   padding: 0;
-	font-size: var(--font-size-md);
+  font-size: var(--font-size-md);
+
   &:nth-child(odd)::marker {
     color: var(--primary);
   }

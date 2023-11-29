@@ -2,19 +2,19 @@ import {MdBrightness6} from "react-icons/md"
 import styled from "@emotion/styled"
 import {Link} from "react-router-dom"
 import Hamburger from "../Hamburger"
-import {useState} from "react"
+import {useRef, useState} from "react"
 
 //TODO: Add a "scroll to top" button?
-//TODO: Finish LinksModal and global behavior of Nav in mobile view,
-// when clicking the hamburger should make trap focus on the modal
-// and prevent scrolling for accessibility reasons
+//TODO: Find where to put the theme switcher in mobile view
 
 const Nav = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const rootRef = useRef(document.documentElement)
+	const root = rootRef.current.dataset
+	const [currentTheme, setCurrentTheme] = useState(root.theme)
 	const switchTheme = () => {
-		const root = document.documentElement.dataset
 		root.theme = root.theme === "dark" ? "light" : "dark"
-		// console.log("Theme switched", root.theme)
+		setCurrentTheme(root.theme)
 	}
 
 	const handleModalLinksClick = () => {
@@ -24,9 +24,11 @@ const Nav = () => {
 	return (
 		<StyledNav>
 			<NavContent>
-				<NavLogo to="/#header" title="Accueil">
-					Antoine M.
-				</NavLogo>
+				<LogoContainer>
+					<NavLogo to="/#header" title="Accueil">
+						Antoine M.
+					</NavLogo>
+				</LogoContainer>
 				<LinksWrapper>
 					<LinksList>
 						<li>
@@ -45,13 +47,14 @@ const Nav = () => {
 							</Link>
 						</li>
 					</LinksList>
-					<ThemeSwitcher
-						title="Changer le thème"
-						onClick={switchTheme}
-					>
-						<MdBrightness6 size="2rem"/>
-					</ThemeSwitcher>
 				</LinksWrapper>
+				<ThemeSwitcher
+					title="Changer le thème"
+					onClick={switchTheme}
+				>
+					<MdBrightness6 size="2rem"/>
+					{currentTheme}
+				</ThemeSwitcher>
 				<Hamburger
 					isActive={isMenuOpen}
 					setIsActive={setIsMenuOpen}
@@ -118,11 +121,12 @@ const LinksModal = styled.div`
     align-items: center;
     justify-content: center;
     height: 100%;
+	  gap: 2rem;
   }
 
   a {
     font-family: "acumin-pro-wide", monospace;
-    font-size: 2.6rem;
+    font-size: var(--font-size-xl);
   }
 
   &.active {
@@ -153,7 +157,12 @@ const NavContent = styled.div`
   padding: 0 1.6rem;
 `
 
+const LogoContainer = styled.div`
+  flex: 1;
+`
+
 const NavLogo = styled(Link)`
+
   font-family: "ivyjournal", serif;
   font-size: var(--font-size-lg);
   line-height: 1.5;
@@ -187,7 +196,7 @@ const LinksList = styled.ul`
   a {
     font-family: "acumin-pro-wide", monospace;
     font-size: var(--font-size-sm);
-	  letter-spacing: calc((var(--font-size-sm) - 1rem) * 0.1);
+    letter-spacing: calc((var(--font-size-sm) - 1rem) * 0.1);
     font-weight: 600;
     text-transform: uppercase;
   }
@@ -217,8 +226,19 @@ const ThemeSwitcher = styled.span`
   cursor: pointer;
   color: var(--primary);
   margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  text-transform: capitalize;
+  border: 2px solid var(--primary);
+  padding: .5rem 1rem;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.08rem;
+  transition: color .3s ease-in-out, border-color .3s ease-in-out;
 
   &:hover {
     color: var(--primary--hover);
+    border-color: var(--primary--hover);
   }
 `

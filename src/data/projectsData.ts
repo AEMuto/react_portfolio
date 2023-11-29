@@ -14,58 +14,61 @@ export type TProject = {
 	short_desc: string,
 	tags: string[]
 	markdown?: string
-	urls: Array<{ name: string, url: string }>
+	urls: {
+		live: string | null,
+		github: string | null
+	}
 
 }
 
 const projectsData: TProject[] = [
 	{
-		id: 1,
+		id: 0,
 		title: "Fisheye",
 		img: FisheyeImg,
 		short_desc: "Une plateforme accessible permettant à des photographes de présenter leurs travaux.",
 		tags: ["Javascript", "OOP", "Factory Pattern", "Accessibilité"],
 		markdown: FisheyeMarkdown,
-		urls: [
-			{name: "Voir le site", url: "https://aemuto.github.io/AntoineMarseaud_6_10082021/"},
-			{name: "Voir le code", url: "https://github.com/AEMuto/AntoineMarseaud_6_10082021"},
-		],
+		urls: {
+			live: "https://aemuto.github.io/AntoineMarseaud_6_10082021/",
+			github: "https://github.com/AEMuto/AntoineMarseaud_6_10082021"
+		},
 	},
 	{
-		id: 2,
+		id: 1,
 		title: "ArgentBank",
 		img: ArgentBankImg,
 		short_desc: "Front-end d'une application web permettant la connexion, création et modification d'un utilisateur via l'usage d'un JWT.",
 		tags: ["React", "Redux", "Typescript"],
 		markdown: ArgentBankMarkdown,
-		urls: [
-			{name: "Voir le site", url: "https://argent-bank.vercel.app/"},
-			{name: "Voir le code", url: "https://github.com/AEMuto/AntoineMarseaud_13_16022022"},
-		],
+		urls: {
+			live: "https://argent-bank.vercel.app/",
+			github: "https://github.com/AEMuto/AntoineMarseaud_13_16022022"
+		},
 	},
 	{
-		id: 3,
+		id: 2,
 		title: "HRnet",
 		img: HRnetImg,
 		short_desc: "CRM d'une entreprise permettant de gérer la création et le suivi de ses profils employés.",
 		tags: ["React", "Redux", "Typescript", "Storybook"],
 		markdown: HRnetMarkdown,
-		urls: [
-			{name: "Voir le site", url: "https://antoine-marseaud-hrnet-app.vercel.app/"},
-			{name: "Voir le code", url: "https://github.com/AEMuto/AntoineMarseaud_14_HRnet_Application_23032022"},
-		],
+		urls: {
+			live: "https://antoine-marseaud-hrnet-app.vercel.app/",
+			github: "https://github.com/AEMuto/AntoineMarseaud_14_HRnet_Application_23032022"
+		},
 	},
 	{
-		id: 4,
+		id: 3,
 		title: "D20Codex",
 		img: D20CodexImg,
 		short_desc: "Application web répertoriant les données de plusieurs systèmes de jeu de rôle.",
 		tags: ["React", "Typescript", "Scroll Infini", "Virtualisation", "Appwrite"],
 		markdown: D20CodexMarkdown,
-		urls: [
-			{name: "Voir le site", url: "https://d20codex.vercel.app/"},
-			{name: "Voir le code", url: "https://github.com/AEMuto/d20codex"},
-		],
+		urls: {
+			live: "https://d20codex.vercel.app/",
+			github: "https://github.com/AEMuto/d20codex"
+		},
 	},
 ]
 
