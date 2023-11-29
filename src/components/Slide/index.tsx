@@ -4,7 +4,7 @@ import {BaseProps} from "../../types"
 
 type SlideContainerProps = BaseProps<HTMLElement> & {
 	children: ReactNode
-	gridStyleProp?: SerializedStyles
+	gridStyleProp?: SerializedStyles | false
 	isHeader?: boolean
 }
 
@@ -12,7 +12,9 @@ export const SlideContainer = ({children, gridStyleProp, isHeader=false, ...rest
 
 	const gridStyle = gridStyleProp
 		? gridStyleProp
-		: css`grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));`
+		: gridStyleProp === false
+			? null
+			: css`grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));`
 
 	return isHeader ? (
 		<header css={[containerStyle, gridStyle]} {...rest}>
@@ -29,7 +31,7 @@ const containerStyle = css`
   min-height: calc(100vh - 6.4rem);
   max-width: 1152px;
   margin: 0 auto;
-  padding: 0 1.6rem;
+  //padding: 1.6rem;
   display: grid;
 `
 
@@ -46,8 +48,13 @@ export const SlideColumn = ({children, ...rest}: SlideColumnProps) => {
 }
 
 const columnStyle = css`
+	@media (max-width: 768px) {
+		padding: 2rem 1.6rem 2rem 1.6rem;
+  }
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+	padding: 0 1.6rem;
+	max-width: 100vw;
 `

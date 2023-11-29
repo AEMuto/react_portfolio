@@ -4,37 +4,64 @@ import {Link} from "react-router-dom"
 
 const Footer = () => {
 	const year = new Date().getFullYear()
-	const size = {size: "3rem"}
+	const iconSize = {size: "3rem"}
 	return (
 		<StyledFooter className="footer">
 			<FooterContent className="footer__content">
-				<p>
-					&copy; Antoine Marseaud {year}
-					&nbsp;•&nbsp;
+				<StyledText>
+					&copy; A. Marseaud {year}
+					&nbsp;<span className="bullet">•</span>&nbsp;
 					<Link
 						to="https://github.com/AEMuto/react_portfolio"
 						target="_blank"
+						title="Voir le code source de ce site"
+						referrerPolicy="no-referrer"
 					>
 						Code Source
 					</Link>
-				</p>
-				<p>
+				</StyledText>
+				<SocialIconContainer>
 					<SocialIcon to="mailto:antoine.marseaud@gmail.com">
-						<AiFillMail {...size}/>
+						<AiFillMail {...iconSize}/>
 					</SocialIcon>
 					<SocialIcon to="https://www.linkedin.com/in/antoine-marseaud/" target="_blank">
-						<AiFillLinkedin {...size}/>
+						<AiFillLinkedin {...iconSize}/>
 					</SocialIcon>
 					<SocialIcon to="https://github.com/AEMuto" target="_blank">
-						<AiFillGithub {...size}/>
+						<AiFillGithub {...iconSize}/>
 					</SocialIcon>
-				</p>
+				</SocialIconContainer>
 			</FooterContent>
 		</StyledFooter>
 	)
 }
 
 export default Footer
+
+const StyledText = styled.p`
+  display: flex;
+	& > a {
+		text-decoration: underline solid var(--txt);
+		text-decoration-thickness: 1.25px;
+		text-underline-offset: 3px;
+		&:hover {
+			text-decoration-color: var(--primary--hover);
+			transition: text-decoration 0.5s ease-in-out;
+		}
+	}
+	@media (max-width: 460px) {
+		flex-direction: column;
+		& > span {
+			display: none;
+    }
+  }
+`
+
+const SocialIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const StyledFooter = styled.footer`
   background-color: var(--body--foreground);
@@ -51,9 +78,6 @@ const FooterContent = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1.6rem;
-  p {
-    display: flex;
-  }
 `
 
 const SocialIcon = styled(Link)`

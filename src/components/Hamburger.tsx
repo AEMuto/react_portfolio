@@ -62,7 +62,7 @@ const Hamburger = ({isActive, setIsActive}: THamburger) => {
 export default Hamburger
 
 const style = css`
-	@media (min-width: 768px) {
+	@media (min-width: 769px) {
 		display: none;
   }
   width: ${HEIGHT}px;

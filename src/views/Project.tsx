@@ -10,6 +10,7 @@ import Heading from "../components/Heading"
 import {SlideContainer} from "../components/Slide"
 import {TProject} from "../data/projectsData"
 import Subheading from "../components/Subheading"
+import Typography from "../components/Typography"
 
 const Project = () => {
 	// Data coming from the loader, see router.tsx
@@ -18,11 +19,11 @@ const Project = () => {
 	return (
 		<Layout>
 			<StyledSlideContainer>
-				<Heading size="big">
+				<Heading size="xxl">
 					{title}
 				</Heading>
 				{/**
-				 TODO:Add a next and previous project button
+				 TODO:Add a next and previous project button & links
 				 */}
 				<StyledMarkdown
 					children={markdown}
@@ -49,16 +50,23 @@ const Project = () => {
 								</code>
 							)
 						},
+						p({node, ...rest}) {
+							return (
+								<Typography size="md">
+									{rest.children}
+								</Typography>
+							)
+						},
 						h1({node, ...rest}) {
 							return (
-								<Heading size="big">
+								<Heading size="xl">
 									{rest.children}
 								</Heading>
 							)
 						},
 						h2({node, ...rest}) {
 							return (
-								<Subheading size="medium" margin="2rem 0">
+								<Subheading size="lg" margin="2rem 0">
 									{rest.children}
 								</Subheading>
 							)
@@ -99,7 +107,7 @@ const StyledSlideContainer = styled(SlideContainer)`
   flex-direction: column;
   max-width: 135ch;
   margin: 0 auto;
-  padding: 1.6rem;
+  padding: 0 1.6rem 5rem 1.6rem;
 `
 
 const List = styled.ul`
@@ -113,7 +121,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   margin: 1rem 2rem;
   padding: 0;
-
+	font-size: var(--font-size-md);
   &:nth-child(odd)::marker {
     color: var(--primary);
   }
@@ -124,19 +132,9 @@ const ListItem = styled.li`
 }
 `
 
-//TODO: Finish styling the markdown
 const StyledMarkdown = styled(Markdown)`
-  
-
-  p {
-    font-size: 2rem;
-    margin: 1.4rem 0;
-    line-height: 1.19;
-  }
-
   pre {
     font-size: 1.6rem;
     max-width: 120ch;
   }
-
 `

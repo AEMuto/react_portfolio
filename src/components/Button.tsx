@@ -4,14 +4,14 @@ import {BaseProps} from "../types"
 
 export type ButtonProps = BaseProps<HTMLButtonElement> & {
 	children: ReactNode
+	size?: "sm" | "md" | "lg" | "xl"
 	option?: "primary" | "alternate"
 }
 
-const Button = ({children, option = "primary", ...rest}: ButtonProps) => {
+const Button = ({children,size="md", option = "primary", ...rest}: ButtonProps) => {
+	const style = [baseStyle, sizeSwitch(size), option === "primary" ? primaryStyle : alternateStyle]
 	return (
-		<button css={
-			[baseStyle, option === "primary" ? primaryStyle : alternateStyle]
-		} {...rest}>
+		<button css={style} {...rest}>
 			{children}
 		</button>
 	)
@@ -19,8 +19,38 @@ const Button = ({children, option = "primary", ...rest}: ButtonProps) => {
 
 export default Button
 
+const sizeSwitch = (size: ButtonProps["size"]) => {
+	switch (size) {
+		case "xl":
+			return css`
+				font-size: var(--font-size-xl);
+				letter-spacing: calc(var(--font-size-xl) * .03);
+			`
+		case "lg":
+			return css`
+				font-size: var(--font-size-lg);
+				letter-spacing: calc(var(--font-size-lg) * .04);
+			`
+		case "md":
+			return css`
+				font-size: var(--font-size-md);
+				letter-spacing: calc(var(--font-size-md) * .05);
+			`
+		case "sm":
+			return css`
+				font-size: var(--font-size-sm);
+				letter-spacing: calc(var(--font-size-sm) * .06);
+			`
+		default:
+			throw new Error("Invalid Size Prop for Button component")
+	}
+
+}
+
 const baseStyle = css`
-  font-size: 2.1rem;
+  //font-size: 2.1rem;
+	font-family: acumin-pro, sans-serif;
+	font-weight: 600;
   padding: 1rem 1.6rem;
   border-radius: .5rem;
   border: solid 2px var(--txt);

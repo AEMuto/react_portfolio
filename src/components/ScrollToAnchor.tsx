@@ -1,48 +1,28 @@
-import {useEffect, useLayoutEffect} from "react"
+import {useLayoutEffect} from "react"
 import {useLocation} from "react-router-dom"
 
 const removeHashCharacter = (str: string) => str.slice(1)
 
 const ScrollToAnchor = () => {
-	// Old version
-	// const location = useLocation()
-	//
-	// const hashElement = useMemo(() => {
-	// 	console.log("location.hash", getHashElement(location.hash))
-	// 	return getHashElement(location.hash)
-	// }, [location])
-	//
-	// useEffect(() => {
-	// 	if (hashElement) {
-	// 		hashElement.scrollIntoView({
-	// 			behavior: "smooth",
-	// 			//inline: "nearest",
-	// 			block: "end"
-	// 		})
-	// 	}
-	// }, [hashElement])
-	//
-	// return null
-
 	const location = useLocation()
-
 	// By using useLayoutEffect, we make sure that the browser will have
-	// updated the DOM before we try to scroll to the element.
+	// updated the DOM before we try to scroll to the element, since
+	// we use ID
 	useLayoutEffect(() => {
 		const {hash} = location
+		// Scroll to top when navigating to a new project
 		if (location.pathname.includes("/project")) {
 			document.scrollingElement?.scrollTo({
 				top: 0,
 			})
 		}
+		// Scroll to the element with the id matching the hash in the url
 		if (hash.length > 0) {
 			const element = document.getElementById(removeHashCharacter(hash))
-
+			const yOffset = -64 // navbar height
 			if (element) {
-				element.scrollIntoView({
-					behavior: "smooth",
-					block: "end",
-				})
+				const y = element?.getBoundingClientRect().top + window.scrollY + yOffset
+				window.scrollTo({top: y, behavior: "smooth"})
 			}
 		}
 	}, [location])

@@ -5,6 +5,7 @@ import styled from "@emotion/styled"
 import AboutMarkdown from "../../data/markdown/about.md"
 import Markdown from "react-markdown"
 import React, {HTMLProps, ReactNode} from "react"
+import Typography from "../../components/Typography"
 
 type ExternalLinkProps = HTMLProps<HTMLAnchorElement> & { children?: ReactNode }
 
@@ -24,8 +25,12 @@ const About = () => {
 			<SlideColumn>
 				<StyledMarkdown
 					children={AboutMarkdown}
-					components={{a: ExternalLink}}
-				/>
+					components={{
+						a: ExternalLink,
+						p({node, ...props}) {
+							return <Typography {...props}>{props.children}</Typography>
+						}
+				}}/>
 			</SlideColumn>
 		</SlideContainer>
 	)
@@ -35,11 +40,6 @@ export default About
 
 
 const StyledMarkdown = styled(Markdown)`
-  p {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-  }
-
   a {
     color: var(--primary);
 

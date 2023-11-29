@@ -3,11 +3,11 @@ import {css} from "@emotion/react"
 
 type HeadingProps = {
 	children: ReactNode
-	size?: "big" | "medium" | "small"
+	size?: "lg"	|"xl"	|"xxl"	|"xxxl"
 	component?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 }
 
-const Heading = ({children, size = "medium", component = "h1"}: HeadingProps) => {
+const Heading = ({children, size = "xl", component = "h1"}: HeadingProps) => {
 
 	const style = [baseStyle, sizeSwitch(size)]
 
@@ -39,24 +39,38 @@ const baseStyle = css`
 
 const sizeSwitch = (size: HeadingProps["size"]) => {
 	switch (size) {
-		case "big":
-			return (css`font-size: 4.8rem;
-        margin-bottom: 4rem;
+		case "xxxl":
+			return (css`
+				font-size: var(--font-size-xxxl);
+        margin: 4rem 0;
         text-decoration-thickness: 2rem;
         text-underline-offset: -.5rem;
-        line-height: 1.4;`)
-		case "medium":
-			return (css`font-size: 3.6rem;
-        margin-bottom: 3rem;
+        line-height: 1.5;
+			`)
+		case "xxl":
+			return (css`
+				font-size: var(--font-size-xxl);
+        margin: 3rem 0;
         text-decoration-thickness: 1.5rem;
         text-underline-offset: -.375rem;
-        line-height: 1.3;`)
-		case "small":
-			return (css`font-size: 2.7rem;
-        margin-bottom: 2.25rem;
+        line-height: 1.45;
+			`)
+		case "xl":
+			return (css`
+				font-size: var(--font-size-xl);
+        margin: 2.25rem 0;
         text-decoration-thickness: 1.125rem;
         text-underline-offset: -.28125rem;
-        line-height: 1.2;`)
+        line-height: 1.4;
+			`)
+		case "lg":
+			return (css`
+				font-size: var(--font-size-lg);
+				margin: 1.75rem 0;
+				text-decoration-thickness: .875rem;
+				text-underline-offset: -.21875rem;
+				line-height: 1.35;
+			`)
 		default:
 			throw new Error("Invalid Size Prop for Heading component")
 	}

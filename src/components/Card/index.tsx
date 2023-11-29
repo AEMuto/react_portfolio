@@ -169,8 +169,9 @@ const styleBasis = css`
 
     &__tag {
       font-family: "acumin-pro-wide", sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+	    letter-spacing: 0.1rem;
+      //font-weight: 700;
       text-transform: uppercase;
       padding: .5rem 1rem;
       background-color: transparent;

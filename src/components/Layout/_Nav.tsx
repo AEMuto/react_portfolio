@@ -16,6 +16,11 @@ const Nav = () => {
 		root.theme = root.theme === "dark" ? "light" : "dark"
 		// console.log("Theme switched", root.theme)
 	}
+
+	const handleModalLinksClick = () => {
+		setIsMenuOpen(false)
+	}
+
 	return (
 		<StyledNav>
 			<NavContent>
@@ -54,17 +59,29 @@ const Nav = () => {
 				<LinksModal className={isMenuOpen ? "active" : ""}>
 					<ul>
 						<li>
-							<Link to="/#about" title="Quelques mots à propos de moi">
+							<Link
+								onClick={handleModalLinksClick}
+								to="/#about"
+								title="Quelques mots à propos de moi"
+							>
 								À Propos
 							</Link>
 						</li>
 						<li>
-							<Link to="/#projects" title="Mes travaux">
+							<Link
+								onClick={handleModalLinksClick}
+								to="/#projects"
+								title="Mes travaux"
+							>
 								Projets
 							</Link>
 						</li>
 						<li>
-							<Link to="/#contact" title="Comment me contacter">
+							<Link
+								onClick={handleModalLinksClick}
+								to="/#contact"
+								title="Comment me contacter"
+							>
 								Me contacter
 							</Link>
 						</li>
@@ -138,7 +155,7 @@ const NavContent = styled.div`
 
 const NavLogo = styled(Link)`
   font-family: "ivyjournal", serif;
-  font-size: 2.6rem;
+  font-size: var(--font-size-lg);
   line-height: 1.5;
 `
 
@@ -169,7 +186,8 @@ const LinksList = styled.ul`
 
   a {
     font-family: "acumin-pro-wide", monospace;
-    font-size: 1.4rem;
+    font-size: var(--font-size-sm);
+	  letter-spacing: calc((var(--font-size-sm) - 1rem) * 0.1);
     font-weight: 600;
     text-transform: uppercase;
   }

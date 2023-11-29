@@ -1,8 +1,42 @@
-import { css } from '@emotion/react'
+import {css} from "@emotion/react"
 import {colord} from "colord"
 import {dark_theme, light_theme} from "./themes"
 
 export const global = css`
+  /* Fluid font size variables, for browsers that support clamp */
+  @supports (font-size: clamp(1rem, 1vw, 1rem)) {
+    :root {
+      --font-size-sm: clamp(1.28rem, 0.14vw + 1.23rem, 1.4rem);
+      --font-size-md: clamp(1.6rem, 0.37vw + 1.47rem, 1.9rem);
+      --font-size-lg: clamp(2rem, 0.73vw + 1.74rem, 2.59rem);
+      --font-size-xl: clamp(2.5rem, 1.28vw + 2.05rem, 3.52rem);
+      --font-size-xxl: clamp(3.13rem, 2.09vw + 2.39rem, 4.8rem);
+      --font-size-xxxl: clamp(3.91rem, 3.28vw + 2.76rem, 6.54rem);
+    }
+  }
+  /* Fallback variables for browsers that don't support clamp */
+  @supports not (font-size: clamp(1rem, 1vw, 1rem)) {
+    :root {
+      --font-size-sm: 1.28rem;
+      --font-size-md: 1.6rem;
+      --font-size-lg: 2rem;
+      --font-size-xl: 2.5rem;
+      --font-size-xxl: 3.13rem;
+      --font-size-xxxl: 3.91rem;
+    }
+
+    @media screen and (min-width: 1152px) {
+      :root {
+        --font-size-sm: 1.4rem;
+        --font-size-md: 1.9rem;
+        --font-size-lg: 2.59rem;
+        --font-size-xl: 3.52rem;
+        --font-size-xxl: 4.8rem;
+        --font-size-xxxl: 6.54rem;
+      }
+    }
+  }
+	/* Color Variables */
   :root {
     --primary: ${light_theme.primary};
     --primary--hover: ${colord(light_theme.primary).lighten(0.15).toHex()};
@@ -52,12 +86,12 @@ export const global = css`
       // Additional Themes should be added here
       // &[data-theme="theme-name"] {...}
     }
-  
+
   }
 
   html {
     font-family: "acumin-pro", sans-serif;
-    font-size: 62.5%;
+    font-size: 62.5%; // 1rem = 10px
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -65,6 +99,7 @@ export const global = css`
     scroll-behavior: smooth;
     background-color: var(--body);
     color: var(--txt);
+
     & * {
       transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
     }
@@ -81,7 +116,7 @@ export const global = css`
   h1 {
     font-family: "ivyjournal", sans-serif;
     font-weight: 700;
-	  //margin: 0;
+    margin: 0;
   }
 
   h2,
@@ -101,13 +136,18 @@ export const global = css`
   a {
     color: var(--txt--brighter);
     text-decoration: none;
-	  &:hover {
-		  color: var(--primary--hover);
+
+    &:hover {
+      color: var(--primary--hover);
     }
   }
 	
-	[data-color="primary"] {
-		color: var(--primary);
+	em {
+		font-style: normal;
+	}
+
+  [data-color="primary"] {
+    color: var(--primary);
   }
-	
-`;
+
+`
