@@ -33,7 +33,8 @@ const Heading = ({children, size = "xl", component = "h1"}: HeadingProps) => {
 export default Heading
 
 const baseStyle = css`
-	text-decoration: underline solid var(--accent);
+	text-decoration: underline solid;
+	text-decoration-color: var(--accent);
   text-decoration-skip-ink: none;
 `
 
@@ -42,33 +43,33 @@ const sizeSwitch = (size: HeadingProps["size"]) => {
 		case "xxxl":
 			return (css`
 				font-size: var(--font-size-xxxl);
-        margin: 3rem 0 4rem 0;
-        text-decoration-thickness: 2rem;
-        text-underline-offset: -.5rem;
-        line-height: 1.5;
+        margin: 2rem 0 3rem 0;
+        text-decoration-thickness: calc(var(--font-size-xxxl) * .36);
+        text-underline-offset: calc(var(--font-size-xxxl) * -.18);
+        line-height: 1.05;
 			`)
 		case "xxl":
 			return (css`
 				font-size: var(--font-size-xxl);
-        margin: 2rem 0 3rem 0;
-        text-decoration-thickness: 1.5rem;
-        text-underline-offset: -.375rem;
-        line-height: 1.45;
+        margin: 1.5rem 0 2rem 0;
+        text-decoration-thickness: calc(var(--font-size-xxl) * .36);
+        text-underline-offset: calc(var(--font-size-xxl) * -.18);
+        line-height: 1.15;
 			`)
 		case "xl":
 			return (css`
 				font-size: var(--font-size-xl);
-        margin: 1.75rem 0 2rem 0;
-        text-decoration-thickness: 1.125rem;
-        text-underline-offset: -.28125rem;
-        line-height: 1.4;
+        margin: 1.25rem 0 1.5rem 0;
+        text-decoration-thickness: calc(var(--font-size-xl) * .36);
+        text-underline-offset: calc(var(--font-size-xl) * -.18);
+        line-height: 1.25;
 			`)
 		case "lg":
 			return (css`
 				font-size: var(--font-size-lg);
-				margin: 1.5rem 0 1.75rem 0;
-				text-decoration-thickness: .875rem;
-				text-underline-offset: -.21875rem;
+				margin: 1rem 0 1.25rem 0;
+				text-decoration-thickness: calc(var(--font-size-lg) * .36);
+				text-underline-offset: calc(var(--font-size-lg) * -.18);
 				line-height: 1.35;
 			`)
 		default:

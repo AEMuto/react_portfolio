@@ -26,33 +26,33 @@ const sizeSwitch = (size: TypographyProps["size"]) => {
 		case "xl":
 			return css`
 				font-size: var(--font-size-xl);
-				line-height: calc(var(--font-size-xl) * 1.15);
+				line-height: calc(var(--font-size-xl) * 1.05);
 				& + p {
-					margin-top: calc(var(--font-size-xl) * .5);
+					margin-top: calc(var(--font-size-xl) * .3);
 				}
 			`
 		case "lg":
 			return css`
 				font-size: var(--font-size-lg);
-				line-height: calc(var(--font-size-lg) * 1.25);
+				line-height: calc(var(--font-size-lg) * 1.15);
 				& + p {
-					margin-top: calc(var(--font-size-lg) * .5);
+					margin-top: calc(var(--font-size-lg) * .3);
 				}
 			`
 		case "md":
 			return css`
 				font-size: var(--font-size-md);
-				line-height: calc(var(--font-size-md) * 1.35);
+				line-height: calc(var(--font-size-md) * 1.25);
 				& + p {
-					margin-top: calc(var(--font-size-md) * .5);
+					margin-top: calc(var(--font-size-md) * .3);
 				}
 			`
 		case "sm":
 			return css`
 				font-size: var(--font-size-sm);
-				line-height: calc(var(--font-size-sm) * 1.45);
+				line-height: calc(var(--font-size-sm) * 1.35);
 				& + p {
-					margin-top: calc(var(--font-size-sm) * .5);
+					margin-top: calc(var(--font-size-sm) * .3);
 				}
 			`
 		default:

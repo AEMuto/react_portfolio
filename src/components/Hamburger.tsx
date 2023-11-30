@@ -10,12 +10,9 @@ const HEIGHT = 52
 
 const Hamburger = ({isActive, setIsActive}: THamburger) => {
 	return (
-		<div css={style}>
-			<div
-				className={`container ${isActive ? "active" : ""}`}
-				onClick={() => setIsActive(!isActive)}
-			>
-				<svg xmlns="http://www.w3.org/2000/svg" //width={HEIGHT} height={HEIGHT}
+		<div css={style} onClick={() => setIsActive(!isActive)}>
+			<div className={`container ${isActive ? "active" : ""}`}>
+				<svg xmlns="http://www.w3.org/2000/svg" width={HEIGHT} height={HEIGHT}
 				     viewBox="0 0 200 200">
 					<g strokeWidth="9" strokeLinecap="round">
 						<path
@@ -62,11 +59,9 @@ const Hamburger = ({isActive, setIsActive}: THamburger) => {
 export default Hamburger
 
 const style = css`
-	@media (min-width: 769px) {
+	@media screen and (min-width: 769px) {
 		display: none;
   }
-  width: ${HEIGHT}px;
-  height: ${HEIGHT}px;
 	position: relative;
 	z-index: 20;
   &:hover {
