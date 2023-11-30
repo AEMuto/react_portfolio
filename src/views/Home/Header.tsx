@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import Subheading from "../../components/Subheading"
 import Heading from "../../components/Heading"
 import {SlideColumn, SlideContainer} from "../../components/Slide"
-import {css} from "@emotion/react"
 import Button from "../../components/Button"
 import {Link} from "react-router-dom"
 import Portrait from "../../../assets/images/me.jpg"
@@ -26,8 +25,8 @@ const Header = () => {
 				</Typography>
 				<Typography size="lg">
 					<b>Spécialisé dans le développement web</b>,
-					les dernières technologies que j'ai utilisé incluent de manière non-exhaustive
-					: <b>React</b>, <b>Typescript</b>, <b>NodeJS</b>, <b>Vue</b>, <b>Appwrite</b>, <b>MongoDB</b>.
+					les dernières technologies que j'ai utilisé incluent de manière non-exhaustive&nbsp;: <b>React,
+					Typescript, NodeJS, Vue, Appwrite, MongoDB.</b>
 				</Typography>
 				<CTAContainer>
 					<Link to="/#projects" title="Voir mes projets">
@@ -51,32 +50,14 @@ const Header = () => {
 
 export default Header
 
-const StyledText = styled.p`
-  // Responsive font-size
-  font-size: clamp(1.9rem, 2.5vw, 2.5rem); // First version
-  // Alternative, problem with this one is that it doesn't stop growing
-  //font-size: calc(1.9rem + (24 - 16) * ((100vw - 300px) / (1600 - 300)));
-	& + p {
-		margin-top: 1rem;
-	}
-	// Responsive line-height
-	//line-height: clamp(1.4, 2vw, 2.5);
-	// responsive kerning, smaller screen = more kerning, bigger screen = less kerning
-	//letter-spacing: clamp(0.05rem, 0.1vw, -0.2rem);
-	
-	// From chat gpt-3
-  line-height: clamp(1.2, calc(1.4 + 0.1vw), 1.6);
-  //letter-spacing: clamp(-0.024rem, calc(0.05rem - 0.02vw), 0rem);
-	letter-spacing: clamp(-0.1rem, -1vw, 1rem);
-`
-
 const CTAContainer = styled.div`
   margin-top: clamp(3rem, 3vw, 4rem);
   display: flex;
-  //flex-wrap: nowrap;
   gap: 2rem;
+	min-width: 352.5px;
   @media (max-width: 768px) {
     flex-direction: column;
+	  min-width: 100%;
   }
 `
 

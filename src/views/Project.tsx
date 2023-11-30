@@ -172,8 +172,6 @@ const PicturesGallery = styled.div`
       height: auto;
     }
   }
-
-
 `
 
 const ProjectNavArrowContainer = styled.div`
@@ -246,6 +244,17 @@ const ListItem = styled.li`
 `
 
 const StyledMarkdown = styled(Markdown)`
+	@media (max-width: 768px) {
+		p {
+			text-align: justify;
+			text-justify: auto;
+			hyphens: auto;
+		}
+		li {
+			text-align: justify;
+			text-justify: auto;
+		}
+  }
   p > em {
     font-style: italic;
   }
@@ -254,4 +263,5 @@ const StyledMarkdown = styled(Markdown)`
     font-size: 1.6rem;
     max-width: 120ch;
   }
+	
 `

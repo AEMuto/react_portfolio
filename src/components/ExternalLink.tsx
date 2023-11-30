@@ -6,8 +6,7 @@ type ExternalLinkProps = HTMLProps<HTMLAnchorElement> & { children?: ReactNode }
 
 const ExternalLink: React.FC<ExternalLinkProps> = ({children, ...rest}) => (
 	<a css={[baseStyle]}{...rest} target="_blank" rel="noreferrer">
-		{children}
-		<LuExternalLink size="var(--font-size-md)"/>
+		{children}&nbsp;<LuExternalLink size="var(--font-size-md)"/>
 	</a>
 )
 

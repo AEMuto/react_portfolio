@@ -1,4 +1,4 @@
-ArgentBank est un projet que j'ai réalisé durant ma formation de développeur d'application Front-End chez Openclassrooms. C'est une petite application dont la partie client est relativement simple : une page d'accueil, une page d'authentification, une page d'inscription et une page utilisateur uniquement accessible après une authentification réussie.
+ArgentBank est un projet que j'ai réalisé durant ma formation de développeur d'application Front-End chez Openclassrooms. C'est une petite application dont la partie client est relativement simple&nbsp;: une page d'accueil, une page d'authentification, une page d'inscription et une page utilisateur uniquement accessible après une authentification réussie.
 
 ## Technologies utilisées
 - Typescript
@@ -7,10 +7,10 @@ ArgentBank est un projet que j'ai réalisé durant ma formation de développeur 
 - Styled-Components
 - Vite
 - MongoDB
-- NodeJS API (Express, Mongoose)
+- Node.js API (Express, Mongoose)
 
-## Quel était le but ?
-L'objectif principal résidait dans la conception et la mise en œuvre de la partie front-end, en alignement avec des maquettes préexistantes. Les autres points importants sont les suivants :
+## Quel était le but&nbsp;?
+L'objectif principal résidait dans la conception et la mise en œuvre de la partie front-end, en alignement avec des maquettes préexistantes. Les autres points importants sont les suivants&nbsp;:
 1. **Gestion de l'État avec Redux Toolkit** 
 2. **Interaction avec l'API** 
 3. **Authentification via l'utilisation des JSON Web Tokens (JWT)**

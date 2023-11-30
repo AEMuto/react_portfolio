@@ -4,8 +4,7 @@ import {Link} from "react-router-dom"
 import Hamburger from "../Hamburger"
 import {useRef, useState} from "react"
 
-//TODO: Add a "scroll to top" button?
-//TODO: Find where to put the theme switcher in mobile view
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const Nav = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -17,7 +16,8 @@ const Nav = () => {
 		setCurrentTheme(root.theme)
 	}
 
-	const handleModalLinksClick = () => {
+	const handleModalLinksClick = async () => {
+		await wait(150)
 		setIsMenuOpen(false)
 	}
 
@@ -121,7 +121,7 @@ const LinksModal = styled.div`
     align-items: center;
     justify-content: center;
     height: 100%;
-	  gap: 2rem;
+    gap: 2rem;
   }
 
   a {

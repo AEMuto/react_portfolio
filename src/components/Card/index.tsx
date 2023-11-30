@@ -11,7 +11,6 @@ export const ProjectCard = (
 		thumbnail,
 		tags,
 		short_desc,
-		markdown,
 	}
 		: TProject) => {
 	return (
@@ -161,7 +160,12 @@ const styleBasis = css`
     }
 
     &__txt {
-      // margin: 1rem 0;
+      @media screen and (max-width: 768px) {
+        text-align: justify;
+        text-justify: auto;
+        //hyphens: auto;
+      }
+font-size: var(--font-size-md);
     }
 
     &__tags-container {

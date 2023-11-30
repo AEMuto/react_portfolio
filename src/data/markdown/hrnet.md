@@ -1,5 +1,5 @@
 HRnet est le dernier projet sur lequel j'ai travaillé durant ma formation chez Openclassrooms.
-C'est une application web interne avec deux fonctionnalités principales :
+C'est une application web interne avec deux fonctionnalités principales&nbsp;:
 1. Enregistrement d'un employé via un formulaire.
 2. Affichage des employés enregistrés dans un tableau, chaque ligne représentant un employé.
 

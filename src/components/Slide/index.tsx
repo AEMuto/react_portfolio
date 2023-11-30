@@ -55,6 +55,6 @@ const columnStyle = css`
   flex-direction: column;
   justify-content: center;
   position: relative;
-	padding: 0 1.6rem;
+	padding: 2rem;
 	max-width: 100vw;
 `

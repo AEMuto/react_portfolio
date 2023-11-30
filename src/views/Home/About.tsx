@@ -1,10 +1,9 @@
+import React from "react"
 import {SlideColumn, SlideContainer} from "../../components/Slide"
 import Heading from "../../components/Heading"
-import {css} from "@emotion/react"
 import styled from "@emotion/styled"
 import AboutMarkdown from "../../data/markdown/about.md"
 import Markdown from "react-markdown"
-import React, {HTMLProps, ReactNode} from "react"
 import Typography from "../../components/Typography"
 import ExternalLink from "../../components/ExternalLink"
 
@@ -37,5 +36,16 @@ export default About
 
 
 const StyledMarkdown = styled(Markdown)`
-  
+  @media screen and (max-width: 768px) {
+    p {
+      text-align: justify;
+      text-justify: auto;
+      hyphens: auto;
+    }
+
+    li {
+      text-align: justify;
+      text-justify: auto;
+    }
+  }
 `
