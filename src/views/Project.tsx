@@ -23,7 +23,7 @@ const Project = () => {
 
 	const nextProject = id === total - 1 ? 0 : id + 1
 	const previousProject = id === 0 ? total - 1 : id - 1 // Because total is the length of the array, not the last index
-	console.log("Getting the Pics test", Object.values(pics ?? {}))
+
 	return (
 		<Layout>
 			<StyledSlideContainer>
@@ -32,8 +32,8 @@ const Project = () => {
 				</Heading>
 				<PicturesGallery>
 					<div className="container">
-						{picsArray.map((pic, index) => (
-							<img src={pic.name} alt={title} key={index}/>
+						{picsArray.map((pic_path, index) => (
+							<img src={pic_path} alt={title} key={index}/>
 						))}
 					</div>
 				</PicturesGallery>
