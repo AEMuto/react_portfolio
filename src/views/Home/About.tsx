@@ -6,12 +6,9 @@ import AboutMarkdown from "../../data/markdown/about.md"
 import Markdown from "react-markdown"
 import React, {HTMLProps, ReactNode} from "react"
 import Typography from "../../components/Typography"
+import ExternalLink from "../../components/ExternalLink"
 
-type ExternalLinkProps = HTMLProps<HTMLAnchorElement> & { children?: ReactNode }
 
-const ExternalLink: React.FC<ExternalLinkProps> = ({children, ...rest}) => (
-	<a {...rest} target="_blank" rel="noreferrer"> {children} </a>
-)
 
 const About = () => {
 	return (
@@ -40,11 +37,5 @@ export default About
 
 
 const StyledMarkdown = styled(Markdown)`
-  a {
-    color: var(--primary);
-
-    &:hover {
-      color: var(--primary--hover);
-    }
-  }
+  
 `

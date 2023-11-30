@@ -8,7 +8,7 @@ export const ProjectCard = (
 	{
 		id,
 		title,
-		img,
+		thumbnail,
 		tags,
 		short_desc,
 		markdown,
@@ -23,7 +23,7 @@ export const ProjectCard = (
 					title={`Projet ${title}`}
 					className="project__card__img-container"
 				>
-					<img src={img ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`}/>
+					<img src={thumbnail ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`}/>
 				</Link>
 				<div className="project__card__txt-container">
 					<Link

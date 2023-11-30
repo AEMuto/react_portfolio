@@ -42,7 +42,7 @@ const sizeSwitch = (size: HeadingProps["size"]) => {
 		case "xxxl":
 			return (css`
 				font-size: var(--font-size-xxxl);
-        margin: 4rem 0;
+        margin: 3rem 0 4rem 0;
         text-decoration-thickness: 2rem;
         text-underline-offset: -.5rem;
         line-height: 1.5;
@@ -50,7 +50,7 @@ const sizeSwitch = (size: HeadingProps["size"]) => {
 		case "xxl":
 			return (css`
 				font-size: var(--font-size-xxl);
-        margin: 3rem 0;
+        margin: 2rem 0 3rem 0;
         text-decoration-thickness: 1.5rem;
         text-underline-offset: -.375rem;
         line-height: 1.45;
@@ -58,7 +58,7 @@ const sizeSwitch = (size: HeadingProps["size"]) => {
 		case "xl":
 			return (css`
 				font-size: var(--font-size-xl);
-        margin: 2.25rem 0;
+        margin: 1.75rem 0 2rem 0;
         text-decoration-thickness: 1.125rem;
         text-underline-offset: -.28125rem;
         line-height: 1.4;
@@ -66,7 +66,7 @@ const sizeSwitch = (size: HeadingProps["size"]) => {
 		case "lg":
 			return (css`
 				font-size: var(--font-size-lg);
-				margin: 1.75rem 0;
+				margin: 1.5rem 0 1.75rem 0;
 				text-decoration-thickness: .875rem;
 				text-underline-offset: -.21875rem;
 				line-height: 1.35;

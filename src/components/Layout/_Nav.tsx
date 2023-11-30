@@ -53,7 +53,7 @@ const Nav = () => {
 					onClick={switchTheme}
 				>
 					<MdBrightness6 size="2rem"/>
-					{currentTheme}
+					{currentTheme === "dark" ? "sombre" : "clair"}
 				</ThemeSwitcher>
 				<Hamburger
 					isActive={isMenuOpen}

@@ -1,7 +1,14 @@
-import FisheyeImg from "../../assets/images/fisheye_result.webp"
-import ArgentBankImg from "../../assets/images/argentbank_result.webp"
-import HRnetImg from "../../assets/images/hrnet_result.webp"
-import D20CodexImg from "../../assets/images/d20codex3_800_667.webp"
+/*THUMBNAIL*/
+import FisheyeThumbnail from "../../assets/images/fisheye_thumbnail.webp"
+import ArgentBankThumbnail from "../../assets/images/argentbank_thumbnail.webp"
+import HRnetThumbnail from "../../assets/images/hrnet_thumbnail.webp"
+import D20CodexThumbnail from "../../assets/images/d20codex/d20codex3_800_667.webp"
+/*IMG*/
+const FisheyeIMGs = import.meta.glob("../../assets/images/fisheye/*.webp")
+const ArgentBankIMGs = import.meta.glob("../../assets/images/argentbank/*.webp")
+const HRnetIMGs = import.meta.glob("../../assets/images/hrnet/*.webp")
+const D20CodexIMGs = import.meta.glob("../../assets/images/d20codex/*.webp")
+/*MARKDOWN*/
 import FisheyeMarkdown from "./markdown/fisheye.md"
 import ArgentBankMarkdown from "./markdown/argentbank.md"
 import HRnetMarkdown from "./markdown/hrnet.md"
@@ -10,7 +17,8 @@ import D20CodexMarkdown from "./markdown/d20codex.md"
 export type TProject = {
 	id: number,
 	title: string,
-	img: string | null,
+	thumbnail: string | null,
+	pics?: Record<string, () => Promise<{[p: string]: any}>>,
 	short_desc: string,
 	tags: string[]
 	markdown?: string
@@ -25,7 +33,8 @@ const projectsData: TProject[] = [
 	{
 		id: 0,
 		title: "Fisheye",
-		img: FisheyeImg,
+		thumbnail: FisheyeThumbnail,
+		pics: FisheyeIMGs,
 		short_desc: "Une plateforme accessible permettant à des photographes de présenter leurs travaux.",
 		tags: ["Javascript", "OOP", "Factory Pattern", "Accessibilité"],
 		markdown: FisheyeMarkdown,
@@ -37,7 +46,8 @@ const projectsData: TProject[] = [
 	{
 		id: 1,
 		title: "ArgentBank",
-		img: ArgentBankImg,
+		thumbnail: ArgentBankThumbnail,
+		pics: ArgentBankIMGs,
 		short_desc: "Front-end d'une application web permettant la connexion, création et modification d'un utilisateur via l'usage d'un JWT.",
 		tags: ["React", "Redux", "Typescript"],
 		markdown: ArgentBankMarkdown,
@@ -49,7 +59,8 @@ const projectsData: TProject[] = [
 	{
 		id: 2,
 		title: "HRnet",
-		img: HRnetImg,
+		thumbnail: HRnetThumbnail,
+		pics: HRnetIMGs,
 		short_desc: "CRM d'une entreprise permettant de gérer la création et le suivi de ses profils employés.",
 		tags: ["React", "Redux", "Typescript", "Storybook"],
 		markdown: HRnetMarkdown,
@@ -61,7 +72,8 @@ const projectsData: TProject[] = [
 	{
 		id: 3,
 		title: "D20Codex",
-		img: D20CodexImg,
+		thumbnail: D20CodexThumbnail,
+		pics: D20CodexIMGs,
 		short_desc: "Application web répertoriant les données de plusieurs systèmes de jeu de rôle.",
 		tags: ["React", "Typescript", "Scroll Infini", "Virtualisation", "Appwrite"],
 		markdown: D20CodexMarkdown,
