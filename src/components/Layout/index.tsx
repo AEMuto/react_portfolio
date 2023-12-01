@@ -3,7 +3,6 @@ import Footer from "./_Footer"
 import Nav from "./_Nav"
 import styled from "@emotion/styled"
 import ScrollToAnchor from "../ScrollToAnchor"
-import {ScrollRestoration} from "react-router-dom"
 
 type LayoutProps = {
 	children: ReactNode
@@ -29,4 +28,6 @@ const StyledMain = styled.main`
   min-height: calc(100vh - 12.8rem);
   overflow: hidden;
   position: relative;
+	display: flex;
+	flex-direction: column;
 `

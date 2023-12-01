@@ -1,10 +1,14 @@
-import {createBrowserRouter} from "react-router-dom"
-import Project from "../views/Project"
-import NotFound from "../views/NotFound"
-import Home from "../views/Home/_index"
+import {createBrowserRouter, createRoutesFromElements, Outlet, Route} from "react-router-dom"
 import projectsData from "../data/projectsData"
+import React, {Suspense} from "react"
+import Layout from "../components/Layout"
+import Loader from "../components/Loader"
 
-const projectDataLoader = async ({params}: any) => {
+const Home = React.lazy(() => import("../views/Home/_index"))
+const Project = React.lazy(() => import("../views/Project/_index"))
+const NotFound = React.lazy(() => import("../views/NotFound"))
+
+const projectLoader = async ({params}: any) => {
 	const current = projectsData.find((project) => project.id === parseInt(params.id ?? "", 10)) ?? "No Project with this ID"
 	return {
 		current: current,
@@ -12,21 +16,22 @@ const projectDataLoader = async ({params}: any) => {
 	}
 }
 
-const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Home/>,
-	},
-	{
-		path: "/project/:id",
-		element: <Project/>,
-		loader: projectDataLoader,
-	},
-	{
-		path: "/*",
-		element: <NotFound/>,
-	},
-])
+const SuspenseLayout = () => (
+	<Layout>
+		<Suspense fallback={<Loader/>}>
+			<Outlet />
+		</Suspense>
+	</Layout>
+)
 
+const root = (
+	<Route element={<SuspenseLayout/>}>
+		<Route path="/" element={<Home/>}/>
+		<Route path="/project/:id" element={<Project/>} loader={projectLoader}/>
+		<Route path="*" element={<NotFound/>}/>
+	</Route>
+)
+
+const router = createBrowserRouter(createRoutesFromElements(root))
 
 export default router

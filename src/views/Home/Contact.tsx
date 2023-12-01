@@ -1,7 +1,6 @@
 import {SlideContainer} from "../../components/Slide"
 import Button from "../../components/Button"
 import styled from "@emotion/styled"
-import {css} from "@emotion/react"
 
 const Contact = () => {
 	return (

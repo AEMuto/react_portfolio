@@ -1,11 +1,26 @@
-import Layout from "../components/Layout";
+import Heading from "../components/Heading"
+import styled from "@emotion/styled"
+import React from "react"
 
 const NotFound = () => {
 	return (
-		<Layout>
-			<h1>404 - Page Not Found</h1>
-		</Layout>
+		<Container>
+			<Heading size="xxxl">
+				<span data-color="primary">404 </span>
+				<br/>
+				Page Not Found
+			</Heading>
+		</Container>
 	)
 }
 
 export default NotFound
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 12.8rem);
+  text-align: center;
+`
