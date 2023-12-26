@@ -6,8 +6,8 @@ const Footer = () => {
 	const year = new Date().getFullYear()
 	const iconSize = {size: "3rem"}
 	return (
-		<StyledFooter className="footer">
-			<FooterContent className="footer__content">
+		<StyledFooter>
+			<FooterContent>
 				<StyledText>
 					&copy; A. Marseaud {year}
 					&nbsp;<span className="bullet">•</span>&nbsp;
@@ -51,7 +51,7 @@ const StyledText = styled.p`
 	}
 	@media (max-width: 460px) {
 		flex-direction: column;
-		& > span {
+		& > span.bullet {
 			display: none;
     }
   }
@@ -68,6 +68,9 @@ const StyledFooter = styled.footer`
   height: 6.4rem;
   display: flex;
   justify-content: center;
+	@media (max-width: 460px) {
+		height: 9.6rem;
+	}
 `
 
 const FooterContent = styled.div`

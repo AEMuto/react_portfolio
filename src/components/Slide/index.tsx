@@ -28,6 +28,9 @@ export const SlideContainer = ({children, gridStyleProp, isHeader=false, ...rest
 }
 
 const containerStyle = css`
+	@media screen and (max-width: 1152px) {
+		max-width: 100vw;
+	}
   min-height: calc(100vh - 6.4rem);
   max-width: 1152px;
   margin: 0 auto;

@@ -7,8 +7,6 @@ import Markdown from "react-markdown"
 import Typography from "../../components/Typography"
 import ExternalLink from "../../components/ExternalLink"
 
-
-
 const About = () => {
 	return (
 		<SlideContainer id="about">
@@ -25,8 +23,7 @@ const About = () => {
 						a: ExternalLink,
 						p({node, ...props}) {
 							return <Typography {...props}>{props.children}</Typography>
-						}
-				}}/>
+						}}}/>
 			</SlideColumn>
 		</SlideContainer>
 	)
