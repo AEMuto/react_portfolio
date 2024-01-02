@@ -34,7 +34,6 @@ const containerStyle = css`
   min-height: calc(100vh - 6.4rem);
   max-width: 1152px;
   margin: 0 auto;
-  //padding: 1.6rem;
   display: grid;
 `
 
@@ -51,8 +50,8 @@ export const SlideColumn = ({children, ...rest}: SlideColumnProps) => {
 }
 
 const columnStyle = css`
-	@media (max-width: 768px) {
-		padding: 2rem 1.6rem 2rem 1.6rem;
+	@media screen and (max-width: 480px) {
+		padding: clamp(0rem, 4vw, 2rem);
   }
   display: flex;
   flex-direction: column;

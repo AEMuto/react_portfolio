@@ -1,4 +1,4 @@
-__Comment obtenir des code blocks stylisé depuis du markdown__
+__Comment obtenir des _code-blocks_ stylisé depuis du markdown__
 
 ```jsx
 import React from 'react'

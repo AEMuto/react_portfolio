@@ -56,163 +56,165 @@ export const ProjectCard = (
 	)
 }
 
-const borderWidth = .5
+const borderWidth = .55
 const cornerSize = 3
 const duration = .3
 
 const styleBasis = css`
-  // --borderWidth: .5rem;
-  // --cornerSize: 3rem;
-  // --duration: .3s;
-  height: 100%;
-
-  .project__card {
+    // --borderWidth: .5rem;
+    // --cornerSize: 3rem;
+    // --duration: .3s;
     height: 100%;
-    background-color: var(--body--foreground);
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    grid-auto-rows: 50%;
-    box-shadow: 10px -10px 0px 0px var(--body--background);
-    transition: all ${duration}s;
 
-    &:hover {
-      &:active {
-        box-shadow: 15px -15px 0px 0px var(--body--background);
-      }
-
-      .project__card__img-container {
-        border-color: var(--accent);
-
-        &::before {
-          transform: translateX(-50%) scaleX(0);
-        }
-
-        &::after {
-          transform: translateY(-50%) scaleY(0);
-        }
-      }
-
-      .project__card__cta {
-        .arrow {
-          transform: translateX(.7rem);
-        }
-
-        &::before {
-          transform: scaleX(1.05);
-        }
-      }
-    }
-
-    &__img-container {
-      display: grid;
-      place-items: center;
-      background-color: transparent;
-      padding: 2rem;
-      position: relative;
-      z-index: 2;
-      border: ${borderWidth}rem solid var(--primary);
-      transition: border ${duration}s ease-in-out;
-
-      &::before, &::after {
-        content: '';
-        position: absolute;
+    .project__card {
+        height: 100%;
         background-color: var(--body--foreground);
-        z-index: -1;
-        transition: all ${duration}s ease-in-out;
-      }
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-auto-rows: 50%;
+        transition: all ${duration}s;
+        @media screen and (min-width: 320px) {
+            box-shadow: 10px -10px 0 0 var(--body--background);
+        }
 
-      &::before {
-        width: calc(100% - ${cornerSize}rem);
-        height: calc(100% + ${borderWidth * 2}rem);
-        top: -${borderWidth}rem;
-        left: 50%;
-        transform: translateX(-50%) scaleX(1);
-      }
+        &:hover {
+            &:active {
+                box-shadow: 15px -15px 0px 0px var(--body--background);
+            }
 
-      &::after {
-        height: calc(100% - ${cornerSize}rem);
-        width: calc(100% + ${borderWidth * 2}rem);
-        left: -${borderWidth}rem;
-        top: 50%;
-        transform: translateY(-50%) scaleY(1);
-      }
+            .project__card__img-container {
+                border-color: var(--accent);
 
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        height: auto;
+                &::before {
+                    transform: translateX(-50%) scaleX(0);
+                }
 
-        filter: drop-shadow(8px 6px 8px var(--body--background));
-      }
+                &::after {
+                    transform: translateY(-50%) scaleY(0);
+                }
+            }
+
+            .project__card__cta {
+                .arrow {
+                    transform: translateX(.7rem);
+                }
+
+                &::before {
+                    transform: scaleX(1.05);
+                }
+            }
+        }
+
+        &__img-container {
+            display: grid;
+            place-items: center;
+            background-color: transparent;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            border: ${borderWidth}rem solid var(--primary);
+            transition: border ${duration}s ease-in-out;
+
+            &::before, &::after {
+                content: "";
+                position: absolute;
+                background-color: var(--body--foreground);
+                z-index: -1;
+                transition: all ${duration}s ease-in-out;
+            }
+
+            &::before {
+                width: calc(100% - ${cornerSize}rem);
+                height: calc(100% + ${borderWidth * 2}rem);
+                top: -${borderWidth}rem;
+                left: 50%;
+                transform: translateX(-50%) scaleX(1);
+            }
+
+            &::after {
+                height: calc(100% - ${cornerSize}rem);
+                width: calc(100% + ${borderWidth * 2}rem);
+                left: -${borderWidth}rem;
+                top: 50%;
+                transform: translateY(-50%) scaleY(1);
+            }
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                height: auto;
+
+                filter: drop-shadow(8px 6px 8px var(--body--background));
+            }
+        }
+
+        &__txt-container {
+            width: 100%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            a {
+                align-self: start;
+            }
+        }
+
+        &__txt {
+            @media screen and (max-width: 768px) {
+                text-align: justify;
+                text-justify: auto;
+                //hyphens: auto;
+            }
+            font-size: var(--font-size-md);
+        }
+
+        &__tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        &__tag {
+            font-family: "acumin-pro-wide", sans-serif;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            letter-spacing: 0.1rem;
+            //font-weight: 700;
+            text-transform: uppercase;
+            padding: .5rem 1rem;
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--txt--darker);
+            transition: all .3s ease-in-out;
+        }
+
+        &__cta {
+            font-family: "acumin-pro-wide", sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            position: relative;
+
+            &:hover {
+                color: var(--primary);
+            }
+
+            .arrow {
+                display: inline-block;
+                transition: transform ${duration}s ease-in-out;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: calc((${borderWidth}rem * -1) - .3rem);
+                width: 100%;
+                transform-origin: left center;
+                transform: scaleX(0);
+                height: ${borderWidth}rem;
+                background-color: var(--accent);
+                transition: all ${duration}s ease-in-out;
+            }
+        }
     }
-
-    &__txt-container {
-      width: 100%;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      a {
-        align-self: start;
-      }
-    }
-
-    &__txt {
-      @media screen and (max-width: 768px) {
-        text-align: justify;
-        text-justify: auto;
-        //hyphens: auto;
-      }
-font-size: var(--font-size-md);
-    }
-
-    &__tags-container {
-      display: flex;
-      flex-wrap: wrap;
-	    			gap: 1rem;
-    }
-
-    &__tag {
-      font-family: "acumin-pro-wide", sans-serif;
-      font-size: clamp(0.9rem, 1.5vw, 1rem);
-	    letter-spacing: 0.1rem;
-      //font-weight: 700;
-      text-transform: uppercase;
-      padding: .5rem 1rem;
-      background-color: transparent;
-			border: 1px solid var(--primary);
-      color: var(--txt--darker);
-      transition: all .3s ease-in-out;
-    }
-
-    &__cta {
-      font-family: "acumin-pro-wide", sans-serif;
-      font-size: 1.5rem;
-      text-transform: uppercase;
-      position: relative;
-
-      &:hover {
-        color: var(--primary);
-      }
-
-      .arrow {
-        display: inline-block;
-        transition: transform ${duration}s ease-in-out;
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        bottom: calc((${borderWidth}rem * -1) - .3rem);
-        width: 100%;
-        transform-origin: left center;
-        transform: scaleX(0);
-        height: ${borderWidth}rem;
-        background-color: var(--accent);
-        transition: all ${duration}s ease-in-out;
-      }
-    }
-  }
 `

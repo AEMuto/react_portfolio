@@ -33,8 +33,7 @@ export default Gallery
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-	//grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	grid-auto-rows: 550px;
   place-items: center;
   gap: 2rem;

@@ -12,7 +12,7 @@ const Header = () => {
 		<SlideContainer id="header" isHeader={true}>
 			<SlideColumn>
 				<Subheading size="lg" bold>
-					Bonjour Interweb!
+					Bonjour Interweb&nbsp;!
 				</Subheading>
 				<Heading size="xxl">
 					Je m’appelle<br/>
@@ -25,7 +25,7 @@ const Header = () => {
 				</Typography>
 				<Typography size="lg">
 					<b>Spécialisé dans le développement web</b>,
-					les dernières technologies que j'ai utilisé incluent de manière non-exhaustive&nbsp;: <b>React,
+					les dernières technologies que j'ai utilisées incluent de manière non-exhaustive&nbsp;: <b>React,
 					Typescript, NodeJS, Vue, Appwrite, MongoDB.</b>
 				</Typography>
 				<CTAContainer>
