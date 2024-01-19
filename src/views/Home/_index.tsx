@@ -1,4 +1,4 @@
-import Header from "./Header"
+import Hero from "./Hero"
 import About from "./About"
 import Gallery from "./Gallery"
 import Contact from "./Contact"
@@ -8,7 +8,7 @@ import React from "react"
 const Home = () => {
 	return (
 		<React.Fragment>
-			<Header/>
+			<Hero/>
 			<About/>
 			<Gallery/>
 			<Contact/>

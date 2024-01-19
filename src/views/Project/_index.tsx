@@ -7,72 +7,71 @@ import Heading from "../../components/Heading"
 import ExternalLink from "../../components/ExternalLink"
 import {SlideContainer} from "../../components/Slide"
 import Loader from "../../components/Loader"
+import HorizontalGallery from "../../components/HorizontalGallery"
 
 const TextContent = React.lazy(() => import("./TextContent"))
 
 const Project = () => {
-	// Data coming from the loader, see router.tsx
-	const {current, total} = useLoaderData() as { current: TProject, total: number }
-	const {title, markdown, id, urls, pics} = current
+  // Data coming from the loader, see router.tsx
+  const {current, total} = useLoaderData() as { current: TProject, total: number }
+  const {title, markdown, id, urls, pics} = current
 
-	const picsArray = Object.values(pics ?? {})
+  const picsArray = Object.values(pics ?? {})
 
-	const nextProject = id === total - 1 ? 0 : id + 1
-	const previousProject = id === 0 ? total - 1 : id - 1 // Because total is the length of the array, not the last index
+  const nextProject = id === total - 1 ? 0 : id + 1
+  const previousProject = id === 0 ? total - 1 : id - 1 // Because total is the length of the array, not the last index
 
-	return (
+  return (
 
-		<StyledSlideContainer>
-			<Heading size="xxl">
-				{title}
-			</Heading>
-			<PicturesGallery>
-				<div className="container">
-					{picsArray.map((pic_path, index) => (
-						<img src={pic_path} alt={title} key={index}/>
-					))}
-				</div>
-			</PicturesGallery>
-			<ExternalLinksContainer>
-				{urls.github &&
-            <ExternalLink
-                href={urls.github}
-                title="Voir le code source sur Github"
-                target="_blank"
-            >
-                Github
-            </ExternalLink>
-				}
-				{urls.live &&
-            <ExternalLink
-                href={urls.live}
-                title="Voir le projet en ligne"
-                target="_blank"
-            >
-                Voir le projet
-            </ExternalLink>
-				}
-			</ExternalLinksContainer>
-			<React.Suspense fallback={<Loader/>}>
-				<TextContent markdown={markdown}/>
-			</React.Suspense>
-			<ProjectNavArrowContainer>
-				{/*Next & Prev arrows*/}
-				<Link to={`/project/${previousProject}`}>
-					<MdOutlineArrowRightAlt size={32} className="back"/>
-					<span>Précédent</span>
-				</Link>
-				<Link to={`/project/${nextProject}`}>
-					<span>Suivant</span>
-					<MdOutlineArrowRightAlt size={32} className="next"/>
-				</Link>
-			</ProjectNavArrowContainer>
-		</StyledSlideContainer>
+    <Article>
+      <Heading size="xxl">
+        {title}
+      </Heading>
+      <HorizontalGallery imgArray={picsArray} title={title}/>
+      <ExternalLinksContainer>
+        {urls.github &&
+          <ExternalLink
+            href={urls.github}
+            title="Voir le code source sur Github"
+            target="_blank"
+          >
+            Github
+          </ExternalLink>
+        }
+        {urls.live &&
+          <ExternalLink
+            href={urls.live}
+            title="Voir le projet en ligne"
+            target="_blank"
+          >
+            Voir le projet
+          </ExternalLink>
+        }
+      </ExternalLinksContainer>
+      <React.Suspense fallback={<Loader/>}>
+        <TextContent markdown={markdown}/>
+      </React.Suspense>
+      <ProjectNavArrowContainer>
+        {/*Next & Prev arrows*/}
+        <StyledLink to={`/project/${previousProject}`}>
+          <MdOutlineArrowRightAlt size={32} className="back"/>
+          <span>Précédent</span>
+        </StyledLink>
+        <StyledLink to={`/project/${nextProject}`}>
+          <span>Suivant</span>
+          <MdOutlineArrowRightAlt size={32} className="next"/>
+        </StyledLink>
+      </ProjectNavArrowContainer>
+    </Article>
 
-	)
+  )
 }
 
 export default Project
+
+const StyledLink = styled(Link)`
+  min-height: 44px;
+`
 
 const ExternalLinksContainer = styled.div`
   display: flex;
@@ -85,30 +84,12 @@ const ExternalLinksContainer = styled.div`
   }
 `
 
-const PicturesGallery = styled.div`
-  width: 100%;
-  overflow-x: auto;
-  margin-bottom: 2.5rem;
-
-  .container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    flex-wrap: nowrap;
-
-    img {
-      width: 300px;
-      height: auto;
-    }
-  }
-`
-
 const ProjectNavArrowContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin: 2rem 0;
-  //gap: 2rem;
+
   a {
     color: var(--primary);
     display: flex;
@@ -141,7 +122,7 @@ const ProjectNavArrowContainer = styled.div`
 
 `
 
-const StyledSlideContainer = styled(SlideContainer)`
+const Article = styled(SlideContainer)`
   display: flex;
   flex-direction: column;
   max-width: 135ch;

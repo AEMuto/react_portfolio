@@ -24,10 +24,10 @@ const Footer = () => {
 					<SocialIcon to="mailto:antoine.marseaud@gmail.com">
 						<AiFillMail {...iconSize}/>
 					</SocialIcon>
-					<SocialIcon to="https://www.linkedin.com/in/antoine-marseaud/" target="_blank">
+					<SocialIcon to="https://www.linkedin.com/in/antoine-marseaud/" target="_blank" referrerPolicy="no-referrer">
 						<AiFillLinkedin {...iconSize}/>
 					</SocialIcon>
-					<SocialIcon to="https://github.com/AEMuto" target="_blank">
+					<SocialIcon to="https://github.com/AEMuto" target="_blank" referrerPolicy="no-referrer">
 						<AiFillGithub {...iconSize}/>
 					</SocialIcon>
 				</SocialIconContainer>

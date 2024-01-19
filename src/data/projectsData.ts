@@ -32,6 +32,19 @@ export type TProject = {
 const projectsData: TProject[] = [
 	{
 		id: 0,
+		title: "D20Codex",
+		thumbnail: D20CodexThumbnail,
+		pics: D20CodexIMGs,
+		short_desc: "Application web répertoriant les données de plusieurs systèmes de jeu de rôle.",
+		tags: ["React", "Typescript", "Scroll Infini", "Virtualisation"],
+		markdown: D20CodexMarkdown,
+		urls: {
+			live: "https://d20codex.vercel.app/",
+			github: null
+		},
+	},
+	{
+		id: 1,
 		title: "Fisheye",
 		thumbnail: FisheyeThumbnail,
 		pics: FisheyeIMGs,
@@ -44,7 +57,7 @@ const projectsData: TProject[] = [
 		},
 	},
 	{
-		id: 1,
+		id: 2,
 		title: "ArgentBank",
 		thumbnail: ArgentBankThumbnail,
 		pics: ArgentBankIMGs,
@@ -57,7 +70,7 @@ const projectsData: TProject[] = [
 		},
 	},
 	{
-		id: 2,
+		id: 3,
 		title: "HRnet",
 		thumbnail: HRnetThumbnail,
 		pics: HRnetIMGs,
@@ -67,19 +80,6 @@ const projectsData: TProject[] = [
 		urls: {
 			live: "https://antoine-marseaud-hrnet-app.vercel.app/",
 			github: "https://github.com/AEMuto/AntoineMarseaud_14_HRnet_Application_23032022"
-		},
-	},
-	{
-		id: 3,
-		title: "D20Codex",
-		thumbnail: D20CodexThumbnail,
-		pics: D20CodexIMGs,
-		short_desc: "Application web répertoriant les données de plusieurs systèmes de jeu de rôle.",
-		tags: ["React", "Typescript", "Scroll Infini", "Virtualisation", "Appwrite"],
-		markdown: D20CodexMarkdown,
-		urls: {
-			live: "https://d20codex.vercel.app/",
-			github: "https://github.com/AEMuto/d20codex"
 		},
 	},
 ]
