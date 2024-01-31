@@ -34,9 +34,9 @@ const Hero = () => {
 							Portfolio
 						</Button>
 					</Link>
-					<a href="https://drive.google.com/file/d/1YLIv94GuEjFf5M6JqDsStMlLndj-XaKa/view?usp=sharing" title="Pour télécharger mon CV" target="_blank" rel="noreferrer">
+					<a href="https://drive.google.com/file/d/1YLIv94GuEjFf5M6JqDsStMlLndj-XaKa/view?usp=sharing" title="Pour consulter mon CV" target="_blank" rel="noreferrer">
 						<Button option="alternate">
-							Télécharger mon CV
+							Consulter mon CV
 						</Button>
 					</a>
 				</CTAContainer>
