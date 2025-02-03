@@ -4,10 +4,10 @@ import ArgentBankThumbnail from "../../assets/images/argentbank_thumbnail.webp"
 import HRnetThumbnail from "../../assets/images/hrnet_thumbnail.webp"
 import D20CodexThumbnail from "../../assets/images/d20codex/d20codex3_800_667.webp"
 /*IMG*/
-const FisheyeIMGs = import.meta.glob("@assets/images/fisheye/*.webp", { as: 'url', eager: true  })
-const ArgentBankIMGs = import.meta.glob("@assets/images/argentbank/*.webp", { as: 'url', eager: true  })
-const HRnetIMGs = import.meta.glob("@assets/images/hrnet/*.webp", { as: 'url', eager: true  })
-const D20CodexIMGs = import.meta.glob("@assets/images/d20codex/*.webp", { as: 'url', eager: true  })
+const FisheyeIMGs = import.meta.glob("@assets/images/fisheye/*.webp", { query: '?url', eager: true , import: 'default' })
+const ArgentBankIMGs = import.meta.glob("@assets/images/argentbank/*.webp", { query: '?url', eager: true , import: 'default' })
+const HRnetIMGs = import.meta.glob("@assets/images/hrnet/*.webp", { query: '?url', eager: true , import: 'default' })
+const D20CodexIMGs = import.meta.glob("@assets/images/d20codex/*.webp", { query: '?url', eager: true , import: 'default' })
 /*MARKDOWN*/
 import FisheyeMarkdown from "./markdown/fisheye.md"
 import ArgentBankMarkdown from "./markdown/argentbank.md"
@@ -18,7 +18,7 @@ export type TProject = {
 	id: number,
 	title: string,
 	thumbnail: string | null,
-	pics?:  Record<string, string>,
+	pics?:  Record<string, unknown>,
 	short_desc: string,
 	tags: string[]
 	markdown?: string
