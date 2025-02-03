@@ -1,20 +1,19 @@
-import Heading from "../components/Heading"
-import styled from "@emotion/styled"
-import React from "react"
+import Heading from "../components/Heading";
+import styled from "@emotion/styled";
 
 const NotFound = () => {
-	return (
-		<Container>
-			<Heading size="xxxl">
-				<span data-color="primary">404 </span>
-				<br/>
-				Page Not Found
-			</Heading>
-		</Container>
-	)
-}
+  return (
+    <Container>
+      <Heading size="xxxl">
+        <span data-color="primary">404 </span>
+        <br />
+        Page Not Found
+      </Heading>
+    </Container>
+  );
+};
 
-export default NotFound
+export default NotFound;
 
 const Container = styled.div`
   display: flex;
@@ -23,4 +22,4 @@ const Container = styled.div`
   justify-content: center;
   min-height: calc(100vh - 12.8rem);
   text-align: center;
-`
+`;

@@ -1,6 +1,6 @@
-import {css} from "@emotion/react"
-import {colord} from "colord"
-import {dark_theme, light_theme} from "./themes"
+import { css } from "@emotion/react";
+import { colord } from "colord";
+import { dark_theme, light_theme } from "./themes";
 
 export const global = css`
   /* Fluid font size variables, for browsers that support clamp */
@@ -36,7 +36,7 @@ export const global = css`
       }
     }
   }
-	/* Color Variables */
+  /* Color Variables */
   :root {
     --primary: ${light_theme.primary};
     --primary--hover: ${colord(light_theme.primary).lighten(0.15).toHex()};
@@ -86,7 +86,6 @@ export const global = css`
       // Additional Themes should be added here
       // &[data-theme="theme-name"] {...}
     }
-
   }
 
   html {
@@ -141,13 +140,12 @@ export const global = css`
       color: var(--primary--hover);
     }
   }
-	
-	em {
-		font-style: normal;
-	}
+
+  em {
+    font-style: normal;
+  }
 
   [data-color="primary"] {
     color: var(--primary);
   }
-
-`
+`;

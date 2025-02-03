@@ -1,21 +1,20 @@
-import {css} from "@emotion/react"
-import React from "react"
+import { css } from "@emotion/react";
 
 /**
  * Need to be put in a flex container
  * @constructor
  */
 const Loader = () => {
-	return (
-		<div css={baseStyle}>
-			<div className="loader">
-				<div className="loader__icon"></div>
-			</div>
-		</div>
-	)
-}
+  return (
+    <div css={baseStyle}>
+      <div className="loader">
+        <div className="loader__icon"></div>
+      </div>
+    </div>
+  );
+};
 
-export default Loader
+export default Loader;
 
 const baseStyle = css`
   position: relative;
@@ -49,4 +48,4 @@ const baseStyle = css`
       transform: rotate(360deg);
     }
   }
-`
+`;

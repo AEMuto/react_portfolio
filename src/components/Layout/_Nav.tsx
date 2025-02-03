@@ -1,101 +1,86 @@
-import {MdBrightness6} from "react-icons/md"
-import styled from "@emotion/styled"
-import {Link} from "react-router-dom"
-import Hamburger from "../Hamburger"
-import {useRef, useState} from "react"
+import { MdBrightness6 } from "react-icons/md";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import Hamburger from "../Hamburger";
+import { useRef, useState } from "react";
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Nav = () => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false)
-	const rootRef = useRef(document.documentElement)
-	const root = rootRef.current.dataset
-	const [currentTheme, setCurrentTheme] = useState(root.theme)
-	const switchTheme = () => {
-		root.theme = root.theme === "dark" ? "light" : "dark"
-		setCurrentTheme(root.theme)
-	}
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const rootRef = useRef(document.documentElement);
+  const root = rootRef.current.dataset;
+  const [currentTheme, setCurrentTheme] = useState(root.theme);
+  const switchTheme = () => {
+    root.theme = root.theme === "dark" ? "light" : "dark";
+    setCurrentTheme(root.theme);
+  };
 
-	const handleModalLinksClick = async () => {
-		await wait(150)
-		setIsMenuOpen(false)
-	}
+  const handleModalLinksClick = async () => {
+    await wait(150);
+    setIsMenuOpen(false);
+  };
 
-	return (
-		<StyledNav>
-			<NavContent>
-				<LogoContainer>
-					<NavLogo to="/#header" title="Accueil">
-						Antoine M.
-					</NavLogo>
-				</LogoContainer>
-				<LinksWrapper>
-					<LinksList>
-						<li>
-							<Link to="/#about" title="Quelques mots à propos de moi">
-								À Propos
-							</Link>
-						</li>
-						<li>
-							<Link to="/#projects" title="Mes travaux">
-								Projets
-							</Link>
-						</li>
-						<li>
-							<Link to="/#contact" title="Comment me contacter">
-								Me contacter
-							</Link>
-						</li>
-					</LinksList>
-				</LinksWrapper>
-				<ThemeSwitcher
-					title="Changer le thème"
-					onClick={switchTheme}
-				>
-					<MdBrightness6 size="2rem"/>
-					{currentTheme === "dark" ? "sombre" : "clair"}
-				</ThemeSwitcher>
-				<Hamburger
-					isActive={isMenuOpen}
-					setIsActive={setIsMenuOpen}
-				/>
-				<LinksModal className={isMenuOpen ? "active" : ""}>
-					<ul>
-						<li>
-							<Link
-								onClick={handleModalLinksClick}
-								to="/#about"
-								title="Quelques mots à propos de moi"
-							>
-								À Propos
-							</Link>
-						</li>
-						<li>
-							<Link
-								onClick={handleModalLinksClick}
-								to="/#projects"
-								title="Mes travaux"
-							>
-								Projets
-							</Link>
-						</li>
-						<li>
-							<Link
-								onClick={handleModalLinksClick}
-								to="/#contact"
-								title="Comment me contacter"
-							>
-								Me contacter
-							</Link>
-						</li>
-					</ul>
-				</LinksModal>
-			</NavContent>
-		</StyledNav>
-	)
-}
+  return (
+    <StyledNav>
+      <NavContent>
+        <LogoContainer>
+          <NavLogo to="/#header" title="Accueil">
+            Antoine M.
+          </NavLogo>
+        </LogoContainer>
+        <LinksWrapper>
+          <LinksList>
+            <li>
+              <Link to="/#about" title="Quelques mots à propos de moi">
+                À Propos
+              </Link>
+            </li>
+            <li>
+              <Link to="/#projects" title="Mes travaux">
+                Projets
+              </Link>
+            </li>
+            <li>
+              <Link to="/#contact" title="Comment me contacter">
+                Me contacter
+              </Link>
+            </li>
+          </LinksList>
+        </LinksWrapper>
+        <ThemeSwitcher title="Changer le thème" onClick={switchTheme}>
+          <MdBrightness6 size="2rem" />
+          {currentTheme === "dark" ? "sombre" : "clair"}
+        </ThemeSwitcher>
+        <Hamburger isActive={isMenuOpen} setIsActive={setIsMenuOpen} />
+        <LinksModal className={isMenuOpen ? "active" : ""}>
+          <ul>
+            <li>
+              <Link
+                onClick={handleModalLinksClick}
+                to="/#about"
+                title="Quelques mots à propos de moi">
+                À Propos
+              </Link>
+            </li>
+            <li>
+              <Link onClick={handleModalLinksClick} to="/#projects" title="Mes travaux">
+                Projets
+              </Link>
+            </li>
+            <li>
+              <Link onClick={handleModalLinksClick} to="/#contact" title="Comment me contacter">
+                Me contacter
+              </Link>
+            </li>
+          </ul>
+        </LinksModal>
+      </NavContent>
+    </StyledNav>
+  );
+};
 
-export default Nav
+export default Nav;
 
 //TODO: Change the animation of the modal to something more creative
 const LinksModal = styled.div`
@@ -133,7 +118,7 @@ const LinksModal = styled.div`
     opacity: 1;
     pointer-events: all;
   }
-`
+`;
 
 const StyledNav = styled.nav`
   height: 6.4rem;
@@ -144,7 +129,7 @@ const StyledNav = styled.nav`
   width: 100%;
   backdrop-filter: blur(4px);
   top: 0;
-`
+`;
 
 const NavContent = styled.div`
   position: relative;
@@ -155,18 +140,17 @@ const NavContent = styled.div`
   max-width: 1152px;
   margin: 0 auto;
   padding: 0 1.6rem;
-`
+`;
 
 const LogoContainer = styled.div`
   flex: 1;
-`
+`;
 
 const NavLogo = styled(Link)`
-
   font-family: "ivyjournal", serif;
   font-size: var(--font-size-lg);
   line-height: 1.5;
-`
+`;
 
 const LinksWrapper = styled.div`
   @media (max-width: 768px) {
@@ -176,7 +160,7 @@ const LinksWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-`
+`;
 
 const LinksList = styled.ul`
   display: flex;
@@ -218,27 +202,26 @@ const LinksList = styled.ul`
     left: 50%;
     transform: translateX(-999px);
     background-color: var(--accent);
-    transition: transform 0.25s ease-in-out,
-    opacity 0.4s ease-in-out;
+    transition: transform 0.25s ease-in-out, opacity 0.4s ease-in-out;
   }
-`
+`;
 const ThemeSwitcher = styled.span`
   cursor: pointer;
   color: var(--primary);
   margin-left: 2rem;
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
   text-transform: capitalize;
   border: 2px solid var(--primary);
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 2rem;
   font-size: 1.2rem;
   letter-spacing: 0.08rem;
-  transition: color .3s ease-in-out, border-color .3s ease-in-out;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 
   &:hover {
     color: var(--primary--hover);
     border-color: var(--primary--hover);
   }
-`
+`;
