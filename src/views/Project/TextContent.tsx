@@ -56,11 +56,11 @@ const ListItem = styled.li`
   padding: 0;
   font-size: var(--font-size-md);
 
-  &:nth-child(odd)::marker {
+  &:nth-of-type(odd)::marker {
     color: var(--primary);
   }
 
-  &:nth-child(even)::marker {
+  &:nth-of-type(even)::marker {
     color: var(--accent);
   }
 `;
