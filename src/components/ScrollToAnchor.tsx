@@ -1,31 +1,47 @@
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const removeHashCharacter = (str: string) => str.slice(1);
 
 const ScrollToAnchor = () => {
   const location = useLocation();
-  // By using useLayoutEffect, we make sure that the browser will have
-  // updated the DOM before we try to scroll to the element, since
-  // we use ID
-  useLayoutEffect(() => {
-    const { hash } = location;
-    // Scroll to top when navigating to a new project
+
+  // Handle scroll to top for project routes
+  useEffect(() => {
     if (location.pathname.includes("/project")) {
-      document.scrollingElement?.scrollTo({
+      // Immediate scroll to prevent jitter
+      window.scrollTo({
         top: 0,
+        behavior: "instant" // Use instant instead of smooth to prevent jitter
+      });
+      
+      // Then smooth scroll in case we're not already at top
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       });
     }
-    // Scroll to the element with the id matching the hash in the url
+  }, [location.pathname]);
+
+  // Handle anchor scrolling separately
+  useLayoutEffect(() => {
+    const { hash } = location;
     if (hash.length > 0) {
-      const element = document.getElementById(removeHashCharacter(hash));
-      const yOffset = -64; // navbar height
-      if (element) {
-        const y = element?.getBoundingClientRect().top + window.scrollY + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
+      setTimeout(() => {
+        const element = document.getElementById(removeHashCharacter(hash));
+        const yOffset = -64; // navbar height
+        if (element) {
+          const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+          window.scrollTo({ 
+            top: y, 
+            behavior: "smooth" 
+          });
+        }
+      }, 0);
     }
-  }, [location]);
+  }, [location.hash]);
 
   return null;
 };
