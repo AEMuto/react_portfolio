@@ -2,7 +2,7 @@ import { useState, MouseEvent } from "react";
 import styled from "@emotion/styled";
 
 type TGallery = {
-  imgArray: string[];
+  imgArray: unknown[];
   title?: string;
 };
 
@@ -36,15 +36,33 @@ const HorizontalGallery = ({ imgArray, title }: TGallery) => {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}>
       <div className="container">
-        {imgArray.map((pic_path, index) => (
-          <img src={pic_path} alt={title ?? "No Description Provided"} key={index} />
-        ))}
+        {imgArray.map((pic_path, index) => {
+          return pic_path ? (
+            <img src={pic_path as string} alt={title ?? "No Description Provided"} key={index} />
+          ) : (
+            <ImageError key={index}>Error: Image not found</ImageError>
+          );
+        })}
       </div>
     </PicturesGallery>
   );
 };
 
 export default HorizontalGallery;
+
+const ImageError = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: monospace;
+  font-size: 1.6rem;
+  border: 1px solid var(--txt);
+  min-height: 250px;
+  min-width: 300px;
+  color: var(--danger);
+  background-color: var(--txt--brighter-transparent);
+`;
 
 const PicturesGallery = styled.div`
   width: 100%;
