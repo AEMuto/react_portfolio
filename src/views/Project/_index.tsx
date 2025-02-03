@@ -86,6 +86,9 @@ const ProjectNavArrowContainer = styled.div`
     font-size: var(--font-size-sm);
     line-height: 1;
     position: relative;
+    svg {
+      transition: transform .28s cubic-bezier(0.075, 0.82, 0.165, 1)
+    }
 
     svg.back {
       transform: rotate(180deg);
