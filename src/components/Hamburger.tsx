@@ -68,53 +68,53 @@ const style = css`
     stroke: var(--primary);
   }
 
-  path:nth-child(1) {
+  path:nth-of-type(1) {
     transform-origin: 36% 40%;
   }
 
-  path:nth-child(2) {
+  path:nth-of-type(2) {
     stroke-dasharray: 29 299;
   }
 
-  path:nth-child(3) {
+  path:nth-of-type(3) {
     transform-origin: 35% 63%;
   }
 
-  path:nth-child(4) {
+  path:nth-of-type(4) {
     stroke-dasharray: 29 299;
   }
 
-  path:nth-child(5) {
+  path:nth-of-type(5) {
     transform-origin: 61% 52%;
   }
 
-  path:nth-child(6) {
+  path:nth-of-type(6) {
     transform-origin: 62% 52%;
   }
 
-  .active path:nth-child(1) {
+  .active path:nth-of-type(1) {
     transform: translateX(9px) translateY(1px) rotate(45deg);
   }
 
-  .active path:nth-child(2) {
+  .active path:nth-of-type(2) {
     stroke-dasharray: 225 299;
     stroke-dashoffset: -72px;
   }
 
-  .active path:nth-child(3) {
+  .active path:nth-of-type(3) {
     transform: translateX(9px) translateY(1px) rotate(-45deg);
   }
 
-  .active path:nth-child(4) {
+  .active path:nth-of-type(4) {
     stroke-dasharray: 225 299;
     stroke-dashoffset: -72px;
   }
 
-  .active path:nth-child(5) {
+  .active path:nth-of-type(5) {
     transform: translateX(9px) translateY(1px) rotate(-45deg);
   }
 
-  .active path:nth-child(6) {
+  .active path:nth-of-type(6) {
     transform: translateX(9px) translateY(1px) rotate(45deg);
   }
 `;
