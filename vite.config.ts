@@ -2,8 +2,9 @@ import { defineConfig } from "vite"
 import * as path from "path"
 import react from "@vitejs/plugin-react"
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer"
-import type { OutputAsset, Plugin } from "rollup"
 import sharp from "sharp"
+import mdx from "@mdx-js/rollup"
+import type { OutputAsset, Plugin } from "rollup"
 
 // Custom plugin for additional image processing
 const imageProcessor = (): Plugin => {
@@ -49,9 +50,13 @@ const imageProcessor = (): Plugin => {
 
 export default defineConfig({
   plugins: [
+    {enforce: "pre", ...mdx({
+      jsxImportSource: "@emotion/react",
+    })},
     react({
       jsxImportSource: "@emotion/react",
       jsxRuntime: "automatic",
+      include: /\.(jsx|js|mdx|md|tsx|ts)$/
     }),
     // Custom plugin to load markdown files
     {
@@ -84,7 +89,17 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      "@": path.resolve(__dirname, "./src"),
       "@assets": path.resolve(__dirname, "./assets"),
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@views": path.resolve(__dirname, "./src/views"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@styles": path.resolve(__dirname, "./src/styles"),
+      "@types": path.resolve(__dirname, "./src/types"),
+      "@router": path.resolve(__dirname, "./src/router"),
+      "@projects": path.resolve(__dirname, "./src/projects"),
+      "@data": path.resolve(__dirname, "./src/data"),
     },
   },
 })

@@ -26,7 +26,6 @@ export type TProject = {
 		live: string | null,
 		github: string | null
 	}
-
 }
 
 const projectsData: TProject[] = [
