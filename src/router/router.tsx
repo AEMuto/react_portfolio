@@ -1,8 +1,9 @@
 import { createBrowserRouter, createRoutesFromElements, Outlet, Route } from "react-router-dom";
-import projectsData from "../data/projectsData";
 import { Suspense, lazy } from "react";
 import Layout from "../components/Layout";
 import Loader from "../components/Loader";
+
+import projectsData from "../data/projectsData";
 
 const Home = lazy(() => import("../views/Home/_index"));
 const Project = lazy(() => import("../views/Project/_index"));

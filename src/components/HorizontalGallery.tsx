@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import styled from "@emotion/styled";
 
 type TGallery = {
@@ -27,6 +27,11 @@ const HorizontalGallery = ({ imgArray, title }: TGallery) => {
     const walk = (x - startX) * 1.5; //scroll-fast
     e.currentTarget.scrollLeft = scrollLeft - walk;
   };
+
+  // Reset scroll position to 0 when component is mounted or when props change
+  useEffect(() => {
+    setScrollLeft(0);
+  }, [imgArray]);
 
   return (
     <PicturesGallery
