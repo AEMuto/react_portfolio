@@ -1,24 +1,33 @@
-import { MdBrightness6 } from "react-icons/md";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import Hamburger from "../Hamburger";
-import { useRef, useState } from "react";
-
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+import useFocusTrap from "@hooks/useFocusTrap";
+import wait from "@utils/wait";
+import ThemeSwitcher from "@components/ThemeSwitcher";
+import Hamburger from "@components/Hamburger";
+import LanguageSwitcher from "@components/LanguageSwitcher";
+import Divider from "@components/Divider";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const rootRef = useRef(document.documentElement);
-  const root = rootRef.current.dataset;
-  const [currentTheme, setCurrentTheme] = useState(root.theme);
-  const switchTheme = () => {
-    root.theme = root.theme === "dark" ? "light" : "dark";
-    setCurrentTheme(root.theme);
+  const { containerRef } = useFocusTrap({
+    enabled: isMenuOpen,
+    onEscape: () => handleMenuClose(),
+  });
+
+  const handleMenuOpen = () => {
+    setIsMenuOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleMenuClose = async () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = "unset";
   };
 
   const handleModalLinksClick = async () => {
     await wait(150);
-    setIsMenuOpen(false);
+    handleMenuClose();
   };
 
   return (
@@ -29,7 +38,7 @@ const Nav = () => {
             Antoine M.
           </NavLogo>
         </LogoContainer>
-        <LinksWrapper>
+        <LinksDesktopWrapper>
           <LinksList>
             <li>
               <Link to="/#about" title="Quelques mots à propos de moi">
@@ -46,35 +55,69 @@ const Nav = () => {
                 Me contacter
               </Link>
             </li>
+            <li>
+              <ThemeSwitcher />
+            </li>
+            <li>
+              <Divider />
+            </li>
+            <li>
+              <LanguageSwitcher />
+            </li>
           </LinksList>
-        </LinksWrapper>
-        <ThemeSwitcher title="Changer le thème" onClick={switchTheme}>
-          <MdBrightness6 size="2rem" />
-          {currentTheme === "dark" ? "sombre" : "clair"}
-        </ThemeSwitcher>
-        <Hamburger isActive={isMenuOpen} setIsActive={setIsMenuOpen} />
-        <LinksModal className={isMenuOpen ? "active" : ""}>
+        </LinksDesktopWrapper>
+        <Hamburger
+          isActive={isMenuOpen}
+          setIsActive={isMenuOpen ? handleMenuClose : handleMenuOpen}
+          tabIndex={isMenuOpen ? -1 : 0}
+        />
+        <LinksMobileModal
+          ref={containerRef}
+          className={isMenuOpen ? "active" : ""}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de Navigation"
+          id="mobile-menu"
+          aria-hidden={!isMenuOpen}>
           <ul>
             <li>
               <Link
                 onClick={handleModalLinksClick}
                 to="/#about"
-                title="Quelques mots à propos de moi">
+                title="Quelques mots à propos de moi"
+                tabIndex={isMenuOpen ? 0 : -1}>
                 À Propos
               </Link>
             </li>
             <li>
-              <Link onClick={handleModalLinksClick} to="/#projects" title="Mes travaux">
+              <Link
+                onClick={handleModalLinksClick}
+                to="/#projects"
+                title="Mes travaux"
+                tabIndex={isMenuOpen ? 0 : -1}>
                 Projets
               </Link>
             </li>
             <li>
-              <Link onClick={handleModalLinksClick} to="/#contact" title="Comment me contacter">
+              <Link
+                onClick={handleModalLinksClick}
+                to="/#contact"
+                title="Comment me contacter"
+                tabIndex={isMenuOpen ? 0 : -1}>
                 Me contacter
               </Link>
             </li>
           </ul>
-        </LinksModal>
+          <LinksMobileModalHeader>
+            <ThemeSwitcher />
+            <Hamburger
+              isActive={isMenuOpen}
+              setIsActive={handleMenuClose}
+              tabIndex={isMenuOpen ? 0 : -1}
+              aria-hidden={!isMenuOpen}
+            />
+          </LinksMobileModalHeader>
+        </LinksMobileModal>
       </NavContent>
     </StyledNav>
   );
@@ -82,22 +125,22 @@ const Nav = () => {
 
 export default Nav;
 
-//TODO: Change the animation of the modal to something more creative
-const LinksModal = styled.div`
-  position: absolute;
+const LinksMobileModal = styled.div`
+  position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
   background-color: var(--body);
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
-  //backdrop-filter: blur(4px);
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  visibility: hidden;
   pointer-events: none;
+  /* Delay visibility change until after opacity transition when hiding */
+  transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
 
   ul {
     list-style: none;
@@ -116,14 +159,31 @@ const LinksModal = styled.div`
 
   &.active {
     opacity: 1;
-    pointer-events: all;
+    visibility: visible;
+    pointer-events: auto;
+    /* Make visibility change immediate when showing */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear;
   }
+`;
+
+const LinksMobileModalHeader = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 6.4rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  align-items: center;
+  max-width: 1152px;
+  padding: 0 1.6rem;
 `;
 
 const StyledNav = styled.nav`
   height: 6.4rem;
   background-color: var(--body--foreground-transparent);
-  //opacity: 0.9;
   position: fixed;
   z-index: 10;
   width: 100%;
@@ -152,14 +212,17 @@ const NavLogo = styled(Link)`
   line-height: 1.5;
 `;
 
-const LinksWrapper = styled.div`
+const LinksDesktopWrapper = styled.div`
   @media (max-width: 768px) {
     display: none;
+    // remove interactivity, no screen reader
+    pointer-events: none;
   }
 
   display: flex;
   align-items: center;
   height: 100%;
+  pointer-events: auto;
 `;
 
 const LinksList = styled.ul`
@@ -167,12 +230,12 @@ const LinksList = styled.ul`
   align-items: center;
   list-style: none;
   height: 100%;
+  gap: 1.75rem;
 
   li {
     display: flex;
     align-items: center;
     height: 100%;
-    margin: 0 2rem;
     position: relative;
     overflow: hidden;
   }
@@ -203,25 +266,5 @@ const LinksList = styled.ul`
     transform: translateX(-999px);
     background-color: var(--accent);
     transition: transform 0.25s ease-in-out, opacity 0.4s ease-in-out;
-  }
-`;
-const ThemeSwitcher = styled.span`
-  cursor: pointer;
-  color: var(--primary);
-  margin-left: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-transform: capitalize;
-  border: 2px solid var(--primary);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 1.2rem;
-  letter-spacing: 0.08rem;
-  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-
-  &:hover {
-    color: var(--primary--hover);
-    border-color: var(--primary--hover);
   }
 `;

@@ -1,17 +1,48 @@
 import { css } from "@emotion/react";
-import { Dispatch, SetStateAction } from "react";
+import { HTMLAttributes } from "react";
 
-type THamburger = {
+type HamburgerProps = HTMLAttributes<HTMLButtonElement> & {
   isActive: boolean;
-  setIsActive: Dispatch<SetStateAction<boolean>>;
+  setIsActive: () => void;
   size?: number;
 };
 
-const Hamburger = ({ isActive, setIsActive, size = 52 }: THamburger) => {
+const Hamburger = ({ 
+  isActive, 
+  setIsActive, 
+  size = 52, 
+  'aria-hidden': ariaHidden,
+  tabIndex,
+  ...rest 
+}: HamburgerProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setIsActive();
+    }
+  };
+
   return (
-    <div css={style} onClick={() => setIsActive(!isActive)}>
+    <button
+      type="button"
+      css={style}
+      onClick={setIsActive}
+      onKeyDown={handleKeyDown}
+      aria-label="Toggle Navigation Menu"
+      aria-expanded={isActive}
+      aria-controls="mobile-menu"
+      aria-hidden={ariaHidden}
+      tabIndex={tabIndex}
+      {...rest}
+    >
       <div className={`container ${isActive ? "active" : ""}`}>
-        <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 200 200">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width={size} 
+          height={size} 
+          viewBox="0 0 200 200"
+          aria-hidden="true"
+        >
           <g strokeWidth="9" strokeLinecap="round">
             <path d="M72 82.286h28.75" fill="#009100" fillRule="evenodd" />
             <path
@@ -28,7 +59,7 @@ const Hamburger = ({ isActive, setIsActive, size = 52 }: THamburger) => {
           </g>
         </svg>
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -39,12 +70,21 @@ const style = css`
     display: none;
   }
   position: relative;
-  z-index: 20;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
 
   &:hover {
     path {
       stroke: var(--primary--hover);
     }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
   .container {
