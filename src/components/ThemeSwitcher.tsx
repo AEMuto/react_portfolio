@@ -1,26 +1,33 @@
 import { useRef, useState } from "react";
 import { MdBrightness6 } from "react-icons/md";
 import styled from "@emotion/styled";
+import { useLanguage } from "@contexts/LanguageContext";
 
 const ThemeSwitcher = () => {
+  const { t, language } = useLanguage();
   const rootRef = useRef(document.documentElement);
   const root = rootRef.current.dataset;
   const [currentTheme, setCurrentTheme] = useState(root.theme);
-  
+
   const switchTheme = () => {
     root.theme = root.theme === "dark" ? "light" : "dark";
     setCurrentTheme(root.theme);
   };
 
+  const translation = {
+    dark: { fr: "sombre", en: "dark" },
+    light: { fr: "clair", en: "light" },
+  };
+
   return (
-    <Container>
+    <Container >
       <StyledThemeSwitcher
+        language={language}
         type="button"
         onClick={switchTheme}
-        aria-label={`Switch to ${currentTheme === "dark" ? "light" : "dark"} theme`}
-      >
+        aria-label={`Switch to ${currentTheme === "dark" ? "light" : "dark"} theme`}>
         <MdBrightness6 aria-hidden="true" />
-        <span>{currentTheme === "dark" ? "sombre" : "clair"}</span>
+        <span>{currentTheme === "dark" ? t(translation.light) : t(translation.dark)}</span>
       </StyledThemeSwitcher>
     </Container>
   );
@@ -33,7 +40,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-const StyledThemeSwitcher = styled.button`
+const StyledThemeSwitcher = styled.button<{ language: string }>`
   cursor: pointer;
   color: var(--primary);
   background: none;
@@ -66,7 +73,7 @@ const StyledThemeSwitcher = styled.button`
   }
 
   span {
-    min-width: 6ch;
+    min-width: ${({ language }) => (language === "fr" ? "4.5ch" : "3.5ch")};
     text-align: left;
     text-transform: capitalize;
   }
