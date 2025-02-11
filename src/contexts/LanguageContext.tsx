@@ -5,7 +5,7 @@ type Language = "fr" | "en";
 const getBrowserLanguage = (): Language => {
   // Get browser language (returns something like "fr", "fr-FR", "en-US", etc.)
   const browserLang = navigator.language.toLowerCase().split("-")[0];
-  
+
   // Return "fr" if browser language is French, "en" otherwise
   return browserLang === "fr" ? "fr" : "en";
 };
@@ -13,7 +13,7 @@ const getBrowserLanguage = (): Language => {
 type LanguageContextType = {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (translations: { fr: string; en: string }) => string;
+  t: (translations: { fr: string | React.ReactNode; en: string | React.ReactNode }) => React.ReactNode;
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -32,7 +32,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     document.documentElement.lang = language;
   }, [language]);
 
-  const t = (translations: { fr: string; en: string }) => {
+  const t = (translations: { fr: string | React.ReactNode; en: string | React.ReactNode }) => {
     return translations[language];
   };
 

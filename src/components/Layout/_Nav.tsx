@@ -217,7 +217,6 @@ const NavLogo = styled(Link)`
 const LinksDesktopWrapper = styled.div`
   @media (max-width: 768px) {
     display: none;
-    // remove interactivity, no screen reader
     pointer-events: none;
   }
 
