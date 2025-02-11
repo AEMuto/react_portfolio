@@ -1,9 +1,9 @@
-import { SlideColumn, SlideContainer } from "../../components/Slide";
-import Heading from "../../components/Heading";
 import { css } from "@emotion/react";
-import projectsData from "../../data/projectsData";
 import styled from "@emotion/styled";
-import { ProjectCard } from "../../components/Card";
+import { SlideColumn, SlideContainer } from "@components/Slide";
+import Heading from "@components/Heading";
+import projectsData from "@data/projectsData";
+import { ProjectCard } from "@components/Card";
 
 const Gallery = () => {
   return (
@@ -31,7 +31,7 @@ export default Gallery;
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   grid-auto-rows: 550px;
   place-items: center;
   gap: 2rem;
