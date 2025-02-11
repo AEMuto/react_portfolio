@@ -100,6 +100,7 @@ export default defineConfig({
       "@router": path.resolve(__dirname, "./src/router"),
       "@projects": path.resolve(__dirname, "./src/projects"),
       "@data": path.resolve(__dirname, "./src/data"),
+      "@contexts": path.resolve(__dirname, "./src/contexts"),
     },
   },
 })
