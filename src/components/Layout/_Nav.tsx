@@ -7,8 +7,10 @@ import ThemeSwitcher from "@components/ThemeSwitcher";
 import Hamburger from "@components/Hamburger";
 import LanguageSwitcher from "@components/LanguageSwitcher";
 import Divider from "@components/Divider";
+import { useLanguage } from "@contexts/LanguageContext";
 
 const Nav = () => {
+  const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { containerRef } = useFocusTrap({
     enabled: isMenuOpen,
@@ -34,25 +36,25 @@ const Nav = () => {
     <StyledNav>
       <NavContent>
         <LogoContainer>
-          <NavLogo to="/#header" title="Accueil">
+          <NavLogo to="/#header" title={t({ fr: "Retour à l'accueil", en: "Back to Home" }) as string}>
             Antoine M.
           </NavLogo>
         </LogoContainer>
         <LinksDesktopWrapper>
           <LinksList>
             <li>
-              <Link to="/#about" title="Quelques mots à propos de moi">
-                À Propos
+              <Link to="/#about" title={t({ fr: "Quelques mots à propos de moi", en: "A few words about me" }) as string}>
+                {t({ fr: "À Propos", en: "About" })}
               </Link>
             </li>
             <li>
-              <Link to="/#projects" title="Mes travaux">
-                Projets
+              <Link to="/#projects" title={t({ fr: "Mes travaux", en: "My work" }) as string}>
+                {t({ fr: "Projets", en: "Projects" })}
               </Link>
             </li>
             <li>
-              <Link to="/#contact" title="Comment me contacter">
-                Me contacter
+              <Link to="/#contact" title={t({ fr: "Comment me contacter", en: "How to reach me" }) as string}>
+                {t({ fr: "Me contacter", en: "Contact" })}
               </Link>
             </li>
             <li>
@@ -76,7 +78,7 @@ const Nav = () => {
           className={isMenuOpen ? "active" : ""}
           role="dialog"
           aria-modal="true"
-          aria-label="Menu de Navigation"
+          aria-label={t({ fr: "Menu de navigation", en: "Navigation menu" }) as string}
           id="mobile-menu"
           aria-hidden={!isMenuOpen}>
           <ul>
@@ -84,27 +86,27 @@ const Nav = () => {
               <Link
                 onClick={handleModalLinksClick}
                 to="/#about"
-                title="Quelques mots à propos de moi"
+                title={t({ fr: "Quelques mots à propos de moi", en: "A few words about me" }) as string}
                 tabIndex={isMenuOpen ? 0 : -1}>
-                À Propos
+                {t({ fr: "À Propos", en: "About" })}
               </Link>
             </li>
             <li>
               <Link
                 onClick={handleModalLinksClick}
                 to="/#projects"
-                title="Mes travaux"
+                title={t({ fr: "Mes travaux", en: "My work" }) as string}
                 tabIndex={isMenuOpen ? 0 : -1}>
-                Projets
+                {t({ fr: "Projets", en: "Projects" })}
               </Link>
             </li>
             <li>
               <Link
                 onClick={handleModalLinksClick}
                 to="/#contact"
-                title="Comment me contacter"
+                title={t({ fr: "Comment me contacter", en: "How to reach me" }) as string}
                 tabIndex={isMenuOpen ? 0 : -1}>
-                Me contacter
+                {t({ fr: "Me contacter", en: "Contact" })}
               </Link>
             </li>
           </ul>
@@ -238,6 +240,7 @@ const LinksList = styled.ul`
     height: 100%;
     position: relative;
     overflow: hidden;
+    padding: 0 0.5rem;
   }
 
   a {
