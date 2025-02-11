@@ -1,6 +1,6 @@
 import { css, SerializedStyles } from "@emotion/react";
 import { ReactNode } from "react";
-import { BaseProps } from "../../types";
+import type { BaseProps } from "@/types";
 
 type SlideContainerProps = BaseProps<HTMLElement> & {
   children: ReactNode;
@@ -19,7 +19,10 @@ export const SlideContainer = ({
     : gridStyleProp === false
     ? null
     : css`
-        grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+        @media screen and (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+        grid-template-columns: 1fr 1fr;
       `;
 
   return isHeader ? (
@@ -34,12 +37,14 @@ export const SlideContainer = ({
 };
 
 const containerStyle = css`
+  // When the screen width is less than 1152px, the max-width is set to 100vw and the margin is set to 0.
   @media screen and (max-width: 1152px) {
     max-width: 100vw;
+    margin: 0;
   }
-  min-height: calc(100vh - 6.4rem);
-  max-width: 1152px;
   margin: 0 auto;
+  min-height: calc(100vh - 6.4rem);
+  width: 1152px;
   display: grid;
 `;
 
@@ -56,6 +61,7 @@ export const SlideColumn = ({ children, ...rest }: SlideColumnProps) => {
 };
 
 const columnStyle = css`
+  // When the screen is 480px or less
   @media screen and (max-width: 480px) {
     padding: clamp(0rem, 4vw, 2rem);
   }
@@ -64,5 +70,4 @@ const columnStyle = css`
   justify-content: center;
   position: relative;
   padding: 2rem;
-  max-width: 100vw;
 `;
