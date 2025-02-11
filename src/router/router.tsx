@@ -46,7 +46,7 @@ const root = (
   <Route element={<SuspenseLayout />}>
     <Route path="/" element={<Home />} />
     <Route path="/project/:id" element={<Project />} loader={projectLoader} />
-    <Route path="/project_test/0" element={<Hodor />} />
+    <Route path="/project_test/:id" element={<Hodor />} loader={projectLoaderTest} />
     <Route path="*" element={<NotFound />} />
   </Route>
 );
