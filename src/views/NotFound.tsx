@@ -1,13 +1,28 @@
-import Heading from "../components/Heading";
 import styled from "@emotion/styled";
+import Heading from "@components/Heading";
+import { useLanguage } from "@contexts/LanguageContext";
 
 const NotFound = () => {
+  const { t } = useLanguage();
   return (
     <Container>
       <Heading size="xxxl">
-        <span data-color="primary">404 </span>
-        <br />
-        Page Not Found
+        {t({
+          fr: (
+            <>
+              <span data-color="primary">404 </span>
+              <br />
+              Page non trouvée
+            </>
+          ),
+          en: (
+            <>
+              <span data-color="primary">404 </span>
+              <br />
+              Page Not Found
+            </>
+          ),
+        })}
       </Heading>
     </Container>
   );

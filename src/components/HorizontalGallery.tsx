@@ -1,12 +1,12 @@
 import { useState, MouseEvent, useEffect } from "react";
 import styled from "@emotion/styled";
+import type { ProjectImage } from "@/projects/utils";
 
-type TGallery = {
-  imgArray: unknown[];
-  title?: string;
+type HorizontalGalleryProps = {
+  images: ProjectImage[];
 };
 
-const HorizontalGallery = ({ imgArray, title }: TGallery) => {
+const HorizontalGallery = ({ images }: HorizontalGalleryProps) => {
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -31,7 +31,8 @@ const HorizontalGallery = ({ imgArray, title }: TGallery) => {
   // Reset scroll position to 0 when component is mounted or when props change
   useEffect(() => {
     setScrollLeft(0);
-  }, [imgArray]);
+    // console.log("Hello from HorizontalGallery", images)
+  }, [images]);
 
   return (
     <PicturesGallery
@@ -41,9 +42,9 @@ const HorizontalGallery = ({ imgArray, title }: TGallery) => {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}>
       <div className="container">
-        {imgArray.map((pic_path, index) => {
-          return pic_path ? (
-            <img src={pic_path as string} alt={title ?? "No Description Provided"} key={index} />
+        {images && images.map(({src, alt, width, height}, index) => {
+          return src ? (
+            <img src={src} alt={alt ?? "No Description Provided"} key={index} />
           ) : (
             <ImageError key={index}>Error: Image not found</ImageError>
           );

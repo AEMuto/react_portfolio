@@ -1,12 +1,19 @@
-import { SlideContainer } from "../../components/Slide";
-import Button from "../../components/Button";
+import { SlideContainer } from "@components/Slide";
+import Button from "@components/Button";
 import styled from "@emotion/styled";
+import { useLanguage } from "@contexts/LanguageContext";
 
 const Contact = () => {
+  const { t } = useLanguage();
   return (
     <StyledContainer id="contact" gridStyleProp={false}>
       <a href="mailto:antoine.marseaud@gmail.com" title="Me contacter par mail">
-        <Button>Me Contacter</Button>
+        <Button>
+          {t({
+            fr: "Me contacter",
+            en: "Contact me",
+          })}
+        </Button>
       </a>
     </StyledContainer>
   );

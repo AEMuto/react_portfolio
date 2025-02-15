@@ -1,9 +1,11 @@
-import { TProject } from "../../data/projectsData";
-import Subheading from "../Subheading";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import Subheading from "@components/Subheading";
+import { Project } from "@/projects/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-export const ProjectCard = ({ id, title, thumbnail, tags, short_desc }: TProject) => {
+export const ProjectCard = ({ id, title, thumbnail, tags, shortDesc }: Project) => {
+  const {language, t} = useLanguage();
   return (
     <div css={styleBasis}>
       <div className="project__card">
@@ -12,7 +14,7 @@ export const ProjectCard = ({ id, title, thumbnail, tags, short_desc }: TProject
           // state={total_project}
           title={`Projet ${title}`}
           className="project__card__img-container">
-          <img src={thumbnail ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`} />
+          <img src={thumbnail.src ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`} />
         </Link>
         <div className="project__card__txt-container">
           <Link
@@ -22,7 +24,7 @@ export const ProjectCard = ({ id, title, thumbnail, tags, short_desc }: TProject
             className="project__card__title">
             <Subheading margin={"0"}>{title}</Subheading>
           </Link>
-          <p className="project__card__txt">{short_desc}</p>
+          <p className="project__card__txt">{shortDesc[language]}</p>
           <div className="project__card__tags-container">
             {tags.map((tag) => (
               <span key={tag} className="project__card__tag">
@@ -32,10 +34,9 @@ export const ProjectCard = ({ id, title, thumbnail, tags, short_desc }: TProject
           </div>
           <Link
             to={`/project/${id}`}
-            // state={total_project}
             className="project__card__cta"
             title={`Projet ${title}`}>
-            Voir le projet
+            {t({en: "View project", fr: "Voir le projet"})}
             <span className="arrow">&#x2192;</span>
           </Link>
         </div>

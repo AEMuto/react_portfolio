@@ -2,10 +2,13 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { SlideColumn, SlideContainer } from "@components/Slide";
 import Heading from "@components/Heading";
-import projectsData from "@data/projectsData";
 import { ProjectCard } from "@components/Card";
+import { useLanguage } from "@contexts/LanguageContext";
+import { useAllProjects } from "@/hooks/useProject";
 
 const Gallery = () => {
+  const { t } = useLanguage();
+  const projects = useAllProjects();
   return (
     <SlideContainer
       gridStyleProp={css`
@@ -14,11 +17,23 @@ const Gallery = () => {
       id="projects">
       <SlideColumn>
         <Heading>
-          Mes derniers <br />
-          <span data-color="primary">Projets</span>
+          {t({
+            fr: (
+              <>
+                Mes derniers <br />
+                <span data-color="primary">Projets</span>
+              </>
+            ),
+            en: (
+              <>
+                My latest <br />
+                <span data-color="primary">Projects</span>
+              </>
+            ),
+          })}
         </Heading>
         <ProjectsGrid>
-          {projectsData.map((project) => {
+          {projects.map((project) => {
             return <ProjectCard key={project.id} {...project} />;
           })}
         </ProjectsGrid>

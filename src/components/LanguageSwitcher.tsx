@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useLanguage } from "../contexts/LanguageContext";
+import { useLanguage } from "@contexts/LanguageContext";
 
 const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguage();

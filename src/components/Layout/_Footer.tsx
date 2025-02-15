@@ -1,8 +1,10 @@
 import { AiFillMail, AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
   const iconSize = { size: "3rem" };
   return (
@@ -16,7 +18,7 @@ const Footer = () => {
             target="_blank"
             title="Voir le code source de ce site"
             referrerPolicy="no-referrer">
-            Code Source
+            {t({ fr: "Code Source", en: "Source Code" })}
           </Link>
         </StyledText>
         <SocialIconContainer>

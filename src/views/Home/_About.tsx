@@ -5,7 +5,7 @@ import { lazy, Suspense } from "react";
 import Loader from "@components/Loader";
 import Typography from "@components/Typography";
 import ExternalLink from "@components/ExternalLink";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "@contexts/LanguageContext";
 
 const StyledTypography = styled(Typography)`
   @media screen and (max-width: 500px) {
@@ -15,8 +15,8 @@ const StyledTypography = styled(Typography)`
   }
 `;
 
-const FrContent = lazy(() => import("@data/markdown/about.fr.mdx"));
-const EnContent = lazy(() => import("@data/markdown/about.en.mdx"));
+const FrContent = lazy(() => import("@data/about.fr.mdx"));
+const EnContent = lazy(() => import("@data/about.en.mdx"));
 
 const About = () => {
   const { t, language } = useLanguage();
