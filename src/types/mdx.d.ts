@@ -1,8 +1,6 @@
 declare module "*.mdx" {
-  const component: React.ComponentType<{
-    components?: {
-      [key: string]: React.ComponentType<any>;
-    };
-  }>;
-  export default component;
-} 
+  import type { MDXComponents } from "mdx/types";
+
+  let MDXComponent: (props: { components?: MDXComponents }) => JSX.Element;
+  export default MDXComponent;
+}

@@ -1,0 +1,42 @@
+import { loadProjectImages, loadProjectThumbnail } from "../utils";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import { metadata } from "./metadata";
+export { metadata };
+
+# {metadata.title}
+
+<HorizontalGallery images={metadata.gallery} title={metadata.title} />
+
+<ProjectExternalLinks urls={metadata.urls} />
+
+This project began as a personal exercise to explore Material UI in depth. It evolved into an experimental space for topics that interest me. While initially conceived to create digital character sheets, the project first focused on establishing a comprehensive game elements database.
+
+The application's core is built on modern functional React architecture, using Hooks for state management and effects. A portion of the project, currently under development, explores an object-oriented approach with MVC architecture for character sheet creation, providing hands-on experience with different programming paradigms.
+
+To summarize, D20Codex includes the following features:
+- **Infinite Scroll Table:** Automated queries are generated based on scrolling behavior, ensuring a smooth user experience.
+- **Table Virtualization:** The table is virtualized, limiting the number of rows in the DOM to a maximum of 50 (adjustable). This ensures optimal client-side performance regardless of dataset size.
+- **Keyword Filtering:** Users can filter data using keywords for efficient searching.
+- **Digital RPG Tools:** Integration of digital tools, such as item and character creation features, to enhance the roleplaying experience.
+
+## Technologies Used
+- Backend:
+  - **Appwrite:** A VPS-hosted instance manages data from various sources. Node.js cloud functions handle business logic and complex database interactions.
+  - **Python & Scrapy:** Development of scrapers to collect and structure game data from various sources. These scripts feed the Appwrite database after normalization.
+  - **Node.js:** Data transformation and cleaning scripts, ensuring compatibility with the database schema.
+- Frontend:
+  - **TypeScript**
+  - **React** (Functional Components and Hooks)
+  - **React Query**
+  - **React Virtual**
+  - **Material UI**
+  - **Appwrite (Web SDK)**
+  - **Vite**
+
+## What Was the Goal?
+Beyond my curiosity about Material UI, this project's main objective is to catalog elements from d20-based roleplaying game rules. It specifically focuses on elements that can be displayed as lists or tables, such as player characters' magical abilities.
+
+Data collection and structuring presented an interesting technical challenge. Using Scrapy automated data retrieval from various sources, while Node.js scripts ensured transformation into a consistent format. This approach enabled building a rich, structured database essential for the application's features.
+
+Furthermore, discovering Appwrite proved to be an interesting solution for backend management without requiring full development from scratch. Its usage proved smooth, with clear documentation and satisfactory performance in handling the database entries (approximately 4700 spells for Dungeons and Dragons 3.5 Edition, for example). While modest compared to professional applications, this scale represents a significant volume for a personal project and effectively tested the pagination and virtualization features.

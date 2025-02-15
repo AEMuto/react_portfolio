@@ -1,0 +1,34 @@
+import { loadProjectImages, loadProjectThumbnail } from "../utils";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import { metadata } from './metadata'
+export { metadata }
+
+# {metadata.title}
+
+<HorizontalGallery images={metadata.gallery} title={metadata.title} />
+
+<ProjectExternalLinks urls={metadata.urls} />
+
+Fisheye is a web application designed to showcase photographers and their work. Users can browse individual pages for different photographers, access detailed information about each photographer, and explore their multimedia galleries. This application was developed as part of my Front-End Developer training at Openclassrooms.
+
+The application stands out through several notable technical aspects:
+
+Data management follows a pragmatic approach: a JSON file serves as the data source for dynamically building the DOM. To optimize performance, this data is stored in sessionStorage after the initial initialization, thus avoiding repetitive server requests.
+
+The application's architecture revolves around two main components. The homepage presents a straightforward overview of photographers, while the photographer page offers a more complex experience requiring sophisticated state management to maintain synchronization between the gallery and lightbox. The latter is implemented using the factory design pattern, enabling elegant handling of different media types (images and videos).
+
+Special attention was paid to accessibility. The interface is fully keyboard-navigable, with particular focus on interactive components such as the media sorting dropdown menu and modal navigation. The application is also optimized for screen readers, ensuring an inclusive user experience.
+
+## Technologies Used
+- Vanilla JavaScript
+- SASS
+
+## What Was the Goal?
+This project aimed to develop several fundamental web development competencies:
+- Designing and implementing accessible interfaces
+- Advanced JavaScript event handling
+- Practical application of design patterns in modular architecture
+- Developing maintainable and scalable JavaScript code
+
+As my first complex project in vanilla JavaScript, this experience was particularly formative. It helped me concretely understand the importance of modern frameworks in managing web application state. Implementing a design pattern gave me my first glimpse into architectural solutions in programming, while working on accessibility raised my awareness of the importance of inclusive web development. These learnings significantly influenced my approach to web development thereafter.

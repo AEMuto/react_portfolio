@@ -1,0 +1,38 @@
+import { loadProjectImages, loadProjectThumbnail } from "../utils";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import { metadata } from './metadata'
+export { metadata }
+
+# {metadata.title}
+
+<HorizontalGallery images={metadata.gallery} title={metadata.title} />
+
+<ProjectExternalLinks urls={metadata.urls} />
+
+HRnet est le dernier projet sur lequel j'ai travaillé durant ma formation chez Openclassrooms. Il représente une modernisation complète d'une application de gestion des ressources humaines, transformant une base de code jQuery vieillissante en une application React moderne et performante.
+
+Cette application interne de type CRM comprend deux fonctionnalités principales : un système d'enregistrement d'employés via un formulaire élaboré, et un tableau de données interactif permettant de visualiser et gérer les informations des employés. La complexité du projet réside dans la création d'une expérience utilisateur fluide tout en gérant un état d'application potentiellement complexe.
+
+Un aspect particulièrement intéressant du projet a été le développement d'une bibliothèque de composants React réutilisables, comprenant :
+- Un calendrier et un sélecteur de date/heure personnalisables
+- Un indicateur de chargement avec des options de style flexibles
+- Un menu déroulant adaptable aux différents besoins de l'interface
+- Des composants de modal et de tableau de données
+
+La persistance des données est gérée localement via LocalForage, offrant une solution robuste de stockage qui s'appuie sur IndexedDB, avec WebSQL et localStorage comme solutions de repli. Cette approche permet une expérience offline-first tout en maintenant d'excellentes performances même avec un volume important de données.
+
+## Technologies Utilisées
+- TypeScript pour la sécurité et la maintenabilité du code
+- React pour l'interface utilisateur
+- Redux Toolkit pour la gestion d'état centralisée
+- LocalForage pour la persistance des données
+- Styled-Components pour le styling modulaire
+- Vite pour un environnement de développement optimisé
+
+## Quel était le but ?
+Ce projet représentait un défi technique particulier : la transformation d'une application jQuery existante en une solution React moderne. L'objectif n'était pas simplement de reproduire les fonctionnalités existantes, mais de les améliorer en tirant parti des avantages offerts par l'écosystème React moderne.
+
+La création d'une [bibliothèque de composants React](https://github.com/AEMuto/AntoineMarseaud_14_HRnet_React_Library_23032022) représente un aspect significatif du projet. Cette bibliothèque, publiée séparément, démontre une compréhension approfondie des principes de modularité et de réutilisabilité en React.
+
+L'utilisation de TypeScript et de Redux Toolkit a permis d'établir une base de code robuste et maintenable, tandis que l'intégration de LocalForage offre une solution élégante pour la persistance des données. Le résultat final est une application plus rapide, plus fiable et plus facile à maintenir que sa version jQuery d'origine.

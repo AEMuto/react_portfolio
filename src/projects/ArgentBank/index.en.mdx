@@ -1,0 +1,31 @@
+import { loadProjectImages, loadProjectThumbnail } from "../utils";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import { metadata } from './metadata'
+export { metadata }
+
+# {metadata.title}
+
+<HorizontalGallery images={metadata.gallery} title={metadata.title} />
+
+<ProjectExternalLinks urls={metadata.urls} />
+
+ArgentBank is a project I developed during my Front-End Application Developer training at Openclassrooms. It's a compact application with a straightforward client interface featuring a home page, authentication page, registration page, and a user dashboard that's only accessible after successful authentication.
+
+## Technologies Used
+- TypeScript
+- React
+- Redux
+- Styled-Components
+- Vite
+- MongoDB
+- Node.js API (Express, Mongoose)
+
+## What Was the Goal?
+The primary objective focused on designing and implementing the front-end portion, ensuring alignment with existing mockups. Other key aspects included:
+1. **State Management with Redux Toolkit**
+2. **API Integration**
+3. **Authentication Using JSON Web Tokens (JWT)**
+4. **Modeling New API Routes for Future Implementation**
+
+Additionally, deploying the backend required diving into DevOps practices. I chose to containerize the application using Docker and host it on a VPS. To make the API accessible, I configured a subdomain by creating a type A DNS record pointing to the VPS's IP address. Traffic management was handled by Nginx Proxy Manager, which took care of routing and SSL certificate configuration through Let's Encrypt. For data persistence, I opted for MongoDB Atlas, MongoDB's official cloud solution, which offers high availability and simplified management.

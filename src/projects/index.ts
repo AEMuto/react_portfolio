@@ -1,35 +1,47 @@
-import type { Project, ProjectMetadata } from './utils'
+import type { Project, ProjectMetadata } from "./utils";
+import type { Language } from "@contexts/LanguageContext";
+import type { MDXContent } from "mdx/types.js";
+
+type ProjectModule = { default: MDXContent; metadata: ProjectMetadata };
+type ProjectsByLang = Record<Language, Record<number, Project>>;
 
 // Import all MDX files from project directories
-const projectModules = import.meta.glob<{
-  default: React.ComponentType
-  metadata: ProjectMetadata
-}>('./*/index.mdx', { eager: true })
+const projectsMDX = import.meta.glob<ProjectModule>("./*/index.{en,fr}.mdx", {
+  eager: true,
+});
 
-// Convert the record of modules into an array of projects
-const projects: Project[] = Object.entries(projectModules)
-  .map(([path, module]) => {
-    // Extract project name from path (e.g., './project0/index.mdx' -> 'project0')
-    const projectName = path.split('/')[1]
-
-    return {
+const projectsByLang = Object.entries(projectsMDX).reduce<ProjectsByLang>(
+  (acc, [path, module]) => {
+    const [projectName, lang] = path.match(/\.\/([^/]+)\/index\.([^.]+)\.mdx$/)?.slice(1) || [];
+    if (!projectName || (lang !== "en" && lang !== "fr")) return acc;
+    // console.log("Hello from /src/projects/index.ts", module);
+    const projectId = module.metadata.id;
+    acc[lang][projectId] = {
+      content: module.default,
       ...module.metadata,
-      Content: module.default
-    }
-  })
-  // Sort by ID to maintain order
-  .sort((a, b) => a.id - b.id)
+    };
+    return acc;
+  },
+  { en: {}, fr: {} }
+);
 
-// Export individual aspects for flexibility
-export const getProjectById = (id: number) =>
-  projects.find(project => project.id === id)
+// Export functions that take language as parameter
+export const getProjectById = (id: number, lang: Language) => projectsByLang[lang][id];
 
-export const getAllProjects = () => projects
+export const getAllProjects = (lang: Language) =>
+  Object.values(projectsByLang[lang]).sort((a, b) => a.id - b.id);
 
-export const getProjectsMetadata = () =>
-  projects.map(({ Content, ...metadata }) => metadata)
+export const getProjectsMetadata = (lang: Language) =>
+  getAllProjects(lang).map(({ id, title, thumbnail, shortDesc, tags, urls }) => ({
+    id,
+    title,
+    thumbnail,
+    shortDesc,
+    tags,
+    urls,
+  }));
 
-export const getTotalProjects = () => projects.length
+export const getTotalProjects = () => Object.keys(projectsByLang.en).length; // Assuming same number in both languages
 
-// Default export for convenience
-export default projects
+// Export projectsByLang for direct access if needed
+export default projectsByLang;

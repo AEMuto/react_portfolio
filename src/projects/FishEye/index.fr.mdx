@@ -1,0 +1,34 @@
+import { loadProjectImages, loadProjectThumbnail } from "../utils";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import { metadata } from './metadata'
+export { metadata }
+
+# {metadata.title}
+
+<HorizontalGallery images={metadata.gallery} title={metadata.title} />
+
+<ProjectExternalLinks urls={metadata.urls} />
+
+Fisheye est une application web destinée à mettre en valeur les photographes et leur travail. Les utilisateurs peuvent parcourir des pages individuelles pour différents photographes, consulter des informations détaillées sur chaque photographe et explorer une galerie d'éléments multimédias. Cette application a été réalisée dans le cadre de ma formation de développeur Front-End chez Openclassrooms.
+
+L'application se distingue par plusieurs aspects techniques notables :
+
+La gestion des données repose sur une approche pragmatique : un fichier JSON sert de source de données pour construire dynamiquement le DOM. Pour optimiser les performances, ces données sont stockées dans le sessionStorage après la première initialisation, évitant ainsi des requêtes répétitives au serveur.
+
+L'architecture de l'application s'articule autour de deux composants principaux. La page d'accueil présente une vue d'ensemble simple des photographes, tandis que la page photographe offre une expérience plus complexe nécessitant une gestion d'état sophistiquée pour maintenir la synchronisation entre la galerie et la lightbox. Cette dernière est implémentée selon le *factory design pattern*, permettant une gestion élégante des différents types de médias (images et vidéos).
+
+Une attention particulière a été portée à l'accessibilité. L'interface est entièrement navigable au clavier, avec un focus particulier sur les composants interactifs comme le menu déroulant de tri des médias et la navigation dans les modales. L'application est également optimisée pour les lecteurs d'écran, assurant une expérience utilisateur inclusive.
+
+## Technologies Utilisées
+- JavaScript vanilla
+- SASS
+
+## Quel était le but ?
+Ce projet visait à développer plusieurs compétences fondamentales en développement web :
+- Conception et implémentation d'interfaces accessibles
+- Gestion avancée des événements en JavaScript
+- Application pratique des design patterns dans une architecture modulaire
+- Développement de code JavaScript maintenable et évolutif
+
+En tant que premier projet complexe en JavaScript vanilla, cette expérience a été particulièrement formatrice. Elle m'a permis de comprendre concrètement l'importance des frameworks modernes dans la gestion de l'état des applications web. L'implémentation d'un design pattern m'a offert un premier aperçu des solutions architecturales en programmation, tandis que le travail sur l'accessibilité m'a sensibilisé à l'importance d'un web inclusif. Ces apprentissages ont significativement influencé ma façon d'aborder le développement web par la suite.

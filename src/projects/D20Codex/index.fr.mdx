@@ -1,0 +1,42 @@
+import { loadProjectImages, loadProjectThumbnail } from "../utils";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import { metadata } from './metadata'
+export { metadata }
+
+# {metadata.title}
+
+<HorizontalGallery images={metadata.gallery} title={metadata.title} />
+
+<ProjectExternalLinks urls={metadata.urls} />
+
+Ce projet a débuté comme un exercice personnel visant à explorer plus en profondeur Material UI. Il a évolué pour devenir un espace d'expérimentation pour des sujets qui suscitent mon intérêt. Bien qu'initialement conçu pour créer des feuilles de personnage numériques, le projet s'est d'abord concentré sur la mise en place d'une base de données complète d'éléments de jeu.
+
+Le cœur de l'application repose sur une architecture React fonctionnelle moderne, utilisant les Hooks pour la gestion d'état et les effets. Une partie du projet, actuellement en développement, explore une approche orientée objet avec une architecture MVC pour la création de feuilles de personnage, offrant ainsi une expérience pratique avec différents paradigmes de programmation.
+
+Pour résumer, D20Codex contient les fonctionnalités suivantes&nbsp;:
+- **Tableau avec Défilement Infini&nbsp;:** Des requêtes automatisées sont générées en fonction du défilement, assurant une expérience utilisateur fluide.
+- **Virtualisation du Tableau&nbsp;:** Le tableau est virtualisé, limitant le nombre de lignes présentes dans le DOM à un maximum de 50 (ajustable). Ainsi, peu importe la taille du jeu de données, les performances côté client restent optimales.
+- **Filtrage par Mots-Clés&nbsp;:** Les utilisateurs peuvent filtrer les données en utilisant des mots-clés pour une recherche efficace.
+- **Outils Numériques pour le Jeu de Rôle&nbsp;:** Intégration d'outils numériques, tels que la création d'objets et de personnages, pour faciliter l'expérience du jeu de rôle.
+
+## Technologies Utilisées
+- Backend&nbsp;:
+  - **Appwrite&nbsp;:** Une instance hébergée sur un VPS assure la gestion des données provenant de diverses sources. Des fonctions cloud Node.js gèrent la logique métier et les interactions complexes avec la base de données.
+  - **Python & Scrapy&nbsp;:** Développement de scrapers pour collecter et structurer les données de jeu depuis diverses sources. Ces scripts alimentent la base de données Appwrite après normalisation.
+  - **Node.js&nbsp;:** Scripts de transformation et de nettoyage des données, assurant leur compatibilité avec le schéma de la base de données.
+- Frontend&nbsp;:
+  - **TypeScript**
+  - **React** (Composants fonctionnels et Hooks)
+  - **React Query**
+  - **React Virtual**
+  - **Material UI**
+  - **Appwrite (Web SDK)**
+  - **Vite**
+
+## Quel était le but&nbsp;?
+Au-delà de ma curiosité pour Material UI, l'objectif principal de ce projet est de recenser les éléments issus des règles des jeux de rôle utilisant un d20. En particulier, il se concentre sur les éléments affichables sous forme de listes ou de tableaux, tels que les pouvoirs magiques des personnages joueurs.
+
+La collecte et la structuration des données ont représenté un défi technique intéressant. L'utilisation de Scrapy a permis d'automatiser la récupération des données depuis diverses sources, tandis que des scripts Node.js ont assuré leur transformation en un format cohérent. Cette approche a permis de construire une base de données riche et structurée, essentielle pour le développement des fonctionnalités de l'application.
+
+En outre, la découverte d'Appwrite s'est avérée une solution intéressante pour la gestion du backend sans nécessité de développement complet de A à Z. Son utilisation s'est révélée fluide, avec une documentation claire et des performances satisfaisantes pour gérer les quelques milliers d'entrées de la base de données (environ 4700 sortilèges pour Donjons et Dragons Édition 3.5 par exemple). Cette échelle, bien que modeste comparée aux applications professionnelles, représente un volume significatif pour un projet personnel et a permis de tester efficacement les fonctionnalités de pagination et de virtualisation.
