@@ -30,7 +30,7 @@ const Project = () => {
           <Content
             components={{
               h1: (props) => <Heading size="xl" {...props} />,
-              h2: (props) => <Subheading size="lg" margin="2rem 0" {...props} />,
+              h2: (props) => <Subheading size="lg" margin="clamp(2rem, 1vw, 3rem) 0" {...props} />,
               p: (props) => <Typography size="md" {...props} />,
               a: ExternalLink,
               ul: (props) => <List {...props} />,
@@ -116,7 +116,7 @@ const Article = styled(SlideContainer)`
     }
 
     li {
-      text-align: justify;
+      text-align: left;
       text-justify: auto;
     }
   }
@@ -133,7 +133,7 @@ const Article = styled(SlideContainer)`
 
 const List = styled.ul`
   list-style: ${({ as }) => (as === "ol" ? "decimal inside" : "square inside")};
-  margin: 2rem 0;
+  margin: clamp(.25rem, 1vw, 2rem) 0;
   padding: 0;
   font-size: 2rem;
 `;
