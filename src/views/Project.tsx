@@ -14,7 +14,7 @@ import CodeComponent from "@components/CodeBlock";
 import type { Project } from "@projects/utils";
 
 const Project = () => {
-  const {id: projectId} = useParams();
+  const { id: projectId } = useParams();
   const id = parseInt(projectId ?? "", 10);
   const total = getTotalProjects();
   const project = useProject(id);
@@ -22,36 +22,37 @@ const Project = () => {
 
   const nextProject = id === total - 1 ? 0 : id + 1;
   const previousProject = id === 0 ? total - 1 : id - 1; // Because total is the length of the array, not the last index
-  
-  return Content && (
-    <Article>
-      <Suspense fallback={<Loader />}>
-        <Content
-          components={{
-            h1: (props) => <Heading size="xl" {...props} />,
-            h2: (props) => <Subheading size="lg" margin="2rem 0" {...props} />,
-            p: (props) => <Typography size="md" {...props} />,
-            a: ExternalLink,
-            ul: (props) => <List {...props} />,
-            ol: (props) => <List as="ol" {...props} />,
-            li: (props) => <ListItem {...props} />,
-            wrapper: (props) => <Article {...props} />,
-            code: CodeComponent
-          }}
-        />
-      </Suspense>
-      <NavArrows>
-        {/*Next & Prev arrows*/}
-        <StyledLink to={`/project/${previousProject}`}>
-          <MdOutlineArrowRightAlt size={32} className="back" />
-          <span>Précédent</span>
-        </StyledLink>
-        <StyledLink to={`/project/${nextProject}`}>
-          <span>Suivant</span>
-          <MdOutlineArrowRightAlt size={32} className="next" />
-        </StyledLink>
-      </NavArrows>
-    </Article>
+
+  return (
+    Content && (
+      <Article>
+        <Suspense fallback={<Loader />}>
+          <Content
+            components={{
+              h1: (props) => <Heading size="xl" {...props} />,
+              h2: (props) => <Subheading size="lg" margin="2rem 0" {...props} />,
+              p: (props) => <Typography size="md" {...props} />,
+              a: ExternalLink,
+              ul: (props) => <List {...props} />,
+              ol: (props) => <List as="ol" {...props} />,
+              li: (props) => <ListItem {...props} />,
+              code: CodeComponent,
+            }}
+          />
+        </Suspense>
+        <NavArrows>
+          {/*Next & Prev arrows*/}
+          <StyledLink to={`/project/${previousProject}`}>
+            <MdOutlineArrowRightAlt size={32} className="back" />
+            <span>Précédent</span>
+          </StyledLink>
+          <StyledLink to={`/project/${nextProject}`}>
+            <span>Suivant</span>
+            <MdOutlineArrowRightAlt size={32} className="next" />
+          </StyledLink>
+        </NavArrows>
+      </Article>
+    )
   );
 };
 
@@ -76,7 +77,7 @@ const NavArrows = styled.div`
     line-height: 1;
     position: relative;
     svg {
-      transition: transform .28s cubic-bezier(0.075, 0.82, 0.165, 1)
+      transition: transform 0.28s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
 
     svg.back {
@@ -106,7 +107,28 @@ const Article = styled(SlideContainer)`
   flex-direction: column;
   max-width: 135ch;
   margin: 0 auto;
-  padding: 0 1.6rem;
+  padding: clamp(0rem, 4vw, 2rem);
+  @media (max-width: 768px) {
+    p {
+      text-align: justify;
+      text-justify: auto;
+      hyphens: auto;
+    }
+
+    li {
+      text-align: justify;
+      text-justify: auto;
+    }
+  }
+
+  p > em {
+    font-style: italic;
+  }
+
+  pre {
+    font-size: 1.6rem;
+    max-width: 120ch;
+  }
 `;
 
 const List = styled.ul`
@@ -117,9 +139,11 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-  margin: 1rem 2rem;
+
+  margin: clamp(1rem, 1vw, 2rem) clamp(1.5rem, 1vw, 3rem);
   padding: 0;
   font-size: var(--font-size-md);
+  line-height: calc(var(--font-size-md) * 1.25);
 
   &:nth-of-type(odd)::marker {
     color: var(--primary);
