@@ -1,5 +1,4 @@
-import { MDXComponents, MDXContent } from "mdx/types";
-import type { ComponentType, ComponentProps } from "react";
+import { MDXContent } from "mdx/types";
 
 export type ProjectImage = {
   src: string;

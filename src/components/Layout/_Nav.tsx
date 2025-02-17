@@ -36,14 +36,20 @@ const Nav = () => {
     <StyledNav>
       <NavContent>
         <LogoContainer>
-          <NavLogo to="/#header" title={t({ fr: "Retour à l'accueil", en: "Back to Home" }) as string}>
+          <NavLogo
+            to="/#header"
+            title={t({ fr: "Retour à l'accueil", en: "Back to Home" }) as string}>
             Antoine M.
           </NavLogo>
         </LogoContainer>
         <LinksDesktopWrapper>
           <LinksList>
             <li>
-              <Link to="/#about" title={t({ fr: "Quelques mots à propos de moi", en: "A few words about me" }) as string}>
+              <Link
+                to="/#about"
+                title={
+                  t({ fr: "Quelques mots à propos de moi", en: "A few words about me" }) as string
+                }>
                 {t({ fr: "À Propos", en: "About" })}
               </Link>
             </li>
@@ -53,18 +59,17 @@ const Nav = () => {
               </Link>
             </li>
             <li>
-              <Link to="/#contact" title={t({ fr: "Comment me contacter", en: "How to reach me" }) as string}>
+              <Link
+                to="/#contact"
+                title={t({ fr: "Comment me contacter", en: "How to reach me" }) as string}>
                 {t({ fr: "Me contacter", en: "Contact" })}
               </Link>
             </li>
             <li>
-              <ThemeSwitcher />
-            </li>
-            <li>
-              <Divider />
-            </li>
-            <li>
               <LanguageSwitcher />
+            </li>
+            <li>
+              <ThemeSwitcher />
             </li>
           </LinksList>
         </LinksDesktopWrapper>
@@ -86,7 +91,9 @@ const Nav = () => {
               <Link
                 onClick={handleModalLinksClick}
                 to="/#about"
-                title={t({ fr: "Quelques mots à propos de moi", en: "A few words about me" }) as string}
+                title={
+                  t({ fr: "Quelques mots à propos de moi", en: "A few words about me" }) as string
+                }
                 tabIndex={isMenuOpen ? 0 : -1}>
                 {t({ fr: "À Propos", en: "About" })}
               </Link>
@@ -111,7 +118,10 @@ const Nav = () => {
             </li>
           </ul>
           <LinksMobileModalHeader>
+          <SwitcherContainer>
+            <LanguageSwitcher />
             <ThemeSwitcher />
+          </SwitcherContainer>
             <Hamburger
               isActive={isMenuOpen}
               setIsActive={handleMenuClose}
@@ -126,6 +136,11 @@ const Nav = () => {
 };
 
 export default Nav;
+
+const SwitcherContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
 
 const LinksMobileModal = styled.div`
   position: fixed;
@@ -176,7 +191,7 @@ const LinksMobileModalHeader = styled.div`
   width: 100%;
   height: 6.4rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 1rem;
   align-items: center;
   max-width: 1152px;
