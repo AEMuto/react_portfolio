@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Portrait from "@assets/images/me.jpg";
 import Typography from "@components/Typography";
 import { useLanguage } from "@contexts/LanguageContext";
+import { css } from "@emotion/react";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -47,7 +48,8 @@ const Hero = () => {
         <CTAContainer>
           <Button
             to="/#projects"
-            title={t({ fr: "Voir mes projets", en: "View Projects" }) as string}>
+            title={t({ fr: "Voir mes projets", en: "View Projects" }) as string}
+            customCss={css`align-self: flex-start;`}>
             Portfolio
           </Button>
           <Button
@@ -56,7 +58,8 @@ const Hero = () => {
             title={t({ fr: "Consulter mon CV", en: "View Resume" }) as string}
             target="_blank"
             rel="noreferrer"
-            option="alternate">
+            option="alternate"
+            customCss={css`align-self: flex-start;`}>
             {t({ fr: "Consulter mon CV", en: "View Resume" })}
           </Button>
         </CTAContainer>

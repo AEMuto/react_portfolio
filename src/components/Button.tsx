@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { css } from "@emotion/react";
+import { css, SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Link as RouterLink, LinkProps } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 // Common props shared between all variants
 type CommonProps = {
@@ -10,6 +10,7 @@ type CommonProps = {
   option?: "primary" | "alternate";
   className?: string;
   "aria-label"?: string;
+  customCss?: SerializedStyles;
 };
 
 // Create a base Link component that properly extends RouterLink
@@ -41,8 +42,8 @@ type RouterLinkElementProps = CommonProps & {
 
 export type ButtonProps = ButtonElementProps | AnchorElementProps | RouterLinkElementProps;
 
-const Button = ({ children, size = "md", option = "primary", ...rest }: ButtonProps) => {
-  const styles = [baseStyle, sizeSwitch(size), option === "primary" ? primaryStyle : alternateStyle];
+const Button = ({ children, size = "md", option = "primary", customCss, ...rest }: ButtonProps) => {
+  const styles = [customCss, baseStyle, sizeSwitch(size), option === "primary" ? primaryStyle : alternateStyle];
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === " ") {
