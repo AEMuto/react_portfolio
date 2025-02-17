@@ -3,7 +3,7 @@ import Subheading from "@components/Subheading";
 import Heading from "@components/Heading";
 import { SlideColumn, SlideContainer } from "@components/Slide";
 import Button from "@components/Button";
-import Portrait from "@assets/images/me.jpg";
+import Portrait from "@assets/portrait.jpg";
 import Typography from "@components/Typography";
 import { useLanguage } from "@contexts/LanguageContext";
 import { css } from "@emotion/react";

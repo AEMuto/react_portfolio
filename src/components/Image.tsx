@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import type { BaseProps } from "@/types";
 
@@ -31,7 +31,7 @@ const Image = ({
   const [hasError, setHasError] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(priority);
   const imageRef = useRef<HTMLDivElement>(null);
-
+  console.log("Image source: ", src);
   // Handle intersection observer for lazy loading
   useEffect(() => {
     if (priority) return;
@@ -64,7 +64,8 @@ const Image = ({
     onLoad?.();
   };
 
-  const handleError = () => {
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.error(`Failed to load image: ${e}`);
     setHasError(true);
     setIsLoaded(true); // Consider the loading as "complete" even though it errored
     onError?.();
@@ -73,13 +74,7 @@ const Image = ({
   // If there's an error, show error state
   if (hasError) {
     return (
-      <ImageWrapper
-        ref={imageRef}
-        $isLoaded={true}
-        $width={width}
-        $height={height}
-        {...props}
-      >
+      <ImageWrapper ref={imageRef} $isLoaded={true} $width={width} $height={height} {...props}>
         <ImageError>
           Error: Image not found
           <ErrorDetails>{src}</ErrorDetails>
@@ -91,13 +86,7 @@ const Image = ({
   // In development, just render the original image
   if (isDev) {
     return (
-      <ImageWrapper
-        ref={imageRef}
-        $isLoaded={true}
-        $width={width}
-        $height={height}
-        {...props}
-      >
+      <ImageWrapper ref={imageRef} $isLoaded={true} $width={width} $height={height} {...props}>
         <StyledImage
           src={src}
           alt={alt}
@@ -105,78 +94,56 @@ const Image = ({
           height={height}
           loading={priority ? "eager" : "lazy"}
           onLoad={handleLoad}
-          onError={handleError}
+          onError={(e) => handleError(e)}
           $isLoaded={true}
         />
       </ImageWrapper>
     );
   }
-
+  
   // Generate paths for different formats and sizes
   const basePath = src.replace(/\.[^/.]+$/, "");
-  const originalFormat = src.split(".").pop();
-  
-  const formats = ["avif", "webp", "jpg"].filter(format => 
-    format !== originalFormat || !["avif", "webp", "jpg"].includes(originalFormat!)
-  );
 
   return (
-    <ImageWrapper
-      ref={imageRef}
-      $isLoaded={isLoaded}
-      $width={width}
-      $height={height}
-      {...props}
-    >
+    <ImageWrapper ref={imageRef} $isLoaded={isLoaded} $width={width} $height={height} {...props}>
       {!isLoaded && shouldLoad && !isDev && (
-        <BlurPreview
-          src={`${basePath}-blur.webp`}
-          alt=""
-          aria-hidden="true"
-          $isLoaded={isLoaded}
-        />
+        <BlurPreview src={`${basePath}-blur.webp`} alt="" aria-hidden="true" $isLoaded={isLoaded} />
       )}
 
       {shouldLoad && (
         <picture>
-          {formats.includes("avif") && (
-            <source
-              type="image/avif"
-              sizes={sizes}
-              srcSet={`
+          <source
+            type="image/avif"
+            sizes={sizes}
+            srcSet={`
                 ${basePath}.avif,
                 ${basePath}-640w.avif 640w,
                 ${basePath}-320w.avif 320w
               `}
-            />
-          )}
-          
-          {formats.includes("webp") && (
-            <source
-              type="image/webp"
-              sizes={sizes}
-              srcSet={`
+          />
+          <source
+            type="image/webp"
+            sizes={sizes}
+            srcSet={`
                 ${basePath}.webp,
                 ${basePath}-640w.webp 640w,
                 ${basePath}-320w.webp 320w
               `}
-            />
-          )}
-
+          />
           <StyledImage
             src={`${basePath}.jpg`}
-            srcSet={formats.includes("jpg") ? `
+            srcSet={`
               ${basePath}.jpg,
               ${basePath}-640w.jpg 640w,
               ${basePath}-320w.jpg 320w
-            ` : undefined}
+            `}
             alt={alt}
             width={width}
             height={height}
             loading={priority ? "eager" : "lazy"}
             sizes={sizes}
             onLoad={handleLoad}
-            onError={handleError}
+            onError={(e) => handleError(e)}
             $isLoaded={isLoaded}
           />
         </picture>
@@ -193,10 +160,10 @@ const ImageWrapper = styled.div<{
   $height?: number;
 }>`
   position: relative;
-  width: ${props => props.$width ? `${props.$width}px` : "100%"};
-  height: ${props => props.$height ? `${props.$height}px` : "auto"};
+  width: ${(props) => (props.$width ? `${props.$width}px` : "100%")};
+  height: ${(props) => (props.$height ? `${props.$height}px` : "auto")};
   overflow: hidden;
-  min-height: ${props => (!props.$width && !props.$height) ? "100px" : "auto"};
+  min-height: ${(props) => (!props.$width && !props.$height ? "100px" : "auto")};
 `;
 
 const BlurPreview = styled.img<{ $isLoaded: boolean }>`
@@ -206,15 +173,15 @@ const BlurPreview = styled.img<{ $isLoaded: boolean }>`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: ${props => props.$isLoaded ? 0 : 1};
+  opacity: ${(props) => (props.$isLoaded ? 0 : 1)};
   transition: opacity 0.3s ease-in-out;
 `;
 
-const StyledImage = styled.img<{ $isLoaded: boolean, width?: number, height?: number }>`
-  width: ${props => props.width ? `${props.width}px` : "100%"};
-  height: ${props => props.height ? `${props.height}px` : "auto"};
+const StyledImage = styled.img<{ $isLoaded: boolean; width?: number; height?: number }>`
+  width: ${(props) => (props.width ? `${props.width}px` : "100%")};
+  height: ${(props) => (props.height ? `${props.height}px` : "auto")};
   object-fit: cover;
-  opacity: ${props => props.$isLoaded ? 1 : 0};
+  opacity: ${(props) => (props.$isLoaded ? 1 : 0)};
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
 `;

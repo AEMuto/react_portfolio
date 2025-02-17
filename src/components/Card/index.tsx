@@ -15,7 +15,7 @@ export const ProjectCard = ({ id, title, thumbnail, tags, shortDesc }: Project) 
           title={`Projet ${title}`}
           className="project__card__img-container">
           <Image 
-          src={thumbnail.src ?? "https://picsum.photos/800/400"} 
+          src={thumbnail.src}
           alt={t({en: `Project ${title}`, fr: `Projet ${title}`}) as string}
           sizes="(min-width: 1080px) 25%, (min-width: 810px) 33%, (min-width: 540px) 50%, 100vw" />
         </Link>
