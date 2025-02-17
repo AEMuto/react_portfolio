@@ -1,5 +1,6 @@
 import { useState, MouseEvent, useEffect } from "react";
 import styled from "@emotion/styled";
+import Image from "@components/Image";
 import type { ProjectImage } from "@/projects/utils";
 
 type HorizontalGalleryProps = {
@@ -31,7 +32,6 @@ const HorizontalGallery = ({ images }: HorizontalGalleryProps) => {
   // Reset scroll position to 0 when component is mounted or when props change
   useEffect(() => {
     setScrollLeft(0);
-    // console.log("Hello from HorizontalGallery", images)
   }, [images]);
 
   return (
@@ -42,33 +42,13 @@ const HorizontalGallery = ({ images }: HorizontalGalleryProps) => {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}>
       <div className="container">
-        {images && images.map(({src, alt, width, height}, index) => {
-          return src ? (
-            <img src={src} alt={alt ?? "No Description Provided"} key={index} />
-          ) : (
-            <ImageError key={index}>Error: Image not found</ImageError>
-          );
-        })}
+        {images.map(({src, alt}, index) => <Image key={index} src={src} alt={alt} width={300} sizes="300px"/>)}
       </div>
     </PicturesGallery>
   );
 };
 
 export default HorizontalGallery;
-
-const ImageError = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-family: monospace;
-  font-size: 1.6rem;
-  border: 1px solid var(--txt);
-  min-height: 250px;
-  min-width: 300px;
-  color: var(--danger);
-  background-color: var(--txt--brighter-transparent);
-`;
 
 const PicturesGallery = styled.div`
   width: 100%;
@@ -85,11 +65,9 @@ const PicturesGallery = styled.div`
     flex-direction: row;
     gap: 1rem;
     flex-wrap: nowrap;
-
-    img {
-      pointer-events: none;
+    & > div {
+      overflow: unset;
       width: 300px;
-      height: auto;
     }
   }
 `;
