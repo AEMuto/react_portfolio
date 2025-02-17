@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Subheading from "@components/Subheading";
 import { Project } from "@/projects/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "@components/Image";
 
 export const ProjectCard = ({ id, title, thumbnail, tags, shortDesc }: Project) => {
   const {language, t} = useLanguage();
@@ -11,15 +12,16 @@ export const ProjectCard = ({ id, title, thumbnail, tags, shortDesc }: Project) 
       <div className="project__card">
         <Link
           to={`/project/${id}`}
-          // state={total_project}
           title={`Projet ${title}`}
           className="project__card__img-container">
-          <img src={thumbnail.src ?? "https://picsum.photos/800/400"} alt={`Projet ${title}`} />
+          <Image 
+          src={thumbnail.src ?? "https://picsum.photos/800/400"} 
+          alt={t({en: `Project ${title}`, fr: `Projet ${title}`}) as string}
+          sizes="(min-width: 1080px) 25%, (min-width: 810px) 33%, (min-width: 540px) 50%, 100vw" />
         </Link>
         <div className="project__card__txt-container">
           <Link
             to={`/project/${id}`}
-            // state={total_project}
             title={`Projet ${title}`}
             className="project__card__title">
             <Subheading margin={"0"}>{title}</Subheading>
