@@ -7,7 +7,7 @@ type ExternalLinkProps = HTMLProps<HTMLAnchorElement> & { children?: ReactNode }
 const ExternalLink: FC<ExternalLinkProps> = ({ children, ...rest }) => (
   <a css={[baseStyle]} {...rest} target="_blank" rel="noreferrer">
     {children}&nbsp;
-    <LuExternalLink size="var(--font-size-md)" />
+    <LuExternalLink />
   </a>
 );
 
@@ -27,5 +27,7 @@ const baseStyle = css`
   svg {
     margin-left: 0.5rem;
     margin-bottom: -0.2rem;
+    width: var(--font-size-md);
+    height: var(--font-size-md);
   }
 `;
