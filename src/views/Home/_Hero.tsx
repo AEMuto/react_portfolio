@@ -3,11 +3,11 @@ import Subheading from "@components/Subheading";
 import Heading from "@components/Heading";
 import { SlideColumn, SlideContainer } from "@components/Slide";
 import Button from "@components/Button";
-import { Link } from "react-router-dom";
 import Portrait from "@assets/images/me.jpg";
 import Typography from "@components/Typography";
 import { useLanguage } from "@contexts/LanguageContext";
 import { css } from "@emotion/react";
+import Image from "@components/Image";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -49,7 +49,9 @@ const Hero = () => {
           <Button
             to="/#projects"
             title={t({ fr: "Voir mes projets", en: "View Projects" }) as string}
-            customCss={css`align-self: flex-start;`}>
+            customCss={css`
+              align-self: flex-start;
+            `}>
             Portfolio
           </Button>
           <Button
@@ -59,7 +61,9 @@ const Hero = () => {
             target="_blank"
             rel="noreferrer"
             option="alternate"
-            customCss={css`align-self: flex-start;`}>
+            customCss={css`
+              align-self: flex-start;
+            `}>
             {t({ fr: "Consulter mon CV", en: "View Resume" })}
           </Button>
         </CTAContainer>
@@ -68,6 +72,8 @@ const Hero = () => {
         <StyledImg
           src={Portrait}
           alt={t({ fr: "Photo de profil", en: "Profile picture" }) as string}
+          priority
+          sizes="(max-width: 768px) 0px, 300px"
         />
       </StyledSlideColumn>
     </SlideContainer>
@@ -105,7 +111,7 @@ const StyledSlideColumn = styled(SlideColumn)`
   }
 `;
 
-const StyledImg = styled.img`
+const StyledImg = styled(Image)`
   align-self: center;
   filter: grayscale(100%);
   border-radius: 50%;
