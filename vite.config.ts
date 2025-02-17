@@ -2,52 +2,9 @@ import { defineConfig } from "vite";
 import * as path from "path";
 import react from "@vitejs/plugin-react";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
-import sharp from "sharp";
 import mdx from "@mdx-js/rollup";
-import type { OutputAsset, Plugin } from "rollup";
 import remarkGfm from "remark-gfm";
-
-// Custom plugin for additional image processing
-const imageProcessor = (): Plugin => {
-  return {
-    name: "image-processor",
-    async writeBundle(options, bundle) {
-      // Get all image assets from the bundle
-      const images = Object.entries(bundle).filter((entry): entry is [string, OutputAsset] => {
-        const [name, asset] = entry;
-        return /\.(jpg|jpeg|png|webp)$/i.test(name) && asset.type === "asset";
-      });
-
-      for (const [fileName, asset] of images) {
-        if ("source" in asset) {
-          const buffer = asset.source;
-          const outputDir = path.dirname(path.join(options.dir, fileName));
-          const baseName = path.basename(fileName, path.extname(fileName));
-
-          // Generate WebP version (if not already WebP)
-          if (!fileName.endsWith(".webp")) {
-            await sharp(buffer)
-              .webp({ quality: 85 })
-              .toFile(path.join(outputDir, `${baseName}.webp`));
-          }
-
-          // Generate AVIF version (if not already AVIF)
-          if (!fileName.endsWith(".avif")) {
-            await sharp(buffer)
-              .avif({ quality: 85 })
-              .toFile(path.join(outputDir, `${baseName}.avif`));
-          }
-          // Generate blur preview
-          await sharp(buffer)
-            .resize(20, null, { fit: "inside" })
-            .blur(10)
-            .webp({ quality: 70 })
-            .toFile(path.join(outputDir, `${baseName}-blur.webp`));
-        }
-      }
-    },
-  };
-};
+import imageProcessor from "./plugins/imageProcessor";
 
 export default defineConfig({
   plugins: [

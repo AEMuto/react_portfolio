@@ -7,19 +7,20 @@ const RESPONSIVE_WIDTHS = [320, 640, 960, 1280];
 const IMAGE_QUALITY = 85;
 const BLUR_PREVIEW = {
   size: 20,
-  quality: 70
+  quality: 70,
+  blur: 10
 };
 
 interface ImageProcessingOptions {
   quality?: number;
-  formats?: ("webp" | "avif")[];
+  formats?: ("webp" | "avif" | "jpg" | "png")[];
   sizes?: number[];
 }
 
 const imageProcessor = (options: ImageProcessingOptions = {}): Plugin => {
   const {
     quality = IMAGE_QUALITY,
-    formats = ["webp", "avif"],
+    formats = ["webp", "avif", "jpg"],
     sizes = RESPONSIVE_WIDTHS
   } = options;
 
@@ -29,7 +30,7 @@ const imageProcessor = (options: ImageProcessingOptions = {}): Plugin => {
       // Get all image assets from the bundle
       const images = Object.entries(bundle).filter((entry): entry is [string, OutputAsset] => {
         const [name, asset] = entry;
-        return /\.(jpg|jpeg|png|webp)$/i.test(name) && asset.type === "asset";
+        return /\.(jpg|jpeg|png|webp|avif)$/i.test(name) && asset.type === "asset";
       });
 
       for (const [fileName, asset] of images) {
@@ -38,39 +39,45 @@ const imageProcessor = (options: ImageProcessingOptions = {}): Plugin => {
         const buffer = asset.source;
         const outputDir = path.dirname(path.join(outputOptions.dir!, fileName));
         const baseName = path.basename(fileName, path.extname(fileName));
+        
+        // Get source format, normalizing jpeg to jpg
+        const sourceFormat = path.extname(fileName).toLowerCase().slice(1);
+        const normalizedSourceFormat = sourceFormat === "jpeg" ? "jpg" : sourceFormat;
+        
         const sharpInstance = sharp(buffer);
         const metadata = await sharpInstance.metadata();
 
-        // Generate responsive sizes
-        if (metadata.width) {
-          // Only generate sizes smaller than the original
-          const appropriateSizes = sizes.filter(w => metadata.width && w <= metadata.width);
+        if (!metadata.width) continue; // Skip if no width
+
+        // Process each format
+        for (const format of formats) {
+          const outputFormat = format === "jpg" ? "jpeg" : format;
           
-          for (const width of appropriateSizes) {
-            const resized = sharpInstance.resize(width, null, { fit: "inside" });
-            
-            // Generate each format for this size
-            for (const format of formats) {
-              await resized[format]({ quality })
-                .toFile(path.join(outputDir, `${baseName}-${width}w.${format}`));
-            }
+          // Generate base format (skip if matches source format)
+          if (format !== normalizedSourceFormat) {
+            await sharpInstance[outputFormat]({ quality })
+              .toFile(path.join(outputDir, `${baseName}.${format}`));
           }
 
-          // Generate original size in each format (if not already WebP/AVIF)
-          for (const format of formats) {
-            if (!fileName.endsWith(`.${format}`)) {
-              await sharpInstance[format]({ quality })
-                .toFile(path.join(outputDir, `${baseName}.${format}`));
-            }
+          // Always generate blur preview and responsive sizes in all formats
+          const blurInstance = sharpInstance
+            .clone()
+            .resize(BLUR_PREVIEW.size, null, { fit: "inside" })
+            .blur(BLUR_PREVIEW.blur);
+          
+          await blurInstance[outputFormat]({ quality: BLUR_PREVIEW.quality })
+            .toFile(path.join(outputDir, `${baseName}-blur.${format}`));
+
+          // Generate responsive sizes
+          for (const width of sizes.filter(w => w < metadata.width)) {
+            const resizedInstance = sharpInstance
+              .clone()
+              .resize(width, null, { fit: "inside" });
+              
+            await resizedInstance[outputFormat]({ quality })
+              .toFile(path.join(outputDir, `${baseName}-${width}w.${format}`));
           }
         }
-
-        // Generate blur preview
-        await sharpInstance
-          .resize(BLUR_PREVIEW.size, null, { fit: "inside" })
-          .blur(10)
-          .webp({ quality: BLUR_PREVIEW.quality })
-          .toFile(path.join(outputDir, `${baseName}-blur.webp`));
       }
     }
   };
