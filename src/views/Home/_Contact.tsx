@@ -7,14 +7,14 @@ const Contact = () => {
   const { t } = useLanguage();
   return (
     <StyledContainer id="contact" gridStyleProp={false}>
-      <a href="mailto:antoine.marseaud@gmail.com" title="Me contacter par mail">
-        <Button>
-          {t({
-            fr: "Me contacter",
-            en: "Contact me",
-          })}
-        </Button>
-      </a>
+      <Button
+        href="mailto:antoine.marseaud@gmail.com"
+        title={t({ fr: "Me contacter par mail", en: "Contact me by email" }) as string}>
+        {t({
+          fr: "Me contacter",
+          en: "Contact me",
+        })}
+      </Button>
     </StyledContainer>
   );
 };

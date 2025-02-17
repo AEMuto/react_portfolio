@@ -2,16 +2,16 @@ import { Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-import Loader from "@/components/Loader";
-import { SlideContainer } from "@components/Slide";
 import { getTotalProjects } from "@/projects";
-import type { Project } from "@/projects/utils";
+import { useProject } from "@hooks/useProject";
+import { SlideContainer } from "@components/Slide";
 import ExternalLink from "@components/ExternalLink";
+import Loader from "@components/Loader";
 import Heading from "@components/Heading";
 import Typography from "@components/Typography";
-import { useProject } from "@/hooks/useProject";
-import Subheading from "@/components/Subheading";
-import CodeComponent from "./_CodeBlock";
+import Subheading from "@components/Subheading";
+import CodeComponent from "@components/CodeBlock";
+import type { Project } from "@projects/utils";
 
 const Project = () => {
   const {id: projectId} = useParams();
@@ -40,7 +40,7 @@ const Project = () => {
           }}
         />
       </Suspense>
-      <ProjectNavArrowContainer>
+      <NavArrows>
         {/*Next & Prev arrows*/}
         <StyledLink to={`/project/${previousProject}`}>
           <MdOutlineArrowRightAlt size={32} className="back" />
@@ -50,7 +50,7 @@ const Project = () => {
           <span>Suivant</span>
           <MdOutlineArrowRightAlt size={32} className="next" />
         </StyledLink>
-      </ProjectNavArrowContainer>
+      </NavArrows>
     </Article>
   );
 };
@@ -61,7 +61,7 @@ const StyledLink = styled(Link)`
   min-height: 44px;
 `;
 
-const ProjectNavArrowContainer = styled.div`
+const NavArrows = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;

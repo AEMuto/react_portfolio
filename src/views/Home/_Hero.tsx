@@ -45,19 +45,20 @@ const Hero = () => {
           })}
         </Typography>
         <CTAContainer>
-          <Link
+          <Button
             to="/#projects"
             title={t({ fr: "Voir mes projets", en: "View Projects" }) as string}>
-            <Button>Portfolio</Button>
-          </Link>
-          <a
+            Portfolio
+          </Button>
+          <Button
             //TODO: ternary for the href (need english and french resume)
             href="https://drive.google.com/file/d/1-FfXA6LFPYDRbya9_Bi5qBTz1xgBWB-_/view?usp=sharing"
             title={t({ fr: "Consulter mon CV", en: "View Resume" }) as string}
             target="_blank"
-            rel="noreferrer">
-            <Button option="alternate">{t({ fr: "Consulter mon CV", en: "View Resume" })}</Button>
-          </a>
+            rel="noreferrer"
+            option="alternate">
+            {t({ fr: "Consulter mon CV", en: "View Resume" })}
+          </Button>
         </CTAContainer>
       </SlideColumn>
       <StyledSlideColumn>

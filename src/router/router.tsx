@@ -9,7 +9,7 @@ import Layout from "@components/Layout";
 import Loader from "@components/Loader";
 
 const Home = lazy(() => import("@views/Home"));
-const Project = lazy(() => import("@views/Project"));
+const Project = lazy(() => import("@/views/Project"));
 const NotFound = lazy(() => import("@views/NotFound"));
 
 const SuspenseLayout = () => (
@@ -26,7 +26,7 @@ const root = (
     <Route path="/project/:id" element={<Project />}/>
     <Route path="*" element={<NotFound />} />
   </Route>
-); // loader={projectLoader}
+);
 
 const router = createBrowserRouter(createRoutesFromElements(root));
 
