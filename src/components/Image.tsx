@@ -1,188 +1,203 @@
-import { useState, useEffect, useRef } from "react"
-import styled from "@emotion/styled"
-import { BaseProps } from "@/types"
+import { useState, useEffect, useRef } from "react";
+import styled from "@emotion/styled";
+import type { BaseProps } from "@/types";
 
 interface ImageProps extends BaseProps<HTMLImageElement> {
-  src: string
-  alt: string
-  width?: number
-  height?: number
-  priority?: boolean
-  loading?: "lazy" | "eager"
-  threshold?: number // Intersection observer threshold
-  rootMargin?: string // Intersection observer root margin
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+  sizes?: string;
+  onLoad?: () => void;
+  onError?: () => void;
 }
 
-const Image = ({ 
-  src, 
-  alt, 
-  width, 
-  height, 
+// Check if we're in development mode
+const isDev = import.meta.env.DEV;
+
+const Image = ({
+  src,
+  alt,
+  width,
+  height,
   priority = false,
-  loading = "lazy",
-  threshold = 0.1,
-  rootMargin = "50px 0px",
-  ...props 
+  sizes = "100vw",
+  onLoad,
+  onError,
+  ...props
 }: ImageProps) => {
-  const [currentSrc, setCurrentSrc] = useState<string>("")
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [shouldLoad, setShouldLoad] = useState(priority)
-  const imageRef = useRef<HTMLDivElement>(null)
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(priority);
+  const imageRef = useRef<HTMLDivElement>(null);
 
-  // Handle intersection observer
+  // Handle intersection observer for lazy loading
   useEffect(() => {
-    if (priority) return // Skip if priority loading
+    if (priority) return;
 
-    const element = imageRef.current
-    if (!element) return
+    const element = imageRef.current;
+    if (!element) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setShouldLoad(true)
-            observer.unobserve(element)
+            setShouldLoad(true);
+            observer.unobserve(element);
           }
-        })
+        });
       },
       {
-        threshold,
-        rootMargin,
+        rootMargin: "50px 0px",
+        threshold: 0.1,
       }
-    )
+    );
 
-    observer.observe(element)
+    observer.observe(element);
+    return () => observer.unobserve(element);
+  }, [priority]);
 
-    return () => {
-      if (element) {
-        observer.unobserve(element)
-      }
-    }
-  }, [priority, threshold, rootMargin])
+  const handleLoad = () => {
+    setIsLoaded(true);
+    setHasError(false);
+    onLoad?.();
+  };
 
-  // Handle image loading
-  useEffect(() => {
-    // Reset states when src changes or when shouldLoad becomes true
-    if (!shouldLoad) return
+  const handleError = () => {
+    setHasError(true);
+    setIsLoaded(true); // Consider the loading as "complete" even though it errored
+    onError?.();
+  };
 
-    setIsLoaded(false)
-    setCurrentSrc("")
+  // If there's an error, show error state
+  if (hasError) {
+    return (
+      <ImageWrapper
+        ref={imageRef}
+        $isLoaded={true}
+        $width={width}
+        $height={height}
+        {...props}
+      >
+        <ImageError>
+          Error: Image not found
+          <ErrorDetails>{src}</ErrorDetails>
+        </ImageError>
+      </ImageWrapper>
+    );
+  }
 
-    const loadImage = async () => {
-      try {
-        // Create an array of formats to try, in order of preference
-        const formats = ["avif", "webp", "jpg", "jpeg", "png"]
-        const imagePath = src.replace(/\.[^/.]+$/, "") // Remove extension
+  // In development, just render the original image
+  if (isDev) {
+    return (
+      <ImageWrapper
+        ref={imageRef}
+        $isLoaded={true}
+        $width={width}
+        $height={height}
+        {...props}
+      >
+        <StyledImage
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          onLoad={handleLoad}
+          onError={handleError}
+          $isLoaded={true}
+        />
+      </ImageWrapper>
+    );
+  }
 
-        // Try each format until one works
-        for (const format of formats) {
-          const formatSrc = `${imagePath}.${format}`
-          try {
-            const response = await fetch(formatSrc, { method: "HEAD" })
-            if (response.ok) {
-              setCurrentSrc(formatSrc)
-              return
-            }
-          } catch (e) {
-            continue // Try next format
-          }
-        }
-
-        // If no modern format works, fallback to original
-        setCurrentSrc(src)
-      } catch (error) {
-        console.error("Error loading image:", error)
-        setCurrentSrc(src) // Fallback to original source
-      }
-    }
-
-    // Use requestIdleCallback for non-priority images
-    if (priority) {
-      loadImage()
-    } else {
-      const handleLoad = () => {
-        if ("requestIdleCallback" in window) {
-          requestIdleCallback(() => loadImage(), { timeout: 2000 })
-        } else {
-          setTimeout(loadImage, 1)
-        }
-      }
-
-      handleLoad()
-    }
-  }, [src, shouldLoad, priority])
-
-  // Preload handler for priority images
-  useEffect(() => {
-    if (priority && currentSrc) {
-      const preloadLink = document.createElement("link")
-      preloadLink.rel = "preload"
-      preloadLink.as = "image"
-      preloadLink.href = currentSrc
-      document.head.appendChild(preloadLink)
-
-      return () => {
-        document.head.removeChild(preloadLink)
-      }
-    }
-  }, [priority, currentSrc])
+  // Generate paths for different formats and sizes
+  const basePath = src.replace(/\.[^/.]+$/, "");
+  const originalFormat = src.split(".").pop();
+  
+  const formats = ["avif", "webp", "jpg"].filter(format => 
+    format !== originalFormat || !["avif", "webp", "jpg"].includes(originalFormat!)
+  );
 
   return (
-    <ImageWrapper 
+    <ImageWrapper
       ref={imageRef}
       $isLoaded={isLoaded}
       $width={width}
       $height={height}
+      {...props}
     >
-      {/* Show blur preview only if image isn"t loaded yet */}
-      {!isLoaded && shouldLoad && (
+      {!isLoaded && shouldLoad && !isDev && (
         <BlurPreview
-          src={`${src.replace(/\.[^/.]+$/, "")}-blur.webp`}
+          src={`${basePath}-blur.webp`}
           alt=""
           aria-hidden="true"
           $isLoaded={isLoaded}
         />
       )}
-      
-      {/* Main image */}
-      {currentSrc && shouldLoad && (
-        <StyledImage
-          src={currentSrc}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={priority ? "eager" : loading}
-          onLoad={() => setIsLoaded(true)}
-          onError={() => {
-            // Fallback to original source if optimized version fails
-            if (currentSrc !== src) {
-              setCurrentSrc(src)
-            }
-          }}
-          $isLoaded={isLoaded}
-          {...props}
-        />
+
+      {shouldLoad && (
+        <picture>
+          {formats.includes("avif") && (
+            <source
+              type="image/avif"
+              sizes={sizes}
+              srcSet={`
+                ${basePath}.avif,
+                ${basePath}-640w.avif 640w,
+                ${basePath}-320w.avif 320w
+              `}
+            />
+          )}
+          
+          {formats.includes("webp") && (
+            <source
+              type="image/webp"
+              sizes={sizes}
+              srcSet={`
+                ${basePath}.webp,
+                ${basePath}-640w.webp 640w,
+                ${basePath}-320w.webp 320w
+              `}
+            />
+          )}
+
+          <StyledImage
+            src={`${basePath}.jpg`}
+            srcSet={formats.includes("jpg") ? `
+              ${basePath}.jpg,
+              ${basePath}-640w.jpg 640w,
+              ${basePath}-320w.jpg 320w
+            ` : undefined}
+            alt={alt}
+            width={width}
+            height={height}
+            loading={priority ? "eager" : "lazy"}
+            sizes={sizes}
+            onLoad={handleLoad}
+            onError={handleError}
+            $isLoaded={isLoaded}
+          />
+        </picture>
       )}
     </ImageWrapper>
-  )
-}
+  );
+};
 
-export default Image
+export default Image;
 
 const ImageWrapper = styled.div<{
-  $isLoaded: boolean
-  $width?: number
-  $height?: number
+  $isLoaded: boolean;
+  $width?: number;
+  $height?: number;
 }>`
   position: relative;
   width: ${props => props.$width ? `${props.$width}px` : "100%"};
   height: ${props => props.$height ? `${props.$height}px` : "auto"};
   overflow: hidden;
-  background-color: var(--body--background);
-  
-  /* Add minimal height if no dimensions specified */
   min-height: ${props => (!props.$width && !props.$height) ? "100px" : "auto"};
-`
+`;
 
 const BlurPreview = styled.img<{ $isLoaded: boolean }>`
   position: absolute;
@@ -191,16 +206,42 @@ const BlurPreview = styled.img<{ $isLoaded: boolean }>`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(10px);
-  transform: scale(1.1);
   opacity: ${props => props.$isLoaded ? 0 : 1};
   transition: opacity 0.3s ease-in-out;
-`
+`;
 
-const StyledImage = styled.img<{ $isLoaded: boolean }>`
-  width: 100%;
-  height: 100%;
+const StyledImage = styled.img<{ $isLoaded: boolean, width?: number, height?: number }>`
+  width: ${props => props.width ? `${props.width}px` : "100%"};
+  height: ${props => props.height ? `${props.height}px` : "auto"};
   object-fit: cover;
   opacity: ${props => props.$isLoaded ? 1 : 0};
   transition: opacity 0.3s ease-in-out;
-`
+  pointer-events: none;
+`;
+
+const ImageError = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: monospace;
+  font-size: 1.6rem;
+  border: 1px solid var(--txt);
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  color: var(--danger);
+  background-color: var(--txt--brighter-transparent);
+`;
+
+const ErrorDetails = styled.span`
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  color: var(--txt);
+  opacity: 0.7;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
