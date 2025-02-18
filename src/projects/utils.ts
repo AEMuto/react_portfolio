@@ -35,7 +35,6 @@ export const loadProjectImages = (projectName: string) => {
       src: src as string,
       alt: path.split("/").pop()?.split(".")[0] || "Project image",
     }));
-  // console.log("Hello from /src/projects/utils.ts", projectImages);
   return projectImages;
 };
 

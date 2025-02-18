@@ -31,7 +31,6 @@ const Image = ({
   const [hasError, setHasError] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(priority);
   const imageRef = useRef<HTMLDivElement>(null);
-  console.log("Image source: ", src);
   // Handle intersection observer for lazy loading
   useEffect(() => {
     if (priority) return;

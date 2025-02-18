@@ -9,7 +9,6 @@ export const useProject = (id: number) => {
 
   useEffect(() => {
     const current = getProjectById(id, language)
-    // console.log("Hello from /src/hooks/useProject.ts", current)
     setProject(current || null)
   }, [id, language])
 

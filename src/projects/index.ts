@@ -14,7 +14,6 @@ const projectsByLang = Object.entries(projectsMDX).reduce<ProjectsByLang>(
   (acc, [path, module]) => {
     const [projectName, lang] = path.match(/\.\/([^/]+)\/index\.([^.]+)\.mdx$/)?.slice(1) || [];
     if (!projectName || (lang !== "en" && lang !== "fr")) return acc;
-    // console.log("Hello from /src/projects/index.ts", module);
     const projectId = module.metadata.id;
     acc[lang][projectId] = {
       content: module.default,
