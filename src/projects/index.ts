@@ -24,7 +24,6 @@ const projectsByLang = Object.entries(projectsMDX).reduce<ProjectsByLang>(
   { en: {}, fr: {} }
 );
 
-// Export functions that take language as parameter
 export const getProjectById = (id: number, lang: Language) => projectsByLang[lang][id];
 
 export const getAllProjects = (lang: Language) =>
@@ -42,5 +41,4 @@ export const getProjectsMetadata = (lang: Language) =>
 
 export const getTotalProjects = () => Object.keys(projectsByLang.en).length; // Assuming same number in both languages
 
-// Export projectsByLang for direct access if needed
 export default projectsByLang;

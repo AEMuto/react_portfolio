@@ -55,8 +55,12 @@ const Hero = () => {
             Portfolio
           </Button>
           <Button
-            //TODO: ternary for the href (need english and french resume)
-            href="https://drive.google.com/file/d/1-FfXA6LFPYDRbya9_Bi5qBTz1xgBWB-_/view?usp=sharing"
+            href={
+              t({
+                en: "https://drive.google.com/file/d/1zx6URJUHGIFOSSLy6gnDSnCKMEth2A9I/view?usp=sharing",
+                fr: "https://drive.google.com/file/d/1-FfXA6LFPYDRbya9_Bi5qBTz1xgBWB-_/view?usp=sharing",
+              }) as string
+            }
             title={t({ fr: "Consulter mon CV", en: "View Resume" }) as string}
             target="_blank"
             rel="noreferrer"
