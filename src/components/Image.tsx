@@ -16,6 +16,20 @@ interface ImageProps extends BaseProps<HTMLImageElement> {
 // Check if we're in development mode
 const isDev = import.meta.env.DEV;
 
+/**
+ * Image component that handles lazy loading, image formats, and error states.
+ * Inspired by Next.js Image component.
+ * TODO: Use the browser's image cache to determine if we should skip the loading state
+ * @param src Image source URL
+ * @param alt Image alt text
+ * @param width Image width
+ * @param height Image height
+ * @param priority If the image should be loaded with priority
+ * @param sizes Image sizes attribute
+ * @param onLoad Function to call when the image is loaded
+ * @param onError Function to call when the image fails to load
+ * @returns Image component
+ */
 const Image = ({
   src,
   alt,
@@ -174,6 +188,7 @@ const BlurPreview = styled.img<{ $isLoaded: boolean }>`
   object-fit: cover;
   opacity: ${(props) => (props.$isLoaded ? 0 : 1)};
   transition: opacity 0.3s ease-in-out;
+  will-change: opacity;
 `;
 
 const StyledImage = styled.img<{ $isLoaded: boolean; width?: number; height?: number }>`
@@ -183,6 +198,7 @@ const StyledImage = styled.img<{ $isLoaded: boolean; width?: number; height?: nu
   opacity: ${(props) => (props.$isLoaded ? 1 : 0)};
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
+  will-change: opacity;
 `;
 
 const ImageError = styled.div`
