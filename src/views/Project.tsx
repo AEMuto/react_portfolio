@@ -17,42 +17,41 @@ const Project = () => {
   const { id: projectId } = useParams();
   const id = parseInt(projectId ?? "", 10);
   const total = getTotalProjects();
-  const project = useProject(id);
+  const { project, loading, error } = useProject(id);
   const Content = project?.content;
+
+  if (loading) return <Loader />;
+  if (error || !Content) return <div>Error loading project</div>;
 
   const nextProject = id === total - 1 ? 0 : id + 1;
   const previousProject = id === 0 ? total - 1 : id - 1; // Because total is the length of the array, not the last index
 
   return (
-    Content && (
-      <Article>
-        <Suspense fallback={<Loader />}>
-          <Content
-            components={{
-              h1: (props) => <Heading size="xl" {...props} />,
-              h2: (props) => <Subheading size="lg" margin="clamp(2rem, 1vw, 3rem) 0" {...props} />,
-              p: (props) => <Typography size="md" {...props} />,
-              a: ExternalLink,
-              ul: (props) => <List {...props} />,
-              ol: (props) => <List as="ol" {...props} />,
-              li: (props) => <ListItem {...props} />,
-              code: CodeComponent,
-            }}
-          />
-        </Suspense>
-        <NavArrows>
-          {/*Next & Prev arrows*/}
-          <StyledLink to={`/project/${previousProject}`}>
-            <MdOutlineArrowRightAlt size={32} className="back" />
-            <span>Précédent</span>
-          </StyledLink>
-          <StyledLink to={`/project/${nextProject}`}>
-            <span>Suivant</span>
-            <MdOutlineArrowRightAlt size={32} className="next" />
-          </StyledLink>
-        </NavArrows>
-      </Article>
-    )
+    <Article>
+      <Content
+        components={{
+          h1: (props) => <Heading size="xl" {...props} />,
+          h2: (props) => <Subheading size="lg" margin="clamp(2rem, 1vw, 3rem) 0" {...props} />,
+          p: (props) => <Typography size="md" {...props} />,
+          a: ExternalLink,
+          ul: (props) => <List {...props} />,
+          ol: (props) => <List as="ol" {...props} />,
+          li: (props) => <ListItem {...props} />,
+          code: CodeComponent,
+        }}
+      />
+      <NavArrows>
+        {/*Next & Prev arrows*/}
+        <StyledLink to={`/project/${previousProject}`}>
+          <MdOutlineArrowRightAlt size={32} className="back" />
+          <span>Précédent</span>
+        </StyledLink>
+        <StyledLink to={`/project/${nextProject}`}>
+          <span>Suivant</span>
+          <MdOutlineArrowRightAlt size={32} className="next" />
+        </StyledLink>
+      </NavArrows>
+    </Article>
   );
 };
 
@@ -133,13 +132,12 @@ const Article = styled(SlideContainer)`
 
 const List = styled.ul`
   list-style: ${({ as }) => (as === "ol" ? "decimal inside" : "square inside")};
-  margin: clamp(.25rem, 1vw, 2rem) 0;
+  margin: clamp(0.25rem, 1vw, 2rem) 0;
   padding: 0;
   font-size: 2rem;
 `;
 
 const ListItem = styled.li`
-
   margin: clamp(1rem, 1vw, 2rem) clamp(1.5rem, 1vw, 3rem);
   padding: 0;
   font-size: var(--font-size-md);

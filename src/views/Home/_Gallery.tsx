@@ -5,10 +5,13 @@ import Heading from "@components/Heading";
 import { ProjectCard } from "@components/Card";
 import { useLanguage } from "@contexts/LanguageContext";
 import { useAllProjects } from "@/hooks/useProject";
+import Loader from "@/components/Loader";
 
 const Gallery = () => {
   const { t } = useLanguage();
-  const projects = useAllProjects();
+  const {projects, loading, error} = useAllProjects();
+  if (loading) return <Loader />;
+  if (error || !projects) return <div>Error loading projects</div>;
   return (
     <SlideContainer
       gridStyleProp={css`
