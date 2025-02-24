@@ -40,8 +40,10 @@ const Project = () => {
           code: CodeComponent,
         }}
       />
+      {/**
+       * TODO: Extract the navigation arrows into a separate component (will use in a future Blog feature implementation). See also if accessibility is good and meets best practices.
+       */}
       <NavArrows>
-        {/*Next & Prev arrows*/}
         <StyledLink to={`/project/${previousProject}`}>
           <MdOutlineArrowRightAlt size={32} className="back" />
           <span>Précédent</span>

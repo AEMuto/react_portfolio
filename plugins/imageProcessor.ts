@@ -17,6 +17,11 @@ interface ImageProcessingOptions {
   sizes?: number[];
 }
 
+/**
+ * TODO: Add failsafe, error handling, and logging. Should enlarge image when base image is smaller than the largest size.
+ * @param options Image processing options
+ * @returns A Rollup plugin that processes images in the output bundle
+ */
 const imageProcessor = (options: ImageProcessingOptions = {}): Plugin => {
   const {
     quality = IMAGE_QUALITY,

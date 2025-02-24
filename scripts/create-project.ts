@@ -2,6 +2,10 @@ import { mkdir, writeFile, readdir } from "fs/promises";
 import { join } from "path";
 import { program } from "commander";
 
+/**
+ * TODO: Refactor. See the current structure .mdx files in src/projects/ and adapt the template accordingly.
+ */
+
 program
   .name("create-project")
   .description("Create new project directory structure")
