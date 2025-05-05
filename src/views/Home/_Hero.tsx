@@ -58,7 +58,7 @@ const Hero = () => {
             href={
               t({
                 en: "https://drive.google.com/file/d/1zx6URJUHGIFOSSLy6gnDSnCKMEth2A9I/view?usp=sharing",
-                fr: "https://drive.google.com/file/d/1E7CF19IVQUi_VcA7GsvLheh6qTj0oySs/view?usp=sharing",
+                fr: "https://drive.google.com/file/d/1-27nqhp40RDAzoAgsr-dVNPRbJZI236h/view?usp=sharing",
               }) as string
             }
             title={t({ fr: "Consulter mon CV", en: "View Resume" }) as string}
